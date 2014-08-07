@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A472EC0F-4FDA-4643-AB63-ED8E3FEBA5EF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KinectEx.WinRT</RootNamespace>
+    <AssemblyName>KinectEx.WinRT</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <NuGetPackageImportStamp>0a86e9ff</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_PHONE_APP;NOSDK</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP;NOSDK</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_PHONE_APP;NOSDK</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP;NOSDK</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_PHONE_APP;NOSDK</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\KinectEx\BodyExtensions.cs">
+      <Link>BodyExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\BodyImageExtension.cs">
+      <Link>BodyImageExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\BoneTypeEx.cs">
+      <Link>BoneTypeEx.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\CustomBody.cs">
+      <Link>CustomBody.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\CustomJoint.cs">
+      <Link>CustomJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\ColorCodecs.cs">
+      <Link>DVR\ColorCodecs.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\FileMetadata.cs">
+      <Link>DVR\FileMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\FrameTypes.cs">
+      <Link>DVR\FrameTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\IColorCodec.cs">
+      <Link>DVR\IColorCodec.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\JpegColorCodec.cs">
+      <Link>DVR\JpegColorCodec.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\KinectReplay.cs">
+      <Link>DVR\KinectReplay.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\RawColorCodec.cs">
+      <Link>DVR\RawColorCodec.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\ReplayBodyFrame.cs">
+      <Link>DVR\ReplayBodyFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\ReplayBodySystem.cs">
+      <Link>DVR\ReplayBodySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\ReplayColorFrame.cs">
+      <Link>DVR\ReplayColorFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\ReplayColorSystem.cs">
+      <Link>DVR\ReplayColorSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\ReplayDepthFrame.cs">
+      <Link>DVR\ReplayDepthFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\ReplayDepthSystem.cs">
+      <Link>DVR\ReplayDepthSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\ReplayFrame.cs">
+      <Link>DVR\ReplayFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayFrameArrivedEventArgs.cs">
+      <Link>DVR\ReplayFrameArrivedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\dvr\ReplaySystem.cs">
+      <Link>DVR\ReplaySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\IBody.cs">
+      <Link>IBody.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\IJoint.cs">
+      <Link>IJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\JointTypeEx.cs">
+      <Link>JointTypeEx.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\json\BoneTypeExConverter.cs">
+      <Link>Json\BoneTypeExConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\json\JointTypeExConverter.cs">
+      <Link>Json\JointTypeExConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\json\KinectTypeBinder.cs">
+      <Link>Json\KinectTypeBinder.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\Activity.cs">
+      <Link>KinectSDK\Activity.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\Appearance.cs">
+      <Link>KinectSDK\Appearance.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\CameraSpacePoint.cs">
+      <Link>KinectSDK\CameraSpacePoint.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\KinectSDK\DepthSpacePoint.cs">
+      <Link>KinectSDK\DepthSpacePoint.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\DetectionResult.cs">
+      <Link>KinectSDK\DetectionResult.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\Expression.cs">
+      <Link>KinectSDK\Expression.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\FrameEdges.cs">
+      <Link>KinectSDK\FrameEdges.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\HandState.cs">
+      <Link>KinectSDK\HandState.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\JointOrientation.cs">
+      <Link>KinectSDK\JointOrientation.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\JointType.cs">
+      <Link>KinectSDK\JointType.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\PointF.cs">
+      <Link>KinectSDK\PointF.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\TrackingConfidence.cs">
+      <Link>KinectSDK\TrackingConfidence.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\TrackingState.cs">
+      <Link>KinectSDK\TrackingState.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\kinectsdk\Vector4.cs">
+      <Link>KinectSDK\Vector4.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\smoothing\ExponentialJoint.cs">
+      <Link>Smoothing\ExponentialJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\smoothing\ExponentialSmoother.cs">
+      <Link>Smoothing\ExponentialSmoother.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\smoothing\ExponentialSmoothingParameters.cs">
+      <Link>Smoothing\ExponentialSmoothingParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\smoothing\ISmoother.cs">
+      <Link>Smoothing\ISmoother.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\smoothing\KalmanJoint.cs">
+      <Link>Smoothing\KalmanJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\smoothing\KalmanSmoother.cs">
+      <Link>Smoothing\KalmanSmoother.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\smoothing\KalmanSmoothingParameters.cs">
+      <Link>Smoothing\KalmanSmoothingParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\smoothing\SmoothedBody.cs">
+      <Link>Smoothing\SmoothedBody.cs</Link>
+    </Compile>
+    <Compile Include="..\kinectex\smoothing\SmoothedBodyList.cs">
+      <Link>Smoothing\SmoothedBodyList.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="WriteableBitmapEx.WinRT">
+      <HintPath>..\packages\WriteableBitmapEx.1.0.12.0\lib\wpa81\WriteableBitmapEx.WinRT.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
+    <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\packages\SharpDX.2.6.2\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.2\build\SharpDX.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SharpDX.2.6.2\build\SharpDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SharpDX.2.6.2\build\SharpDX.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

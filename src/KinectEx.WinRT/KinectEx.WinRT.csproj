@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3C8FDF2C-B929-4C61-880B-4C44D3F0D673}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KinectEx</RootNamespace>
+    <AssemblyName>KinectEx</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <NuGetPackageImportStamp>1d4a19cd</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\KinectEx\BodyExtensions.cs">
+      <Link>BodyExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\BodyFrameExtensions.cs">
+      <Link>BodyFrameExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\BodyImageExtension.cs">
+      <Link>BodyImageExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\BoneTypeEx.cs">
+      <Link>BoneTypeEx.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\ColorFrameBitmap.cs">
+      <Link>ColorFrameBitmap.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\CustomBody.cs">
+      <Link>CustomBody.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\CustomJoint.cs">
+      <Link>CustomJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DepthFrameBitmap.cs">
+      <Link>DepthFrameBitmap.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\BodyRecorder.cs">
+      <Link>DVR\BodyRecorder.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ColorCodecs.cs">
+      <Link>DVR\ColorCodecs.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ColorRecorder.cs">
+      <Link>DVR\ColorRecorder.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\DepthRecorder.cs">
+      <Link>DVR\DepthRecorder.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\FileMetadata.cs">
+      <Link>DVR\FileMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\FrameTypes.cs">
+      <Link>DVR\FrameTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\IColorCodec.cs">
+      <Link>DVR\IColorCodec.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\JpegColorCodec.cs">
+      <Link>DVR\JpegColorCodec.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\KinectRecorder.cs">
+      <Link>DVR\KinectRecorder.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\KinectReplay.cs">
+      <Link>DVR\KinectReplay.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\RawColorCodec.cs">
+      <Link>DVR\RawColorCodec.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayBodyFrame.cs">
+      <Link>DVR\ReplayBodyFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayBodySystem.cs">
+      <Link>DVR\ReplayBodySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayColorFrame.cs">
+      <Link>DVR\ReplayColorFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayColorSystem.cs">
+      <Link>DVR\ReplayColorSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayDepthFrame.cs">
+      <Link>DVR\ReplayDepthFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayDepthSystem.cs">
+      <Link>DVR\ReplayDepthSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayFrame.cs">
+      <Link>DVR\ReplayFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayFrameArrivedEventArgs.cs">
+      <Link>DVR\ReplayFrameArrivedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplaySystem.cs">
+      <Link>DVR\ReplaySystem.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\IBody.cs">
+      <Link>IBody.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\IJoint.cs">
+      <Link>IJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\JointTypeEx.cs">
+      <Link>JointTypeEx.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Json\BoneTypeExConverter.cs">
+      <Link>Json\BoneTypeExConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Json\JointTypeExConverter.cs">
+      <Link>Json\JointTypeExConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Json\KinectTypeBinder.cs">
+      <Link>Json\KinectTypeBinder.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\KinectBody.cs">
+      <Link>KinectBody.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\KinectJoint.cs">
+      <Link>KinectJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\ExponentialJoint.cs">
+      <Link>Smoothing\ExponentialJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\ExponentialSmoother.cs">
+      <Link>Smoothing\ExponentialSmoother.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\ExponentialSmoothingParameters.cs">
+      <Link>Smoothing\ExponentialSmoothingParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\ISmoother.cs">
+      <Link>Smoothing\ISmoother.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\KalmanJoint.cs">
+      <Link>Smoothing\KalmanJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\KalmanSmoother.cs">
+      <Link>Smoothing\KalmanSmoother.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\KalmanSmoothingParameters.cs">
+      <Link>Smoothing\KalmanSmoothingParameters.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\SmoothedBody.cs">
+      <Link>Smoothing\SmoothedBody.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\SmoothedBodyList.cs">
+      <Link>Smoothing\SmoothedBodyList.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="WriteableBitmapEx.WinRT">
+      <HintPath>..\packages\WriteableBitmapEx.1.0.12.0\lib\NetCore45\WriteableBitmapEx.WinRT.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, Version=12.0">
+      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsPreview.Kinect, Version=2.0">
+      <Name>WindowsPreview.Kinect</Name>
+    </SDKReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\packages\SharpDX.2.6.2\build\SharpDX.targets" Condition="Exists('..\packages\SharpDX.2.6.2\build\SharpDX.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SharpDX.2.6.2\build\SharpDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SharpDX.2.6.2\build\SharpDX.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

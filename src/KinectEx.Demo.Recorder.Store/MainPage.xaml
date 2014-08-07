@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="KinectEx.Demo.Recorder.Store.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:KinectEx.Demo.Recorder.Store"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="Black" Grid.Row="0"/>
+        <Rectangle Fill="{StaticResource ApplicationForegroundThemeBrush}" Height="2" VerticalAlignment="Bottom" Grid.Row="0"/>
+        <Image x:Name="OutputImage" Grid.Row="0" Margin="0 0 0 2"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button x:Name="RecordButton" Margin="5 0" Padding="5">Record</Button>
+            <CheckBox x:Name="BodyCheckBox" Margin="5" VerticalAlignment="Center">Body</CheckBox>
+            <CheckBox x:Name="ColorCheckBox" Margin="5" VerticalAlignment="Center">Color</CheckBox>
+            <CheckBox x:Name="DepthCheckBox" Margin="5" VerticalAlignment="Center">Depth</CheckBox>
+            <TextBlock FontSize="18" FontWeight="Bold" Margin="15 0 0 0" VerticalAlignment="Center">Compression:</TextBlock>
+            <ComboBox x:Name="CompressionCombo" Margin="5"/>
+            <Rectangle Fill="{StaticResource ApplicationForegroundThemeBrush}" Width="2" Margin="5 0"/>
+            <TextBlock FontSize="18" FontWeight="Bold" Margin="15 0 0 0" VerticalAlignment="Center">Smoothing:</TextBlock>
+            <ComboBox x:Name="SmoothingCombo" Margin="5"/>
+            <Rectangle Fill="{StaticResource ApplicationForegroundThemeBrush}" Width="2" Margin="5 0"/>
+            <TextBlock FontSize="18" FontWeight="Bold" Margin="15 0 0 0" VerticalAlignment="Center">Display:</TextBlock>
+            <ComboBox x:Name="DisplayCombo" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Page>
