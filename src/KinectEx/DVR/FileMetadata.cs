@@ -12,7 +12,7 @@ namespace KinectEx.DVR
     {
         public string Version { get; set; }
         public int ColorCodecId { get; set; }
-
+        //public CameraIntrinsics DepthCameraIntrinsics { get; set; }
 #if NETFX_CORE
         public Point[] DepthFrameToCameraSpaceTable { get; set; }
 #else

@@ -2,11 +2,11 @@
 {
     public class ExponentialSmoothingParameters
     {
-        const float DEFAULT_SMOOTHING = 0.25f;
-        const float DEFAULT_CORRECTION = 0.25f;
-        const float DEFAULT_PREDICTION = 0.25f;
-        const float DEFAULT_JITTER_RADIUS = 0.03f;
-        const float DEFAULT_MAX_DEVIATION_RADIUS = 0.25f;
+        public static float DEFAULT_SMOOTHING = 0.25f;
+        public static float DEFAULT_CORRECTION = 0.25f;
+        public static float DEFAULT_PREDICTION = 0.25f;
+        public static float DEFAULT_JITTER_RADIUS = 0.03f;
+        public static float DEFAULT_MAX_DEVIATION_RADIUS = 0.25f;
 
         /// <summary>
         /// How much soothing will occur. Will lag when too high.

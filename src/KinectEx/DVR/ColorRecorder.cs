@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// Internal class that provides the services necessary to encode and store
+    /// a <c>ColorFrame</c>.
+    /// </summary>
     internal class ColorRecorder
     {
         private readonly BinaryWriter _writer;

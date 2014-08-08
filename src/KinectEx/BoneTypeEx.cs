@@ -4,16 +4,53 @@ using System.Linq;
 
 namespace KinectEx
 {
+    /// <summary>
+    /// A class that contains values for each "bone" in a Kinect
+    /// <b>Body</b>. The class can be used statically in much the
+    /// same way as an enum. However, each value contains useful
+    /// information about the bone. The class also allows for easy
+    /// enumeration of bones.
+    /// </summary>
     [Newtonsoft.Json.JsonConverter(typeof(Json.BoneTypeExConverter))]
     public class BoneTypeEx
     {
+        /// <summary>
+        /// The starting joint of the bone.
+        /// </summary>
         public JointTypeEx StartJoint { get; set; }
+
+        /// <summary>
+        /// The ending joint of hte bone.
+        /// </summary>
         public JointTypeEx EndJoint { get; set; }
+
+        /// <summary>
+        /// A short name for the bone (matches the static/enumerated name).
+        /// </summary>
         public String Name { get; set; }
+
+        /// <summary>
+        /// A friendlier display name for the bone.
+        /// </summary>
         public String DisplayName { get; set; }
 
+        /// <summary>
+        /// A list containing all of the bones in the body, including
+        /// "fake" ones like HipFull and ShoulderFull.
+        /// </summary>
         public static List<BoneTypeEx> AllBones { get; private set; }
+
+        /// <summary>
+        /// A list containing all of the bones in a body that should
+        /// be drawn when displaying a skeleton. Effectively all bones
+        /// excluding the "fake" ones.
+        /// </summary>
         public static List<BoneTypeEx> DrawnBones { get; private set; }
+
+        /// <summary>
+        /// A convenient means of mapping a bone's string name to the
+        /// actual BoneTypeEx value.
+        /// </summary>
         public static Dictionary<string, BoneTypeEx> ByName { get; private set; }
 
         // ==============================================================

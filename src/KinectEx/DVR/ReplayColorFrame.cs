@@ -20,19 +20,35 @@ using Microsoft.Kinect;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// A recordable / replayable version of a <b>ColorFrame</b>.
+    /// </summary>
     public class ReplayColorFrame : ReplayFrame
     {
+        private byte[] _frameData = null;
+
+        // internal fields & properties
         internal Stream Stream;
         internal long StreamPosition;
         internal IColorCodec Codec;
 
-        public int Width { get; internal set; }
-
-        public int Height { get; internal set; }
-
+        // needs to be an internal property as it is used by the codec
         internal int FrameDataSize { get; set; }
 
-        private byte[] _frameData = null;
+        /// <summary>
+        /// The width in pixels of the bitmap contained in this frame.
+        /// </summary>
+        public int Width { get; internal set; }
+
+        /// <summary>
+        /// The height in pixels of the bitmap contained in this frame.
+        /// </summary>
+        public int Height { get; internal set; }
+
+        /// <summary>
+        /// The raw (potentially compressed) bits comprising the bitmap
+        /// contained in this frame.
+        /// </summary>
         public byte[] FrameData
         {
             get
@@ -54,6 +70,18 @@ namespace KinectEx.DVR
                 return _frameData;
             }
         }
+
+        /// <summary>
+        /// Retrieve and decode the bitmap contained in this frame.
+        /// </summary>
+        public async Task<BitmapSource> GetBitmapAsync()
+        {
+            Codec.Width = this.Width;
+            Codec.Height = this.Height;
+            return await Codec.DecodeAsync(this.FrameData);
+        }
+
+        // Multiple Constructor options
 
         internal ReplayColorFrame() { }
 
@@ -96,6 +124,8 @@ namespace KinectEx.DVR
         }
 #endif
 
+        // and a factory method
+
         internal static ReplayColorFrame FromReader(BinaryReader reader, IColorCodec codec)
         {
             var frame = new ReplayColorFrame();
@@ -126,11 +156,6 @@ namespace KinectEx.DVR
             }
 
             return frame;
-        }
-
-        public async Task<BitmapSource> GetBitmapAsync()
-        {
-            return await Codec.DecodeAsync(this.FrameData);
         }
     }
 }

@@ -12,12 +12,21 @@ using Microsoft.Kinect;
 
 namespace KinectEx
 {
+    /// <summary>
+    /// Contains a number of helpful extensions to Kinect Body (and KinectEx IBody)
+    /// class. Included are methods to get individual bones (really start and end
+    /// joints), find angles between bones (whether connected by a common joint or
+    /// not), and to find the distance between joints.
+    /// </summary>
     public static class BodyExtensions
     {
         private static Dictionary<JointTypeEx, JointTypeEx> _mirroredJoints = new Dictionary<JointTypeEx, JointTypeEx>();
 
         private static Dictionary<JointTypeEx, List<BoneTypeEx>> _bonesAt = new Dictionary<JointTypeEx, List<BoneTypeEx>>();
 
+        /// <summary>
+        /// Lists the two <c>BoneTypeEx</c> values that intersect at a given joint.
+        /// </summary>
         public static Dictionary<JointTypeEx, List<BoneTypeEx>> BonesAt
         {
             get { return _bonesAt; }
@@ -65,45 +74,256 @@ namespace KinectEx
             _bonesAt.Add(JointTypeEx.WristRight, new List<BoneTypeEx>() { BoneTypeEx.ArmLowerRight, BoneTypeEx.HandRight });
         }
 
-        public static IJoint GetMirroredJoint(this IBody body, JointTypeEx joint)
+        /// <summary>
+        /// Gets an <c>IJoint</c> object representing the joint that mirrors the 
+        /// specified <c>JointTypeEx</c> (e.g., the left wrist mirrors the right wrist).
+        /// </summary>
+        public static IJoint GetMirroredJoint(this IBody body, JointTypeEx jointType)
         {
-            return body.Joints[_mirroredJoints[joint]];
+            return body.Joints[_mirroredJoints[jointType]];
         }
 
-        public static JointOrientation GetMirroredJointOrientation(this IBody body, JointTypeEx BodyJoints)
+        /// <summary>
+        /// Gets the <c>JointOrientation</c> of the joint that mirrors the specified
+        /// <c>JointTypeEx</c> (e.g., the left wrist mirrors the right wrist).
+        /// </summary>
+        public static JointOrientation GetMirroredJointOrientation(this IBody body, JointTypeEx jointType)
         {
-            return body.JointOrientations[_mirroredJoints[BodyJoints]];
+            return body.JointOrientations[_mirroredJoints[jointType]];
         }
 
-        public static Vector3 GetVector(this IBody body, JointTypeEx jointA, JointTypeEx jointB)
+        /// <summary>
+        /// Get a <c>Vector3</c> (SharpDX / DirectX) object representing the vector 
+        /// between two given <c>JointTypeEx</c> values..
+        /// </summary>
+        public static Vector3 GetVector(this IBody body, JointTypeEx jointTypeA, JointTypeEx jointTypeB)
         {
-            var posA = body.Joints[jointA].Position;
-            var posB = body.Joints[jointB].Position;
+            var posA = body.Joints[jointTypeA].Position;
+            var posB = body.Joints[jointTypeB].Position;
             return new Vector3(posA.X - posB.X, posA.Y - posB.Y, posA.Z - posB.Z);
         }
 
-        public static Vector3 GetVector(this IBody body, BoneTypeEx bone, bool invert = false)
+        /// <summary>
+        /// Get a <c>Vector3</c> (SharpDX / DirectX) object representing the vector 
+        /// between the joints of the specified <c>BoneTypeEx</c> value. Optionally
+        /// allows for the bone to be inverted to achieve the desired orientation.
+        /// </summary>
+        public static Vector3 GetVector(this IBody body, BoneTypeEx boneType, bool invert = false)
         {
             if (invert)
-                return body.GetVector(bone.EndJoint, bone.StartJoint);
+                return body.GetVector(boneType.EndJoint, boneType.StartJoint);
             else
-                return body.GetVector(bone.StartJoint, bone.EndJoint);
+                return body.GetVector(boneType.StartJoint, boneType.EndJoint);
         }
 
-        public static List<BoneTypeEx> GetBonesAt(this IBody body, JointTypeEx joint)
+        /// <summary>
+        /// Gets a <b>Bone</b> structure containing the two <c>IJoint</c> values
+        /// that constitute the start and end of the specified <c>BoneTypeEx</c>.
+        /// </summary>
+        public static Bone GetBone(this IBody body, BoneTypeEx boneType)
         {
-            if (_bonesAt.ContainsKey(joint))
-                return _bonesAt[joint];
+            return new Bone(boneType, body.Joints[boneType.StartJoint], body.Joints[boneType.EndJoint]);
+        }
+
+        /// <summary>
+        /// Gets a list of the two <c>Bone</c> values that share the specified
+        /// <c>JointTypeEx</c> value.
+        /// </summary>
+        public static List<Bone> GetBonesAt(this IBody body, JointTypeEx jointType)
+        {
+            if (_bonesAt.ContainsKey(jointType))
+                return new List<Bone>()
+                {
+                    body.GetBone(_bonesAt[jointType][0]),
+                    body.GetBone(_bonesAt[jointType][1])
+                };
             else
                 return null;
         }
 
-        public static double GetAngleBetween(this IBody body, BoneTypeEx boneA, BoneTypeEx boneB, bool invertBoneA = false, bool invertBoneB = false)
+        /// <summary>
+        /// Returns the angle (in degrees) between the two specified
+        /// <c>BoneTypeEx</c> values. Optionally allows for either or
+        /// both bones to be inverted to achieve the desired orientation.
+        /// </summary>
+        public static double GetAngleBetween(this IBody body,
+                                             BoneTypeEx boneTypeA,
+                                             BoneTypeEx boneTypeB,
+                                             bool invertBoneA = false,
+                                             bool invertBoneB = false)
         {
-            return AngleBetween(body.GetVector(boneA, invertBoneA), body.GetVector(boneB, invertBoneB));
+            return AngleBetween(body.GetVector(boneTypeA, invertBoneA), body.GetVector(boneTypeB, invertBoneB));
         }
 
-        internal static double AngleBetween(Vector3 vector1, Vector3 vector2)
+        /// <summary>
+        /// Returns the angle (in degrees) between the two bones that
+        /// intersect at the specified <c>JointTypeEx</c> value.
+        /// </summary>
+        public static double GetAngleAt(this IBody body, JointTypeEx jointType)
+        {
+            if (_bonesAt.ContainsKey(jointType))
+            {
+                return body.GetAngleBetween(_bonesAt[jointType][0], _bonesAt[jointType][1], false, true);
+            }
+            else
+            {
+                throw new KeyNotFoundException("Joint not found");
+            }
+        }
+
+        /// <summary>
+        /// Returns the distance (in meters) between the two specified joints.
+        /// </summary>
+        public static double GetDistanceBetween(this IBody body, JointTypeEx jointTypeA, JointTypeEx jointTypeB)
+        {
+            return body.GetVector(jointTypeA, jointTypeB).Length();
+        }
+
+        /// <summary>
+        /// Similar to the Kinect SDK method BodyFrame.GetAndRefreshBodyData, this
+        /// method uses the values from the source <c>IBody</c> collection to update
+        /// the values in this collection. If the current collection does not contain
+        /// the correct number of bodies, this method clears and refills this collection
+        /// with new bodies of type T. Note that if this behavior is undesirable,
+        /// insure that the collection contains the right number of bodies before
+        /// calling this method.
+        /// </summary>
+        public static void RefreshFromBodyList<T>(this IList<T> bodies, IList<IBody> sourceBodies) where T : IBody
+        {
+            if (sourceBodies.Count != bodies.Count)
+            {
+                bodies.Clear();
+                for (var i = 0; i < sourceBodies.Count; i++)
+                {
+                    bodies.Add((T)Activator.CreateInstance(typeof(T)));
+                }
+            }
+
+            for (var i = 0; i < sourceBodies.Count; i++)
+            {
+                bodies[i].Update(sourceBodies[i]);
+            }
+        }
+
+#if !NOSDK
+        /// <summary>
+        /// Gets an <c>IJoint</c> object representing the joint that mirrors the 
+        /// specified <c>JointType</c> (e.g., the left wrist mirrors the right wrist).
+        /// </summary>
+        public static IJoint GetMirroredJoint(this Body body, JointType jointType)
+        {
+            return ((KinectBody)body).GetMirroredJoint(jointType);
+        }
+
+        /// <summary>
+        /// Gets the <c>JointOrientation</c> of the joint that mirrors the specified
+        /// <c>JointType</c> (e.g., the left wrist mirrors the right wrist).
+        /// </summary>
+        public static JointOrientation GetMirroredJointOrientation(this Body body, JointType jointType)
+        {
+            return ((KinectBody)body).GetMirroredJointOrientation(jointType);
+        }
+
+        /// <summary>
+        /// Get a <c>Vector3</c> (SharpDX / DirectX) object representing the vector 
+        /// between two given <c>JointType</c> values..
+        /// </summary>
+        public static Vector3 GetVector(this Body body, JointType jointTypeA, JointType jointTypeB)
+        {
+            return ((KinectBody)body).GetVector(jointTypeA, jointTypeB);
+        }
+
+        /// <summary>
+        /// Get a <c>Vector3</c> (SharpDX / DirectX) object representing the vector 
+        /// between the joints of the specified <c>BoneTypeEx</c> value. Optionally
+        /// allows for the bone to be inverted to achieve the desired orientation.
+        /// </summary>
+        public static Vector3 GetVector(this Body body, BoneTypeEx boneType, bool invert = false)
+        {
+            return ((KinectBody)body).GetVector(boneType, invert);
+        }
+
+        /// <summary>
+        /// Gets a <b>Bone</b> structure containing the two <c>IJoint</c> values
+        /// that constitute the start and end of the specified <c>BoneTypeEx</c>.
+        /// </summary>
+        public static Bone GetBone(this Body body, BoneTypeEx boneType)
+        {
+            return ((KinectBody)body).GetBone(boneType);
+        }
+
+        /// <summary>
+        /// Gets a list of the two <c>Bone</c> values that share the specified
+        /// <c>JointType</c> value.
+        /// </summary>
+        public static List<Bone> GetBonesAt(this Body body, JointType jointType)
+        {
+            return ((KinectBody)body).GetBonesAt(jointType);
+        }
+
+        /// <summary>
+        /// Returns the angle (in degrees) between the two specified
+        /// <c>BoneTypeEx</c> values. Optionally allows for either or
+        /// both bones to be inverted to achieve the desired orientation.
+        /// </summary>
+        public static double GetAngleBetween(this Body body,
+                                             BoneTypeEx boneTypeA,
+                                             BoneTypeEx boneTypeB,
+                                             bool invertBoneA = false,
+                                             bool invertBoneB = false)
+        {
+            return ((KinectBody)body).GetAngleBetween(boneTypeA, boneTypeB, invertBoneA, invertBoneB);
+        }
+
+        /// <summary>
+        /// Returns the angle (in degrees) between the two bones that
+        /// intersect at the specified <c>JointType</c> value.
+        /// </summary>
+        public static double GetAngleAt(this Body body, JointType jointType)
+        {
+            return ((KinectBody)body).GetAngleAt(jointType);
+        }
+
+        /// <summary>
+        /// Returns the distance (in meters) between the two specified joints.
+        /// </summary>
+        public static double GetDistanceBetween(this Body body, JointTypeEx jointTypeA, JointTypeEx jointTypeB)
+        {
+            return ((KinectBody)body).GetDistanceBetween(jointTypeA, jointTypeB);
+        }
+
+        /// <summary>
+        /// Similar to the Kinect SDK method BodyFrame.GetAndRefreshBodyData, this
+        /// method uses the values from the specified <c>Body</c> array to update
+        /// the values in this collection. If the current collection does not contain
+        /// the correct number of bodies, this method clears and refills this collection
+        /// with new bodies of type T. Note that if this behavior is undesirable,
+        /// insure that the collection contains the right number of bodies before
+        /// calling this method.
+        /// </summary>
+        public static void RefreshFromBodyArray<T>(this IList<T> bodies, Body[] kinectBodies) where T : IBody
+        {
+            if (kinectBodies.Length != bodies.Count)
+            {
+                bodies.Clear();
+                for (var i = 0; i < kinectBodies.Length; i++)
+                {
+                    bodies.Add((T)Activator.CreateInstance(typeof(T)));
+                }
+            }
+
+            for (var i = 0; i < kinectBodies.Length; i++)
+            {
+                bodies[i].Update(kinectBodies[i]);
+            }
+        }
+#endif
+
+        /// <summary>
+        /// Gets the angle between two <c>Vector3</c> (SharpDX / DirectX) values.
+        /// Derived from System.Media.Media3D.Vector3D source code.
+        /// </summary>
+        public static double AngleBetween(this Vector3 vector1, Vector3 vector2)
         {
             vector1.Normalize();
             vector2.Normalize();
@@ -164,39 +384,5 @@ namespace KinectEx
 
             return theta * (180.0 / Math.PI);
         }
-
-        public static double GetAngleAt(this IBody body, JointTypeEx joint)
-        {
-            if (_bonesAt.ContainsKey(joint))
-            {
-                return body.GetAngleBetween(_bonesAt[joint][0], _bonesAt[joint][1], false, true);
-            }
-            else
-            {
-                throw new KeyNotFoundException("Joint not found");
-            }
-        }
-
-        public static double GetDistanceBetween(this IBody body, JointTypeEx jointA, JointTypeEx jointB)
-        {
-            return body.GetVector(jointA, jointB).Length();
-        }
-
-#if !NOSDK
-        public static double GetAngleAt(this Body body, JointTypeEx joint)
-        {
-            return ((KinectBody)body).GetAngleAt(joint);
-        }
-
-        public static double GetAngleBetween(this Body body, BoneTypeEx boneA, BoneTypeEx boneB, bool invertBoneA = false, bool invertBoneB = false)
-        {
-            return ((KinectBody)body).GetAngleBetween(boneA, boneB, invertBoneA, invertBoneB);
-        }
-
-        public static double GetDistanceBetween(this Body body, JointTypeEx jointA, JointTypeEx jointB)
-        {
-            return ((KinectBody)body).GetDistanceBetween(jointA, jointB);
-        }
-#endif
     }
 }

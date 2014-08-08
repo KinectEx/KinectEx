@@ -3,6 +3,10 @@ using System;
 
 namespace KinectEx.Json
 {
+    /// <summary>
+    /// Json.Net converter that serializes a <c>JointTypeEx</c> object as a single string
+    /// and deserializes it to the appropriate static instance.
+    /// </summary>
     public class JointTypeExConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

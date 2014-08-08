@@ -12,17 +12,43 @@ using Microsoft.Kinect;
 
 namespace KinectEx
 {
+    /// <summary>
+    /// A class that contains values for each "joint" in a Kinect
+    /// <b>Body</b>. The class can be used statically in much the
+    /// same way as an enum. However, each value contains useful
+    /// information about the joint. The class also allows for easy
+    /// enumeration of joints. Can be used interchangeable with
+    /// the <c>JointType</c> enum.
+    /// </summary>
     [Newtonsoft.Json.JsonConverter(typeof(Json.JointTypeExConverter))]
     public class JointTypeEx
     {
+        /// <summary>
+        /// A short name for the joint (matches the static/enumerated name).
+        /// </summary>
         public String Name { get; private set; }
+
+        /// <summary>
+        /// A friendlier display name for the joint.
+        /// </summary>
         public String DisplayName { get; private set; }
+
+        /// <summary>
+        /// The actual <c>JointType</c> value for this joint.
+        /// </summary>
         public JointType JointType { get; private set; }
 
+        /// <summary>
+        /// A list containing all of the joints in the body.
+        /// </summary>
         public static List<JointTypeEx> AllJoints { get; private set; }
 
         public static Dictionary<string, JointTypeEx> ByName { get; private set; }
 
+        /// <summary>
+        /// A convenient means of mapping a joints's string name to the
+        /// actual JointTypeEx value.
+        /// </summary>
         public static Dictionary<JointType, JointTypeEx> ByJointType { get; private set; }
 
         public static JointTypeEx SpineBase { get; private set; }

@@ -1,4 +1,6 @@
-﻿#if NETFX_CORE
+﻿using System;
+
+#if NETFX_CORE
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml.Media.Imaging;
@@ -11,7 +13,11 @@ using System.Windows.Media.Imaging;
 
 namespace KinectEx
 {
-    public class DepthFrameBitmap
+    /// <summary>
+    /// A class that makes it easy to create and update a WriteableBitmap
+    /// from a Kinect SDK <c>DepthFrame</c>.
+    /// </summary>
+    public class DepthFrameBitmap : IDisposable
     {
         private WriteableBitmap _bitmap = null;
         private ushort[] _data = null;
@@ -19,8 +25,12 @@ namespace KinectEx
 #if NETFX_CORE
         private static Stream _stream = null;
 #endif
-
-	    public WriteableBitmap Bitmap
+        
+        /// <summary>
+        /// The <c>WriteableBitmap</c> representation of the <c>DepthFrame</c>
+        /// (or frame data) passed in to one of the Update() methods.
+        /// </summary>
+        public WriteableBitmap Bitmap
 	    {
 		    get { return _bitmap;}
 	    }
@@ -36,6 +46,31 @@ namespace KinectEx
 #endif
         }
 
+        ~DepthFrameBitmap()
+        {
+            this.Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+#if NETFX_CORE
+            _stream.Dispose();
+            _stream = null;
+#endif
+            _data = null;
+            _bytes = null;
+            _bitmap = null;
+        }
+
+        /// <summary>
+        /// Update the Bitmap from the supplied <c>DepthFrameReference</c>.
+        /// </summary>
         public void Update(DepthFrameReference frameReference)
         {
             bool processed = false;
@@ -58,6 +93,9 @@ namespace KinectEx
             }
         }
 
+        /// <summary>
+        /// Update the Bitmap from the supplied <c>DepthFrame</c>.
+        /// </summary>
         public void Update(DepthFrame frame)
         {
             if (frame != null)
@@ -69,6 +107,9 @@ namespace KinectEx
             }
         }
 
+        /// <summary>
+        /// Update the Bitmap from the supplied depth frame data values.
+        /// </summary>
         public void Update(ushort[] data, ushort minDepth, ushort maxDepth)
         {
             int colorPixelIndex = 0;

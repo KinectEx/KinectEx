@@ -56,6 +56,9 @@
     <Compile Include="..\KinectEx\BodyImageExtension.cs">
       <Link>BodyImageExtension.cs</Link>
     </Compile>
+    <Compile Include="..\KinectEx\Bone.cs">
+      <Link>Bone.cs</Link>
+    </Compile>
     <Compile Include="..\KinectEx\BoneTypeEx.cs">
       <Link>BoneTypeEx.cs</Link>
     </Compile>
@@ -184,6 +187,9 @@
     </Compile>
     <Compile Include="..\KinectEx\Smoothing\ISmoother.cs">
       <Link>Smoothing\ISmoother.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\ISmootherParameters.cs">
+      <Link>Smoothing\ISmootherParameters.cs</Link>
     </Compile>
     <Compile Include="..\KinectEx\Smoothing\KalmanJoint.cs">
       <Link>Smoothing\KalmanJoint.cs</Link>

@@ -11,6 +11,10 @@ using Microsoft.Kinect;
 
 namespace KinectEx.Smoothing
 {
+    /// <summary>
+    /// A class representing a <c>CustomJoint</c> who's position values
+    /// are "smoothed" using a Double Exponential filtering algorithm.
+    /// </summary>
     public class ExponentialJoint : CustomJoint
     {
         float _smoothing, _correction, _prediction, _jitterRadius,_maxDeviationRadius;
@@ -38,7 +42,7 @@ namespace KinectEx.Smoothing
         /// </summary>
         /// <param name="jointType">The joint type to create</param>
         /// <param name="parameters">An <c>ExponentialSmoothingParameters</c> object</param>
-        public ExponentialJoint(JointType jointType, object parameters = null)
+        public ExponentialJoint(JointType jointType, ISmootherParameters parameters = null)
             : base(jointType)
         {
             var parms = parameters as ExponentialSmoothingParameters;
@@ -60,6 +64,9 @@ namespace KinectEx.Smoothing
             this._history = new FilterDoubleExponentialData();
         }
 
+        /// <summary>
+        /// Update (and filter) the joint position based on the referenced <c>IJoint</c>.
+        /// </summary>
         public override void Update(IJoint joint)
         {
             if (joint.TrackingState == TrackingState.NotTracked)

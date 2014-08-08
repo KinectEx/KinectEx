@@ -21,6 +21,10 @@ using Microsoft.Kinect;
 
 namespace KinectEx
 {
+    /// <summary>
+    /// Contains extensions to the Kinect Body (and KinectEx IBody) class that
+    /// makes it easy to retrieve a bitmap representation of one or more "skeletons."
+    /// </summary>
     public static class BodyImageExtension
     {
         /// <summary>

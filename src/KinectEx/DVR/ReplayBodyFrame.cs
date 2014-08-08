@@ -17,13 +17,99 @@ using Microsoft.Kinect;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// A recordable / replayable version of a <b>BodyFrame</b>.
+    /// </summary>
     public class ReplayBodyFrame : ReplayFrame
     {
+        /// <summary>
+        /// Total number of <c>CustomBody</c> objects in the frame.
+        /// </summary>
         public int BodyCount { get; internal set; }
 
+        /// <summary>
+        /// The plane of the floor as detected by the Kinect sensor.
+        /// </summary>
         public Vector4 FloorClipPlane { get; internal set; }
 
+        /// <summary>
+        /// The list of <c>CustomBody</c> objects in the frame.
+        /// </summary>
         public List<CustomBody> Bodies { get; internal set; }
+        
+        /// <summary>
+        /// <para>
+        /// Similar to the Kinect SDK method of the same name, this method updates the 
+        /// specified <c>SmoothedBodyList</c> collection with the values contained in the
+        /// Bodies list of this <c>ReplayBodyFrame</c>. If the collection does not contain
+        /// the correct number of bodies, this method clears and refills the collection
+        /// with new bodies of type T. Note that if this behavior is undesirable,
+        /// insure that the collection contains the right number of bodies before
+        /// calling this method.
+        /// </para>
+        /// <para>
+        /// Note that this method is really only needed if you wish to use smoothing
+        /// during replay. Otherwise, directly accessing the Bodies list of this
+        /// <c>ReplayBodyFrame</c> is both acceptable and more efficient.
+        /// </para>
+        /// </summary> 
+        public void GetAndRefreshBodyData<T>(SmoothedBodyList<T> bodies) where T : ISmoother
+        {
+            if (bodies == null)
+            {
+                throw new ArgumentNullException("bodies list must not be null");
+            }
+
+            if (this.BodyCount != bodies.Count)
+            {
+                bodies.Fill(this.BodyCount);
+            }
+
+            for (var i = 0; i < this.BodyCount; i++)
+            {
+                bodies[i].Update(this.Bodies[i]);
+            }
+        }
+
+        /// <summary>
+        /// <para>
+        /// Similar to the Kinect SDK method of the same name, this method updates the 
+        /// specified list of <c>IBody</c> instances with the values contained in the
+        /// Bodies list of this <c>ReplayBodyFrame</c>. If the collection does not contain
+        /// the correct number of bodies, this method clears and refills the collection
+        /// with new bodies of type T. Note that if this behavior is undesirable,
+        /// insure that the collection contains the right number of bodies before
+        /// calling this method.
+        /// </para>
+        /// <para>
+        /// Note that this method is really only needed if you wish to use smoothing
+        /// during replay. Otherwise, directly accessing the Bodies list of this
+        /// <c>ReplayBodyFrame</c> is both acceptable and more efficient.
+        /// </para>
+        /// </summary> 
+        public void GetAndRefreshBodyData<T>(IList<T> bodies) where T : IBody
+        {
+            if (bodies == null)
+            {
+                throw new ArgumentNullException("bodies list must not be null");
+            }
+
+            if (this.BodyCount != bodies.Count)
+            {
+                bodies.Clear();
+                for (var i = 0; i < this.BodyCount; i++)
+                {
+                    bodies.Add((T)Activator.CreateInstance(typeof(T)));
+                }
+            }
+
+            for (var i = 0; i < this.BodyCount; i++)
+            {
+                bodies[i].Update(this.Bodies[i]);
+            }
+        }
+
+        // Multiple Constructor options
 
         internal ReplayBodyFrame() { }
 
@@ -46,7 +132,20 @@ namespace KinectEx.DVR
             this.FloorClipPlane = frame.FloorClipPlane;
             this.Bodies = bodies;
         }
+
+        internal ReplayBodyFrame(BodyFrame frame, Body[] bodies)
+        {
+            this.FrameType = FrameTypes.Body;
+            this.RelativeTime = frame.RelativeTime;
+            this.BodyCount = frame.BodyCount;
+            this.FloorClipPlane = frame.FloorClipPlane;
+            var bodyList = new List<CustomBody>(bodies.Length);
+            bodyList.RefreshFromBodyArray(bodies);
+            this.Bodies = bodyList;
+        }
 #endif
+
+        // and a factory method
 
         internal static ReplayBodyFrame FromReader(BinaryReader reader)
         {
@@ -86,46 +185,6 @@ namespace KinectEx.DVR
             }
             
             return frame;
-        }
-
-        public void GetAndRefreshBodyData<T>(SmoothedBodyList<T> bodies) where T : ISmoother
-        {
-            if (bodies == null)
-            {
-                throw new ArgumentNullException("bodies list must not be null");
-            }
-
-            if (this.BodyCount != bodies.Count)
-            {
-                bodies.Fill(this.BodyCount);
-            }
-
-            for (var i = 0; i < this.BodyCount; i++)
-            {
-                bodies[i].Update(this.Bodies[i]);
-            }
-        }
-
-        public void GetAndRefreshBodyData<T>(IList<T> bodies) where T : IBody
-        {
-            if (bodies == null)
-            {
-                throw new ArgumentNullException("bodies list must not be null");
-            }
-
-            if (this.BodyCount != bodies.Count)
-            {
-                bodies.Clear();
-                for (var i = 0; i < this.BodyCount; i++)
-                {
-                    bodies.Add((T)Activator.CreateInstance(typeof(T)));
-                }
-            }
-
-            for (var i = 0; i < this.BodyCount; i++)
-            {
-                bodies[i].Update(this.Bodies[i]);
-            }
         }
 
         private static CustomBody CreateBodyFromReader(BinaryReader reader)

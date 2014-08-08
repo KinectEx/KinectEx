@@ -10,6 +10,12 @@ using Microsoft.Kinect;
 
 namespace KinectEx
 {
+    /// <summary>
+    /// This class just wraps the Kinect SDK's Joint struct, but does so with
+    /// a class that implements the common <c>IJoint</c> interface. This makes
+    /// it possible to use a standard Kinect SDK object with many of the utility
+    /// functions provided by the KinectEx library.
+    /// </summary>
     public class KinectJoint : IJoint
     {
         private Joint _joint;

@@ -19,22 +19,46 @@ using Microsoft.Kinect;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// A recordable / replayable version of a <b>DepthFrame</b>.
+    /// </summary>
     public class ReplayDepthFrame : ReplayFrame
     {
+        private ushort[] _frameData = null;
+
         internal Stream Stream;
         internal long StreamPosition;
 
+        /// <summary>
+        /// The minimum reliable distance at which depth data can be interpreted
+        /// (as reported by the Kinect sensor).
+        /// </summary>
         public uint DepthMinReliableDistance { get; set; }
 
+        /// <summary>
+        /// The maximum reliable distance at which depth data can be interpreted
+        /// (as reported by the Kinect sensor).
+        /// </summary>
         public uint DepthMaxReliableDistance { get; set; }
 
+        /// <summary>
+        /// The width (in pixels) of the depth frame.
+        /// </summary>
         public int Width { get; set; }
 
+        /// <summary>
+        /// The height (in pixels) of the depth frame.
+        /// </summary>
         public int Height { get; set; }
 
+        /// <summary>
+        /// The number of bytes per pixel
+        /// </summary>
         public uint BytesPerPixel { get; private set; }
 
-        private ushort[] _frameData = null;
+        /// <summary>
+        /// The raw depth data stored in this frame.
+        /// </summary>
         public ushort[] FrameData
         {
             get
@@ -60,6 +84,16 @@ namespace KinectEx.DVR
                 return _frameData;
             }
         }
+        
+        /// <summary>
+        /// Retrieve a bitmap representation of the depth data stored in this frame.
+        /// </summary>
+        public BitmapSource GetBitmap()
+        {
+            return BitmapFactory.New(this.Width, this.Height).FromByteArray(ConvertDepthFrame());
+        }
+
+        // Multiple Constructor options
 
         internal ReplayDepthFrame() { }
 
@@ -96,6 +130,8 @@ namespace KinectEx.DVR
             _frameData = frameData;
         }
 #endif
+
+        // and a factory method
 
         internal static ReplayDepthFrame FromReader(BinaryReader reader)
         {
@@ -152,11 +188,5 @@ namespace KinectEx.DVR
             }
             return bytes;
         }
-
-        public BitmapSource GetBitmap()
-        {
-            return BitmapFactory.New(this.Width, this.Height).FromByteArray(ConvertDepthFrame());
-        }
-
     }
 }

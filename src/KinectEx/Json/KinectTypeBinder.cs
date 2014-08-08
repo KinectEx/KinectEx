@@ -5,6 +5,13 @@ using Newtonsoft.Json;
 
 namespace KinectEx.Json
 {
+    /// <summary>
+    /// A <c>SerializationBinder</c> that handles the tricky issue of cross-platform
+    /// JSON serialization when storing and retrieving objects that come from
+    /// different assemblies and namespaces depending on the platform. In this
+    /// case, the Kinect SDK classes need to be able to be easily converted to and from 
+    /// WindowsPreview.Kinect, Microsoft.Kinect, or KinectEx.KinectSDK.
+    /// </summary>
     public class KinectTypeBinder : SerializationBinder
     {
         private static string _realKinectNamespace;

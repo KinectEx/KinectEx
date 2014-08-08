@@ -51,6 +51,7 @@ namespace KinectEx.Demo.Playback.WPF
 
             if (dlg.ShowDialog().GetValueOrDefault())
             {
+                OutputCombo.Items.Clear();
                 _replay = new KinectReplay(File.Open(dlg.FileName, FileMode.Open, FileAccess.Read));
                 _replay.PropertyChanged += _replay_PropertyChanged;
                 if (_replay.HasBodyFrames)

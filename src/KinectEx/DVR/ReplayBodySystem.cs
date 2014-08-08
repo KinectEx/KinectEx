@@ -3,6 +3,10 @@ using System.IO;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// Internal class that provides the services necessary to decode and playback
+    /// a <c>ReplayBodyFrame</c>.
+    /// </summary>
     internal class ReplayBodySystem : ReplaySystem
     {
         public event Action<ReplayBodyFrame> FrameArrived;

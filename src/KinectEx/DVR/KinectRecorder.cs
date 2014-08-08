@@ -14,9 +14,15 @@ using Microsoft.Kinect;
 
 namespace KinectEx.DVR
 {
-    public class KinectRecorder
+    /// <summary>
+    /// This class is one of two primary programmatic interfaces into the 
+    /// KinectEx.DVR subsystem. Created to enable recording of frames to
+    /// a <c>Stream</c>.
+    /// </summary>
+    public class KinectRecorder : IDisposable
     {
         BinaryWriter _writer;
+        SemaphoreSlim _writerSemaphore = new SemaphoreSlim(1);
         KinectSensor _sensor;
 
         ColorRecorder _colorRecorder;
@@ -37,6 +43,14 @@ namespace KinectEx.DVR
         private bool _enableDepthRecorder;
         private bool _enableBodyRecorder;
 
+        ////////////////////////////////////////////////////////////////////////////
+        #region PROPERTIES
+        ////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Indicates whether the recorder is currently started. Will be true
+        /// any time between the calls to Start() and StopAsync().
+        /// </summary>
         public bool IsStarted
         {
             get { return _isStarted; }
@@ -109,10 +123,13 @@ namespace KinectEx.DVR
                 _colorRecorder.Codec = value;
             }
         }
-        
 
-        // Simple linked list to serve as a stack for queing frames
-        // for encode and save.
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////
+        #region Simple linked list for enqueueing and dequeueing frames
+        ////////////////////////////////////////////////////////////////////////////
+
         Object _queueMonitorObject = new Object();
         ReplayFrame _firstFrame = null;
         ReplayFrame _lastFrame = null;
@@ -145,10 +162,16 @@ namespace KinectEx.DVR
             return frame;
         }
 
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////
+        #region CONSTRUCTOR / DESTRUCTOR
+        ////////////////////////////////////////////////////////////////////////////
+
         /// <summary>
         /// <para>
-        ///     Creates a new instance of a KinectRecorder which can save frames to the
-        ///     referenced stream.
+        ///     Creates a new instance of a <c>KinectRecorder</c> which can save frames to
+        ///     the referenced stream.
         /// </para>
         /// <para>
         ///     The KinectRecorder can operate in two distinct modes. The "Automatic" mode
@@ -180,9 +203,79 @@ namespace KinectEx.DVR
             _bodyRecorder = new BodyRecorder(_writer);
         }
 
+        ~KinectRecorder()
+        {
+            this.Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_colorReader != null)
+                {
+                    _colorReader.FrameArrived -= _colorReader_FrameArrived;
+                    _colorReader.Dispose();
+                    _colorReader = null;
+                }
+
+                if (_depthReader != null)
+                {
+                    _depthReader.FrameArrived -= _depthReader_FrameArrived;
+                    _depthReader.Dispose();
+                    _depthReader = null;
+                }
+
+                if (_bodyReader != null)
+                {
+                    _bodyReader.FrameArrived -= _bodyReader_FrameArrived;
+                    _bodyReader.Dispose();
+                    _bodyReader = null;
+                }
+
+                try
+                {
+                    _writerSemaphore.Wait();
+                    if (_writer != null)
+                    {
+                        _writer.Flush();
+
+                        if (_writer.BaseStream != null)
+                        {
+                            _writer.BaseStream.Flush();
+                        }
+
+                        _writer.Dispose();
+                        _writer = null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Change to log the error
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    _writerSemaphore.Dispose();
+                }
+            }
+        }
+
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////
+        #region PUBLIC METHODS
+        ////////////////////////////////////////////////////////////////////////////
+
         /// <summary>
-        /// Start the KinectRecorder session. This will write the file header and
-        /// 
+        /// Start the <c>KinectRecorder</c> session. This will write the file header and
+        /// enable the recorder to begin processing frames.
         /// </summary>
         public void Start()
         {
@@ -219,18 +312,40 @@ namespace KinectEx.DVR
 
             _isStarted = true;
 
-            // initialize and write file metadata
-            var metadata = new FileMetadata()
+            try
             {
-                Version = this.GetType().GetTypeInfo().Assembly.GetName().Version.ToString(),
-                ColorCodecId = this.ColorRecorderCodec.CodecId,
-                DepthFrameToCameraSpaceTable = _sensor.CoordinateMapper.GetDepthFrameToCameraSpaceTable()
-            };
-            _writer.Write(JsonConvert.SerializeObject(metadata));
+                _writerSemaphore.Wait();
+
+                // initialize and write file metadata
+                var metadata = new FileMetadata()
+                {
+                    Version = this.GetType().GetTypeInfo().Assembly.GetName().Version.ToString(),
+                    ColorCodecId = this.ColorRecorderCodec.CodecId
+                };
+                if (_sensor != null)
+                {
+                    //metadata.DepthCameraIntrinsics = _sensor.CoordinateMapper..GetDepthCameraIntrinsics();
+                    metadata.DepthFrameToCameraSpaceTable = _sensor.CoordinateMapper.GetDepthFrameToCameraSpaceTable();
+                }
+                _writer.Write(JsonConvert.SerializeObject(metadata));
+            }
+            catch (Exception ex)
+            {
+                // TODO: Change to log the error
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+            finally
+            {
+                _writerSemaphore.Release();
+            }
 
             _processFramesTask = ProcessFramesAsync();
         }
 
+        /// <summary>
+        /// Stops the <c>KinectRecorder</c>, writes all frames remaining in the
+        /// record queue, and closes the associated stream.
+        /// </summary>
         public async Task StopAsync()
         {
             if (_isStopped)
@@ -262,34 +377,40 @@ namespace KinectEx.DVR
                 _bodyReader = null;
             }
 
-            await Task.Run(async () =>
+            await _processFramesTask;
+
+            try
             {
-                try
+                await _writerSemaphore.WaitAsync();
+                if (_writer != null)
                 {
-                    await _processFramesTask;
+                    _writer.Flush();
 
-                    if (_writer != null)
+                    if (_writer.BaseStream != null)
                     {
-                        _writer.Flush();
-
-                        if (_writer.BaseStream != null)
-                        {
-                            _writer.BaseStream.Flush();
-                        }
-
-                        _writer.Dispose();
-                        _writer = null;
+                        _writer.BaseStream.Flush();
                     }
+
+                    _writer.Dispose();
+                    _writer = null;
                 }
-                catch (Exception ex)
-                {
-                    // TODO: Change to log the error
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
-            });
+            }
+            catch (Exception ex)
+            {
+                // TODO: Change to log the error
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+            finally
+            {
+                _writerSemaphore.Release();
+            }
+
             System.Diagnostics.Debug.WriteLine("<<< StopAsync (DONE!)");
         }
 
+        /// <summary>
+        /// Used in "Manual" mode to record a single <c>ColorFrame</c>.
+        /// </summary>
         public void RecordFrame(ColorFrame frame)
         {
             if (!_isStarted)
@@ -302,6 +423,11 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Used in "Manual" mode to record a single <c>ColorFrame</c> if
+        /// the color frame data has already been retrieved from the frame.
+        /// Note that the frame data must have been converted to BGRA format.
+        /// </summary>
         public void RecordFrame(ColorFrame frame, byte[] bytes)
         {
             if (!_isStarted)
@@ -314,6 +440,9 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Used in "Manual" mode to record a single <c>DepthFrame</c>.
+        /// </summary>
         public void RecordFrame(DepthFrame frame)
         {
             if (!_isStarted)
@@ -326,6 +455,10 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Used in "Manual" mode to record a single <c>DepthFrame</c> if
+        /// the depth frame data has already been retrieved from the frame.
+        /// </summary>
         public void RecordFrame(DepthFrame frame, ushort[] frameData)
         {
             if (!_isStarted)
@@ -338,6 +471,9 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Used in "Manual" mode to record a single <c>BodyFrame</c>.
+        /// </summary>
         public void RecordFrame(BodyFrame frame)
         {
             if (!_isStarted)
@@ -350,6 +486,10 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Used in "Manual" mode to record a single <c>BodyFrame</c> if
+        /// the body frame data has already been retrieved from the frame.
+        /// </summary>
         public void RecordFrame(BodyFrame frame, List<CustomBody> bodies)
         {
             if (!_isStarted)
@@ -361,6 +501,28 @@ namespace KinectEx.DVR
                 System.Diagnostics.Debug.WriteLine("+++ Enqueued Body Frame ({0})", _queueSize);
             }
         }
+
+        /// <summary>
+        /// Used in "Manual" mode to record a single <c>BodyFrame</c> if
+        /// the body frame data has already been retrieved from the frame.
+        /// </summary>
+        public void RecordFrame(BodyFrame frame, Body[] bodies)
+        {
+            if (!_isStarted)
+                throw new InvalidOperationException("Cannot record frames unless the KinectRecorder is started.");
+
+            if (frame != null)
+            {
+                EnqueFrame(new ReplayBodyFrame(frame, bodies));
+                System.Diagnostics.Debug.WriteLine("+++ Enqueued Body Frame ({0})", _queueSize);
+            }
+        }
+
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////
+        #region SUPPORT CODE
+        ////////////////////////////////////////////////////////////////////////////
 
 #if NETFX_CORE
         void _colorReader_FrameArrived(ColorFrameReader sender, ColorFrameArrivedEventArgs args)
@@ -405,10 +567,11 @@ namespace KinectEx.DVR
             {
                 while (true)
                 {
-                    try
+                    if (_queueSize > 0)
                     {
-                        if (_queueSize > 0)
+                        try
                         {
+                            await _writerSemaphore.WaitAsync();
                             var frame = DequeFrame();
 
                             if (frame is ReplayColorFrame)
@@ -428,19 +591,23 @@ namespace KinectEx.DVR
                             }
                             Flush();
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            await Task.Delay(100);
-                            if (_queueSize == 0 && _isStarted == false)
-                            {
-                                break;
-                            }
+                            // TODO: Change to log the error
+                            System.Diagnostics.Debug.WriteLine(ex);
+                        }
+                        finally
+                        {
+                            _writerSemaphore.Release();
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        // TODO: Change to log the error
-                        System.Diagnostics.Debug.WriteLine(ex);
+                        await Task.Delay(100);
+                        if (_queueSize == 0 && _isStarted == false)
+                        {
+                            break;
+                        }
                     }
                 }
             }).ConfigureAwait(false);
@@ -456,5 +623,7 @@ namespace KinectEx.DVR
                 _writer.Flush();
             }
         }
+
+        #endregion
     }
 }

@@ -5,6 +5,10 @@ using System.Linq;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// Internal base class for replay systems used to playback
+    /// <c>ReplayFrame</c> instances.
+    /// </summary>
     internal abstract class ReplaySystem : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

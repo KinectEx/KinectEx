@@ -11,6 +11,10 @@ using Microsoft.Kinect;
 
 namespace KinectEx.Smoothing
 {
+    /// <summary>
+    /// A class representing a <c>CustomJoint</c> who's position values
+    /// are "smoothed" using a Kalman-like filtering algorithm.
+    /// </summary>
     public class KalmanJoint : CustomJoint
     {
         private Vector3 _pos, _vel, _deltavel, _posvar, _velvar, _measurementUncertainty;
@@ -20,6 +24,10 @@ namespace KinectEx.Smoothing
         float _jitterRadius;
         private bool _init = true;
 
+        /// <summary>
+        /// Create a Kalman smoothing joint with default configuration values.
+        /// </summary>
+        /// <param name="jointType">The joint type to create</param>
         public KalmanJoint(JointType jointType)
             : base(jointType)
         {
@@ -30,7 +38,12 @@ namespace KinectEx.Smoothing
             _jitterRadius = parms.JitterRadius;
         }
 
-        public KalmanJoint(JointType jointType, object parameters = null)
+        /// <summary>
+        /// Create a Kalman smoothing joint with custom configuration values.
+        /// </summary>
+        /// <param name="jointType">The joint type to create</param>
+        /// <param name="parameters">An <c>ExponentialSmoothingParameters</c> object</param>
+        public KalmanJoint(JointType jointType, ISmootherParameters parameters = null)
             : base(jointType)
         {
             var parms = parameters as KalmanSmoothingParameters;
@@ -44,6 +57,9 @@ namespace KinectEx.Smoothing
             _jitterRadius = parms.JitterRadius;
         }
 
+        /// <summary>
+        /// Update (and filter) the joint position based on the referenced <c>IJoint</c>.
+        /// </summary>
         public override void Update(IJoint joint)
         {
             if (joint.TrackingState == TrackingState.NotTracked)

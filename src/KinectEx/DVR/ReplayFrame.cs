@@ -2,13 +2,12 @@
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// Base class for all forms of recordable / replayable frames.
+    /// </summary>
     public abstract class ReplayFrame : IComparable
     {
-        public readonly static String EndOfFrameMarker = "[EOF]";
-
-        public FrameTypes FrameType { get; set; }
-
-        public TimeSpan RelativeTime { get; set; }
+        internal readonly static String EndOfFrameMarker = "[EOF]";
 
         internal long FrameSize;
 
@@ -17,6 +16,19 @@ namespace KinectEx.DVR
         internal ReplayFrame NextFrame;
 #endif
 
+        /// <summary>
+        /// The type of frame represented by this <c>ReplayFrame</c>.
+        /// </summary>
+        public FrameTypes FrameType { get; set; }
+
+        /// <summary>
+        /// The unique relative time at which this frame was captured.
+        /// </summary>
+        public TimeSpan RelativeTime { get; set; }
+
+        /// <summary>
+        /// Compare this frame to another for the purposes of sorting.
+        /// </summary>
         public int CompareTo(object obj)
         {
             if (obj is ReplayFrame)

@@ -15,6 +15,12 @@ using Windows.Foundation;
 
 namespace KinectEx
 {
+    /// <summary>
+    /// This class effectively mimics the Kinect SDK's <c>Body</c> struct, but does
+    /// so with a class that can be serialized and is not sealed. These capabilities
+    /// are needed to support both the smoothing / filtering and the DVR functions of
+    /// the KinectEx library.
+    /// </summary>
     public class CustomBody : IBody
     {
         protected Dictionary<Activity, DetectionResult> _activities;
@@ -114,10 +120,10 @@ namespace KinectEx
 
             _joints = new Dictionary<JointType, IJoint>();
             _jointOrientations = new Dictionary<JointType, JointOrientation>();
-            foreach (var joint in JointTypeEx.AllJoints)
+            foreach (var jointType in JointTypeEx.AllJoints)
             {
-                _joints.Add(joint, new CustomJoint(joint));
-                _jointOrientations.Add(joint, new JointOrientation());
+                _joints.Add(jointType, new CustomJoint(jointType));
+                _jointOrientations.Add(jointType, new JointOrientation());
             }
 
 #if NETFX_CORE
@@ -129,6 +135,10 @@ namespace KinectEx
             this.TrackingId = ulong.MaxValue;
         }
 
+        /// <summary>
+        /// Updates the values of this <c>CustomBody</c> with the values contained
+        /// in the referenced <c>IBody</c>.
+        /// </summary>
         public virtual void Update(IBody body)
         {
             foreach (var key in body.Activities.Keys)
@@ -171,6 +181,10 @@ namespace KinectEx
         }
 
 #if !NOSDK
+        /// <summary>
+        /// Updates the values of this <c>CustomBody</c> with the values contained
+        /// in the referenced <c>Body</c>.
+        /// </summary>
         public virtual void Update(Body body)
         {
             Update((KinectBody)body);

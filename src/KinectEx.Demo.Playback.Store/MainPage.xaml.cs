@@ -64,6 +64,7 @@ namespace KinectEx.Demo.Playback.Store
 
             if (file != null)
             {
+                OutputCombo.Items.Clear();
                 _replay = new KinectReplay(await file.OpenStreamForReadAsync());
                 _replay.PropertyChanged += _replay_PropertyChanged;
                 if (_replay.HasBodyFrames)

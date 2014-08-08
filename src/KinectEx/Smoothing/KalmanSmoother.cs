@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace KinectEx.Smoothing
 {
+    /// <summary>
+    /// A smoothing "strategy" that, when applied to a <c>SmoothedBody</c> 
+    /// will "smooth" the joints using a Kalman-like filtering algorithm.
+    /// </summary>
     public class KalmanSmoother : ISmoother
     {
         public Type CustomJointType { get { return typeof(KalmanJoint); } }

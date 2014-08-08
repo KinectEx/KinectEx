@@ -10,27 +10,39 @@ using Microsoft.Kinect;
 
 namespace KinectEx.Smoothing
 {
+    /// <summary>
+    /// A generic class represents a <c>CustomBody</c> that implements
+    /// the smoothing "strategy" represented by the specified <c>ISmoother</c>.
+    /// </summary>
     public class SmoothedBody<T> : CustomBody where T : ISmoother
     {
+        /// <summary>
+        /// Creates an instance of a <c>SmoothedBody</c> using the default parameters
+        /// for the specified <c>ISmoother</c>.
+        /// </summary>
         public SmoothedBody()
             : base()
         {
             ISmoother smoother = (ISmoother)Activator.CreateInstance(typeof(T));
 
             _joints.Clear();
-            foreach (JointType jointType in (JointType[])Enum.GetValues(typeof(JointType)))
+            foreach (var jointType in JointTypeEx.AllJoints)
             {
                 _joints.Add(jointType, (IJoint)Activator.CreateInstance(smoother.CustomJointType, jointType));
             }
         }
 
-        public SmoothedBody(object parameters = null)
+        /// <summary>
+        /// Creates an instance of a <c>SmoothedBody</c> using the referenced smoothing
+        /// parameters object.
+        /// </summary>
+        public SmoothedBody(ISmootherParameters parameters)
             : base()
         {
             ISmoother smoother = (ISmoother)Activator.CreateInstance(typeof(T));
 
             _joints.Clear();
-            foreach (JointType jointType in (JointType[])Enum.GetValues(typeof(JointType)))
+            foreach (var jointType in JointTypeEx.AllJoints)
             {
                 _joints.Add(jointType, (IJoint)Activator.CreateInstance(smoother.CustomJointType, jointType, parameters));
             }

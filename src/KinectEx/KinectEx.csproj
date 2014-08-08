@@ -73,10 +73,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CameraSpacePointEx.cs" />
+    <Compile Include="Bone.cs" />
     <Compile Include="DepthFrameBitmap.cs" />
     <Compile Include="ColorFrameBitmap.cs" />
     <Compile Include="KinectSDK\DepthSpacePoint.cs" />
+    <Compile Include="Smoothing\ISmootherParameters.cs" />
     <Compile Include="Smoothing\SmoothedBodyList.cs" />
     <Compile Include="Smoothing\ExponentialJoint.cs" />
     <Compile Include="Smoothing\ExponentialSmoother.cs" />

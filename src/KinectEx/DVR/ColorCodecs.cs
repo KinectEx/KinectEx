@@ -1,5 +1,10 @@
 ﻿namespace KinectEx.DVR
 {
+    /// <summary>
+    /// Internal class with static instances of each <c>IColorCodec</c>
+    /// supported by the KinectEx.DVR system. Used primarily to get quick
+    /// access to properties of any individual codec.
+    /// </summary>
     internal static class ColorCodecs
     {
         public static IColorCodec Raw { get; private set; }

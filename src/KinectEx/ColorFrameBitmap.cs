@@ -1,17 +1,25 @@
-﻿#if NETFX_CORE
+﻿using System;
+
+#if NETFX_CORE
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using WindowsPreview.Kinect;
 #else
 using Microsoft.Kinect;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 #endif
 
 namespace KinectEx
 {
-    public class ColorFrameBitmap
+    /// <summary>
+    /// A class that makes it easy to create and update a WriteableBitmap
+    /// from a Kinect SDK <c>ColorFrame</c>.
+    /// </summary>
+    public class ColorFrameBitmap : IDisposable
     {
         private WriteableBitmap _bitmap = null;
         private byte[] _bytes = null;
@@ -21,7 +29,11 @@ namespace KinectEx
         private Int32Rect _dirtyRect;
 #endif
 
-	    public WriteableBitmap Bitmap
+        /// <summary>
+        /// The <c>WriteableBitmap</c> representation of the <c>ColorFrame</c>
+        /// (or frame data) passed in to one of the Update() methods.
+        /// </summary>
+        public WriteableBitmap Bitmap
 	    {
 		    get { return _bitmap; }
 	    }
@@ -38,6 +50,30 @@ namespace KinectEx
 #endif
         }
 
+        ~ColorFrameBitmap()
+        {
+            this.Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+#if NETFX_CORE
+            _stream.Dispose();
+            _stream = null;
+#endif
+            _bytes = null;
+            _bitmap = null;
+        }
+
+        /// <summary>
+        /// Update the Bitmap from the supplied <c>ColorFrameReference</c>.
+        /// </summary>
         public void Update(ColorFrameReference frameReference)
         {
             using (var frame = frameReference.AcquireFrame())
@@ -46,6 +82,9 @@ namespace KinectEx
             }
         }
 
+        /// <summary>
+        /// Update the Bitmap from the supplied <c>ColorFrame</c>.
+        /// </summary>
         public void Update(ColorFrame frame)
         {
             if (frame != null)
@@ -61,6 +100,9 @@ namespace KinectEx
             }
         }
 
+        /// <summary>
+        /// Update the Bitmap from the supplied color frame data values.
+        /// </summary>
         public void Update(byte[] bytes)
         {
 #if NETFX_CORE

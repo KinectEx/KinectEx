@@ -16,10 +16,13 @@ using System.Windows.Threading;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// This class is one of two primary programmatic interfaces into the 
+    /// KinectEx.DVR subsystem. Created to enable playback of frames from
+    /// a <c>Stream</c>.
+    /// </summary>
     public class KinectReplay : IDisposable, INotifyPropertyChanged
     {
-        public static TimeSpan FrameTime = TimeSpan.FromTicks(333334);
-
         BinaryReader _reader;
         Stream _stream;
 
@@ -35,13 +38,6 @@ namespace KinectEx.DVR
         readonly SynchronizationContext _synchronizationContext;
 #endif
 
-        // Events
-        public event EventHandler<ReplayFrameArrivedEventArgs<ReplayBodyFrame>> BodyFrameArrived;
-        public event EventHandler<ReplayFrameArrivedEventArgs<ReplayColorFrame>> ColorFrameArrived;
-        public event EventHandler<ReplayFrameArrivedEventArgs<ReplayDepthFrame>> DepthFrameArrived;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         // Replay
         ReplayColorSystem _colorReplay;
         ReplayDepthSystem _depthReplay;
@@ -49,8 +45,75 @@ namespace KinectEx.DVR
 
         List<ReplaySystem> _activeReplaySystems = new List<ReplaySystem>();
 
-        public static readonly string IsStartedPropertyName = "IsStarted";
+        TimeSpan _minTimespan = TimeSpan.MaxValue;
+        TimeSpan _maxTimespan = TimeSpan.MinValue;
+
+        // Property Backers
         private bool _isStarted = false;
+        private TimeSpan _location = TimeSpan.Zero;
+
+        ////////////////////////////////////////////////////////////////////////////
+        #region PUBLIC STATIC MEMBERS
+        ////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// The length of each frame (effectively 30fps ==> 33ms)
+        /// </summary>
+        public static TimeSpan FrameTime = TimeSpan.FromTicks(333334);
+
+        /// <summary>
+        /// The string name of the IsStarted property (for use in PropertyChanged
+        /// event handlers).
+        /// </summary>
+        public static readonly string IsStartedPropertyName = "IsStarted";
+
+        /// <summary>
+        /// The string name of the IsFinished property (for use in PropertyChanged
+        /// event handlers).
+        /// </summary>
+        public static readonly string IsFinishedPropertyName = "IsFinished";
+
+        /// <summary>
+        /// The string name of the Location property (for use in PropertyChanged
+        /// event handlers).
+        /// </summary>
+        public static readonly string LocationPropertyName = "Location";
+
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////
+        #region EVENTS
+        ////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Signals the "arrival" of a new <c>ReplayBodyFrame</c>.
+        /// </summary>
+        public event EventHandler<ReplayFrameArrivedEventArgs<ReplayBodyFrame>> BodyFrameArrived;
+
+        /// <summary>
+        /// Signals the "arrival" of a new <c>ReplayColorFrame</c>.
+        /// </summary>
+        public event EventHandler<ReplayFrameArrivedEventArgs<ReplayColorFrame>> ColorFrameArrived;
+
+        /// <summary>
+        /// Signals the "arrival" of a new <c>ReplayDepthFrame</c>.
+        /// </summary>
+        public event EventHandler<ReplayFrameArrivedEventArgs<ReplayDepthFrame>> DepthFrameArrived;
+
+        /// <summary>
+        /// Signals a change in value of one of the properties.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////
+        #region PROPERTIES
+        ////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Whether this instance of <c>KinectReplay</c> is currently started.
+        /// </summary>
         public bool IsStarted
         {
             get { return _isStarted; }
@@ -61,7 +124,12 @@ namespace KinectEx.DVR
             }
         }
 
-        public static readonly string IsFinishedPropertyName = "IsFinished";
+        /// <summary>
+        /// Whether this instance of <c>KinectReplay</c> has finished playback.
+        /// While IsStarted can change to false any time playback is stopped,
+        /// this property is only changed when playback stops due to reaching the
+        /// end of the playback stream.
+        /// </summary>
         public bool IsFinished
         {
             get
@@ -74,8 +142,9 @@ namespace KinectEx.DVR
             }
         }
 
-        public static readonly string LocationPropertyName = "Location";
-        private TimeSpan _location = TimeSpan.Zero;
+        /// <summary>
+        /// The current location within the playback stream.
+        /// </summary>
         public TimeSpan Location
         {
             get
@@ -89,26 +158,47 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// The total duration of the playback stream.
+        /// </summary>
         public TimeSpan Duration { get; private set; }
 
+        /// <summary>
+        /// Whether this playback stream contains <c>ReplayBodyFrame</c> frames.
+        /// </summary>
         public bool HasBodyFrames
         {
             get { return _bodyReplay != null; }
         }
 
+        /// <summary>
+        /// Whether this playback stream contains <c>ReplayColorFrame</c> frames.
+        /// </summary>
         public bool HasColorFrames
         {
             get { return _colorReplay != null; }
         }
 
+        /// <summary>
+        /// Whether this playback stream contains <c>ReplayDepthFrame</c> frames.
+        /// </summary>
         public bool HasDepthFrames
         {
             get { return _depthReplay != null; }
         }
 
-        TimeSpan _minTimespan = TimeSpan.MaxValue;
-        TimeSpan _maxTimespan = TimeSpan.MinValue;
+        #endregion
 
+        ////////////////////////////////////////////////////////////////////////////
+        #region CONSTRUCTOR / DESTRUCTOR
+        ////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Creates a new instance of a <c>KinectReplay</c> using the referenced stream.
+        /// This will read in the headers for all frames in the stream and make them
+        /// available for playback. The stream will remain open until the instance
+        /// is disposed.
+        /// </summary>
         public KinectReplay(Stream stream)
         {
             this._stream = stream;
@@ -202,6 +292,88 @@ namespace KinectEx.DVR
 
             this.Duration = _maxTimespan - _minTimespan;
         }
+        
+        ~KinectReplay()
+        {
+            this.Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Stop();
+
+                _colorReplay = null;
+                _depthReplay = null;
+                _bodyReplay = null;
+
+                if (_reader != null)
+                {
+                    _reader.Dispose();
+                    _reader = null;
+                }
+
+                if (_stream != null)
+                {
+                    _stream.Dispose();
+                    _stream = null;
+                }
+            }
+        }
+
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////
+        #region PUBLIC METHODS
+        ////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Start playback.
+        /// </summary>
+        public void Start()
+        {
+            _timer.Start();
+            IsStarted = true;
+        }
+
+        /// <summary>
+        /// Stop playback.
+        /// </summary>
+        public void Stop()
+        {
+            _timer.Stop();
+            IsStarted = false;
+        }
+
+        /// <summary>
+        /// Move the playback location to the specified time.
+        /// </summary>
+        public void ScrubTo(TimeSpan newLocation)
+        {
+            if (newLocation > this.Duration)
+                newLocation = this.Duration;
+
+            this.Location = newLocation;
+
+            foreach (var replaySystem in _activeReplaySystems)
+            {
+                replaySystem.CurrentRelativeTime = _minTimespan + newLocation;
+                replaySystem.PushCurrentFrame();
+            }
+        }
+
+        #endregion
+
+        ////////////////////////////////////////////////////////////////////////////
+        #region SUPPORT CODE
+        ////////////////////////////////////////////////////////////////////////////
 
         System.Diagnostics.Stopwatch st = new System.Diagnostics.Stopwatch();
 #if NETFX_CORE
@@ -220,53 +392,6 @@ namespace KinectEx.DVR
             _timer.Interval = interval < TimeSpan.Zero ? TimeSpan.Zero : interval;
             System.Diagnostics.Debug.WriteLine("{0}", interval);
             _stopwatch.Reset();
-        }
-
-        public void Start()
-        {
-            _timer.Start();
-            IsStarted = true;
-        }
-
-        public void Stop()
-        {
-            _timer.Stop();
-            IsStarted = false;
-        }
-
-        public void ScrubTo(TimeSpan newLocation)
-        {
-            if (newLocation > this.Duration)
-                newLocation = this.Duration;
-
-            this.Location = newLocation;
-
-            foreach (var replaySystem in _activeReplaySystems)
-            {
-                replaySystem.CurrentRelativeTime = _minTimespan + newLocation;
-                replaySystem.PushCurrentFrame();
-            }
-        }
-
-        public void Dispose()
-        {
-            Stop();
-
-            _colorReplay = null;
-            _depthReplay = null;
-            _bodyReplay = null;
-
-            if (_reader != null)
-            {
-                _reader.Dispose();
-                _reader = null;
-            }
-
-            if (_stream != null)
-            {
-                _stream.Dispose();
-                _stream = null;
-            }
         }
 
         private void replay_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -338,10 +463,12 @@ namespace KinectEx.DVR
         }
 #endif
 
-        protected void NotifyPropertyChanged(string propertyName)
+        void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
     }
 }

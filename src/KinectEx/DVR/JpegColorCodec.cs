@@ -14,48 +14,70 @@ using System.Windows.Media.Imaging;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// An <c>IColorCodec</c> that performs compresses bitmaps using the JPEG
+    /// standard. Choosing this codec when creating a <c>KinectRecorder</c>
+    /// effectively saves color frames as an MJPEG.
+    /// </summary>
     public class JpegColorCodec : IColorCodec
     {
+        private int _outputWidth = int.MinValue;
+        private int _outputHeight = int.MinValue;
+        private int _jpegQuality = 70;
+
+        /// <summary>
+        /// Uniue ID for this <c>IColorCodec</c> instance.
+        /// </summary>
         public int CodecId { get { return 1; } }
 
+        /// <summary>
+        /// Width of the frame in pixels.
+        /// </summary>
         public int Width { get; set; }
 
+        /// <summary>
+        /// Height of the frame in pixels.
+        /// </summary>
         public int Height { get; set; }
 
-
-        private int _outputWidth = int.MinValue;
-
+        /// <summary>
+        /// If changed, resizes the width of an encoded bitmap to the specified
+        /// number of pixels. By default, the frame will be encoded using the
+        /// same width as the input bitmap.
+        /// </summary>
         public int OutputWidth
         {
             get { return _outputWidth == int.MinValue ? Width : _outputWidth; }
             set { _outputWidth = value; }
         }
 
-        private int _outputHeight = int.MinValue;
-
+        /// <summary>
+        /// If changed, resizes the height of an encoded bitmap to the specified
+        /// number of pixels. By default, the frame will be encoded using the
+        /// same height as the input bitmap.
+        /// </summary>
         public int OutputHeight
         {
             get { return _outputHeight == int.MinValue ? Height : _outputHeight; }
             set { _outputHeight = value; }
         }
 
-        private int _jpegQuality;
-
+        /// <summary>
+        /// Gets or sets the compression quality factor used to encode the individual
+        /// JPEG bitmaps. Should be between 1 (smallest / lowest quality) and 100
+        /// (largest / highest quality). Default is 70.
+        /// </summary>
         public int JpegQuality
         {
             get { return _jpegQuality; }
-            set
-            {
-                _jpegQuality = value;
-            }
+            set { _jpegQuality = value; }
         }
 
-        public JpegColorCodec()
-        {
-            this.JpegQuality = 70;
-        }
-
-#if !NOSDK
+        /// <summary>
+        /// Encodes the specified bitmap data and outputs it to the specified
+        /// <c>BinaryWriter</c>. Bitmap data should be in BGRA format.
+        /// For internal use only.
+        /// </summary>
         public async Task EncodeAsync(byte[] bytes, BinaryWriter writer)
         {
 #if NETFX_CORE
@@ -143,8 +165,12 @@ namespace KinectEx.DVR
             });
 #endif
         }
-#endif
 
+        /// <summary>
+        /// Reads the codec-specific header information from the supplied
+        /// <c>BinaryReader</c> and writes it to the supplied <c>ReplayFrame</c>.
+        /// For internal use only.
+        /// </summary>
         public void ReadHeader(BinaryReader reader, ReplayFrame frame)
         {
             var colorFrame = frame as ReplayColorFrame;
@@ -157,6 +183,10 @@ namespace KinectEx.DVR
             colorFrame.FrameDataSize = reader.ReadInt32();
         }
 
+        /// <summary>
+        /// Decodes the supplied encoded bitmap data and outputs a <c>BitmapSource</c>.
+        /// For internal use only.
+        /// </summary>
         public async Task<BitmapSource> DecodeAsync(byte[] bytes)
         {
 #if NETFX_CORE

@@ -12,32 +12,59 @@ using System.Windows.Media.Imaging;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// An <c>IColorCodec</c> that performs no image compression. By default,
+    /// this will just encode and decode the raw bitmap data. However, if the
+    /// OutputWidth and/or OutputHeight are changed, it will resize an encoded
+    /// bitmap accordingly.
+    /// </summary>
     public class RawColorCodec : IColorCodec
     {
-        public int CodecId { get { return 0; } }
-
-        public int Width { get; set; }
-
-        public int Height { get; set; }
-
-
+        private int _outputHeight = int.MinValue;
         private int _outputWidth = int.MinValue;
 
+        /// <summary>
+        /// Uniue ID for this <c>IColorCodec</c> instance.
+        /// </summary>
+        public int CodecId { get { return 0; } }
+
+        /// <summary>
+        /// Width of the frame in pixels.
+        /// </summary>
+        public int Width { get; set; }
+
+        /// <summary>
+        /// Height of the frame in pixels.
+        /// </summary>
+        public int Height { get; set; }
+
+        /// <summary>
+        /// If changed, resizes the width of an encoded bitmap to the specified
+        /// number of pixels. By default, the frame will be encoded using the
+        /// same width as the input bitmap.
+        /// </summary>
         public int OutputWidth
         {
             get { return _outputWidth == int.MinValue ? Width : _outputWidth; }
             set { _outputWidth = value; }
         }
 
-        private int _outputHeight = int.MinValue;
-
+        /// <summary>
+        /// If changed, resizes the height of an encoded bitmap to the specified
+        /// number of pixels. By default, the frame will be encoded using the
+        /// same height as the input bitmap.
+        /// </summary>
         public int OutputHeight
         {
             get { return _outputHeight == int.MinValue ? Height : _outputHeight; }
             set { _outputHeight = value; }
         }
-        
 
+        /// <summary>
+        /// Encodes the specified bitmap data and outputs it to the specified
+        /// <c>BinaryWriter</c>. Bitmap data should be in BGRA format.
+        /// For internal use only.
+        /// </summary>
         public async Task EncodeAsync(byte[] bytes, BinaryWriter writer)
         {
             await Task.Delay(0); // can't run writeable bitmap stuff in background thread
@@ -76,6 +103,11 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Reads the codec-specific header information from the supplied
+        /// <c>BinaryReader</c> and writes it to the supplied <c>ReplayFrame</c>.
+        /// For internal use only.
+        /// </summary>
         public void ReadHeader(BinaryReader reader, ReplayFrame frame)
         {
             var colorFrame = frame as ReplayColorFrame;
@@ -88,12 +120,14 @@ namespace KinectEx.DVR
             colorFrame.FrameDataSize = reader.ReadInt32();
         }
 
+        /// <summary>
+        /// Decodes the supplied encoded bitmap data and outputs a <c>BitmapSource</c>.
+        /// For internal use only.
+        /// </summary>
         public async Task<BitmapSource> DecodeAsync(byte[] bytes)
         {
-            return await Task<BitmapSource>.Run(() =>
-            {
-                return BitmapFactory.New(this.Width, this.Height).FromByteArray(bytes);
-            });
+            await Task.Delay(0);
+            return BitmapFactory.New(this.Width, this.Height).FromByteArray(bytes);
         }
     }
 }
