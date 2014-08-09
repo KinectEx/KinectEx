@@ -12,7 +12,16 @@ namespace KinectEx.Smoothing
     /// </summary>
     public class KalmanSmoother : ISmoother
     {
+        /// <summary>
+        /// Type of "smoothed" joint to create when constructing bodies 
+        /// using this strategy.
+        /// </summary>
         public Type CustomJointType { get { return typeof(KalmanJoint); } }
-        public Type CustomJointOrientationType { get { return null; } }
+
+        /// <summary>
+        /// Type of "smoothed" joint orientation to create when constructing bodies 
+        /// using this strategy.
+        /// </summary>
+        public Type CustomJointOrientationType { get { return typeof(KalmanJointOrientation); } }
     }
 }

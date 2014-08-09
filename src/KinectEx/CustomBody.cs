@@ -37,10 +37,20 @@ namespace KinectEx
             set { _appearance = value as Dictionary<Appearance, DetectionResult>; }
         }
 
-        public virtual FrameEdges ClippedEdges { get; set; }
+        protected FrameEdges _clippedEdges;
+        public virtual FrameEdges ClippedEdges
+        {
+            get { return _clippedEdges; }
+            set { _clippedEdges = value; }
+        }
 
-        public virtual DetectionResult Engaged { get; set; }
-
+        protected DetectionResult _engaged;
+        public virtual DetectionResult Engaged
+        {
+            get { return _engaged; }
+            set { _engaged = value; }
+        }
+        
         protected Dictionary<Expression, DetectionResult> _expressions;
         public virtual IReadOnlyDictionary<Expression, DetectionResult> Expressions
         {
@@ -48,25 +58,60 @@ namespace KinectEx
             set { _expressions = value as Dictionary<Expression, DetectionResult>; }
         }
 
-        public virtual TrackingConfidence HandLeftConfidence { get; set; }
+        protected TrackingConfidence _handLeftConfidence;
+        public virtual TrackingConfidence HandLeftConfidence
+        {
+            get { return _handLeftConfidence; }
+            set { _handLeftConfidence = value; }
+        }
 
-        public virtual HandState HandLeftState { get; set; }
+        protected HandState _handLeftState;
+        public virtual HandState HandLeftState
+        {
+            get { return _handLeftState; }
+            set { _handLeftState = value; }
+        }
 
-        public virtual TrackingConfidence HandRightConfidence { get; set; }
+        protected TrackingConfidence _handRightConfidence;
+        public virtual TrackingConfidence HandRightConfidence
+        {
+            get { return _handRightConfidence; }
+            set { _handRightConfidence = value; }
+        }
 
-        public virtual HandState HandRightState { get; set; }
+        protected HandState _handRightState;
+        public virtual HandState HandRightState
+        {
+            get { return _handRightState; }
+            set { _handRightState = value; }
+        }
 
-        public virtual bool IsDisposed { get; set; }
+        protected bool _isDisposed;
+        public virtual bool IsDisposed
+        {
+            get { return _isDisposed; }
+            set { _isDisposed = value; }
+        }
 
-        public virtual bool IsRestricted { get; set; }
+        protected bool _isRestricted;
+        public virtual bool IsRestricted
+        {
+            get { return _isRestricted; }
+            set { _isRestricted = value; }
+        }
 
-        public virtual bool IsTracked { get; set; }
-
-        protected Dictionary<JointType, JointOrientation> _jointOrientations;
-        public virtual IReadOnlyDictionary<JointType, JointOrientation> JointOrientations
+        protected bool _isTracked;
+        public virtual bool IsTracked
+        {
+            get { return _isTracked; }
+            set { _isTracked = value; }
+        }
+        
+        protected Dictionary<JointType, IJointOrientation> _jointOrientations;
+        public virtual IReadOnlyDictionary<JointType, IJointOrientation> JointOrientations
         {
             get { return _jointOrientations; }
-            set { _jointOrientations = value as Dictionary<JointType, JointOrientation>; }
+            set { _jointOrientations = value as Dictionary<JointType, IJointOrientation>; }
         }
 
         protected Dictionary<JointType, IJoint> _joints;
@@ -78,15 +123,35 @@ namespace KinectEx
 
 
 #if NETFX_CORE
-        public virtual Point Lean { get; set; }
+        protected Point _lean;
+        public virtual Point Lean
+        {
+            get { return _lean; }
+            set { _lean = value; }
+        }
 #else
-        public virtual PointF Lean { get; set; }
+        protected PointF _lean;
+        public virtual PointF Lean
+        {
+            get { return _lean; }
+            set { _lean = value; }
+        }
 #endif
 
-        public virtual TrackingState LeanTrackingState { get; set; }
+        protected TrackingState _leanTrackingState;
+        public virtual TrackingState LeanTrackingState
+        {
+            get { return _leanTrackingState; }
+            set { _leanTrackingState = value; }
+        }
 
-        public virtual ulong TrackingId { get; set; }
-
+        protected ulong _trackingId;
+        public virtual ulong TrackingId
+        {
+            get { return _trackingId; }
+            set { _trackingId = value; }
+        }
+        
         public CustomBody()
         {
             _activities = new Dictionary<Activity, DetectionResult>();
@@ -101,8 +166,8 @@ namespace KinectEx
                 _appearance.Add(appearance, DetectionResult.Unknown);
             }
 
-            this.ClippedEdges = FrameEdges.None;
-            this.Engaged = DetectionResult.Unknown;
+            _clippedEdges = FrameEdges.None;
+            _engaged = DetectionResult.Unknown;
 
             _expressions = new Dictionary<Expression, DetectionResult>();
             foreach (var expression in (Expression[])Enum.GetValues(typeof(Expression)))
@@ -110,29 +175,29 @@ namespace KinectEx
                 _expressions.Add(expression, DetectionResult.Unknown);
             }
 
-            this.HandLeftConfidence = TrackingConfidence.Low;
-            this.HandLeftState = HandState.Unknown;
-            this.HandRightConfidence = TrackingConfidence.Low;
-            this.HandRightState = HandState.Unknown;
-            this.IsDisposed = false;
-            this.IsRestricted = false;
-            this.IsTracked = false;
+            _handLeftConfidence = TrackingConfidence.Low;
+            _handLeftState = HandState.Unknown;
+            _handRightConfidence = TrackingConfidence.Low;
+            _handRightState = HandState.Unknown;
+            _isDisposed = false;
+            _isRestricted = false;
+            _isTracked = false;
 
             _joints = new Dictionary<JointType, IJoint>();
-            _jointOrientations = new Dictionary<JointType, JointOrientation>();
+            _jointOrientations = new Dictionary<JointType, IJointOrientation>();
             foreach (var jointType in JointTypeEx.AllJoints)
             {
                 _joints.Add(jointType, new CustomJoint(jointType));
-                _jointOrientations.Add(jointType, new JointOrientation());
+                _jointOrientations.Add(jointType, new CustomJointOrientation(jointType));
             }
 
 #if NETFX_CORE
-            this.Lean = new Point();
+            _lean = new Point();
 #else
-            this.Lean = new PointF();
+            _lean = new PointF();
 #endif
-            this.LeanTrackingState = TrackingState.NotTracked;
-            this.TrackingId = ulong.MaxValue;
+            _leanTrackingState = TrackingState.NotTracked;
+            _trackingId = ulong.MaxValue;
         }
 
         /// <summary>

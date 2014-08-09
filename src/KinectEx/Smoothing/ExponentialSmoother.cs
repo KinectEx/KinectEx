@@ -13,6 +13,6 @@ namespace KinectEx.Smoothing
     public class ExponentialSmoother : ISmoother
     {
         public Type CustomJointType { get { return typeof(ExponentialJoint); } }
-        public Type CustomJointOrientationType { get { return null; } }
+        public Type CustomJointOrientationType { get { return typeof(ExponentialJointOrientation); } }
     }
 }

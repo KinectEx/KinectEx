@@ -6,7 +6,7 @@ namespace KinectEx
 {
     /// <summary>
     /// A class that contains values for each "bone" in a Kinect
-    /// <b>Body</b>. The class can be used statically in much the
+    /// <c>Body</c>. The class can be used statically in much the
     /// same way as an enum. However, each value contains useful
     /// information about the bone. The class also allows for easy
     /// enumeration of bones.

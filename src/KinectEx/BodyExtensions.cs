@@ -84,10 +84,10 @@ namespace KinectEx
         }
 
         /// <summary>
-        /// Gets the <c>JointOrientation</c> of the joint that mirrors the specified
+        /// Gets the <c>IJointOrientation</c> of the joint that mirrors the specified
         /// <c>JointTypeEx</c> (e.g., the left wrist mirrors the right wrist).
         /// </summary>
-        public static JointOrientation GetMirroredJointOrientation(this IBody body, JointTypeEx jointType)
+        public static IJointOrientation GetMirroredJointOrientation(this IBody body, JointTypeEx jointType)
         {
             return body.JointOrientations[_mirroredJoints[jointType]];
         }
@@ -117,7 +117,7 @@ namespace KinectEx
         }
 
         /// <summary>
-        /// Gets a <b>Bone</b> structure containing the two <c>IJoint</c> values
+        /// Gets a <c>Bone</c> structure containing the two <c>IJoint</c> values
         /// that constitute the start and end of the specified <c>BoneTypeEx</c>.
         /// </summary>
         public static Bone GetBone(this IBody body, BoneTypeEx boneType)
@@ -216,10 +216,10 @@ namespace KinectEx
         }
 
         /// <summary>
-        /// Gets the <c>JointOrientation</c> of the joint that mirrors the specified
+        /// Gets the <c>IJointOrientation</c> of the joint that mirrors the specified
         /// <c>JointType</c> (e.g., the left wrist mirrors the right wrist).
         /// </summary>
-        public static JointOrientation GetMirroredJointOrientation(this Body body, JointType jointType)
+        public static IJointOrientation GetMirroredJointOrientation(this Body body, JointType jointType)
         {
             return ((KinectBody)body).GetMirroredJointOrientation(jointType);
         }
@@ -244,7 +244,7 @@ namespace KinectEx
         }
 
         /// <summary>
-        /// Gets a <b>Bone</b> structure containing the two <c>IJoint</c> values
+        /// Gets a <c>Bone</c> structure containing the two <c>IJoint</c> values
         /// that constitute the start and end of the specified <c>BoneTypeEx</c>.
         /// </summary>
         public static Bone GetBone(this Body body, BoneTypeEx boneType)

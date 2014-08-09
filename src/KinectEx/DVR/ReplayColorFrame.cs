@@ -21,7 +21,7 @@ using Microsoft.Kinect;
 namespace KinectEx.DVR
 {
     /// <summary>
-    /// A recordable / replayable version of a <b>ColorFrame</b>.
+    /// A recordable / replayable version of a <c>ColorFrame</c>.
     /// </summary>
     public class ReplayColorFrame : ReplayFrame
     {

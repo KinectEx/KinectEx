@@ -1,6 +1,9 @@
 ﻿namespace KinectEx.Smoothing
 {
-    class KalmanSmoothingParameters
+    /// <summary>
+    /// Contains member properties used to configure 
+    /// </summary>
+    public class KalmanSmoothingParameters : ISmootherParameters
     {
         public static float DEFAULT_MEASUREMENT_UNCERTAINTY = 0.001f;
         public static float DEFAULT_JITTER_RADIUS = 0.03f;

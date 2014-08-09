@@ -25,6 +25,7 @@ namespace KinectEx
     {
         internal Body _body;
         private Dictionary<JointType, IJoint> _joints = null;
+        private Dictionary<JointType, IJointOrientation> _jointOrientations = null;
 
         public IReadOnlyDictionary<Activity, DetectionResult> Activities
         {
@@ -90,9 +91,20 @@ namespace KinectEx
             set { }
         }
 
-        public IReadOnlyDictionary<JointType, JointOrientation> JointOrientations
+        public IReadOnlyDictionary<JointType, IJointOrientation> JointOrientations
         {
-            get { return _body.JointOrientations; }
+            get
+            {
+                if (_jointOrientations == null)
+                {
+                    _jointOrientations = new Dictionary<JointType, IJointOrientation>();
+                    foreach (var key in _body.Joints.Keys)
+                    {
+                        _jointOrientations.Add(key, new KinectJointOrientation(_body.JointOrientations[key]));
+                    }
+                }
+                return _jointOrientations;
+            }
             set { }
         }
 

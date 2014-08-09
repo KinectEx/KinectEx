@@ -20,7 +20,7 @@ using Microsoft.Kinect;
 namespace KinectEx.DVR
 {
     /// <summary>
-    /// A recordable / replayable version of a <b>DepthFrame</b>.
+    /// A recordable / replayable version of a <c>DepthFrame</c>.
     /// </summary>
     public class ReplayDepthFrame : ReplayFrame
     {

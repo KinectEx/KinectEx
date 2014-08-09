@@ -68,6 +68,9 @@
     <Compile Include="..\KinectEx\CustomJoint.cs">
       <Link>CustomJoint.cs</Link>
     </Compile>
+    <Compile Include="..\KinectEx\CustomJointOrientation.cs">
+      <Link>CustomJointOrientation.cs</Link>
+    </Compile>
     <Compile Include="..\KinectEx\DVR\ColorCodecs.cs">
       <Link>DVR\ColorCodecs.cs</Link>
     </Compile>
@@ -122,6 +125,9 @@
     <Compile Include="..\KinectEx\IJoint.cs">
       <Link>IJoint.cs</Link>
     </Compile>
+    <Compile Include="..\KinectEx\IJointOrientation.cs">
+      <Link>IJointOrientation.cs</Link>
+    </Compile>
     <Compile Include="..\KinectEx\JointTypeEx.cs">
       <Link>JointTypeEx.cs</Link>
     </Compile>
@@ -133,6 +139,9 @@
     </Compile>
     <Compile Include="..\KinectEx\Json\KinectTypeBinder.cs">
       <Link>Json\KinectTypeBinder.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\KinectJointOrientation.cs">
+      <Link>KinectJointOrientation.cs</Link>
     </Compile>
     <Compile Include="..\KinectEx\KinectSDK\Activity.cs">
       <Link>KinectSDK\Activity.cs</Link>
@@ -179,6 +188,9 @@
     <Compile Include="..\KinectEx\Smoothing\ExponentialJoint.cs">
       <Link>Smoothing\ExponentialJoint.cs</Link>
     </Compile>
+    <Compile Include="..\KinectEx\Smoothing\ExponentialJointOrientation.cs">
+      <Link>Smoothing\ExponentialJointOrientation.cs</Link>
+    </Compile>
     <Compile Include="..\KinectEx\Smoothing\ExponentialSmoother.cs">
       <Link>Smoothing\ExponentialSmoother.cs</Link>
     </Compile>
@@ -193,6 +205,9 @@
     </Compile>
     <Compile Include="..\KinectEx\Smoothing\KalmanJoint.cs">
       <Link>Smoothing\KalmanJoint.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\Smoothing\KalmanJointOrientation.cs">
+      <Link>Smoothing\KalmanJointOrientation.cs</Link>
     </Compile>
     <Compile Include="..\KinectEx\Smoothing\KalmanSmoother.cs">
       <Link>Smoothing\KalmanSmoother.cs</Link>

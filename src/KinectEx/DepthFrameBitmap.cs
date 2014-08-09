@@ -57,7 +57,7 @@ namespace KinectEx
             GC.SuppressFinalize(this);
         }
 
-        protected void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
 #if NETFX_CORE
             _stream.Dispose();

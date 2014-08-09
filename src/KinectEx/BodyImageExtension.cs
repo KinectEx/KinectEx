@@ -85,6 +85,7 @@ namespace KinectEx
         /// <summary>
         /// Gets the body joints and bones drawn as a WriteableBitmap
         /// </summary>
+        /// <param name="body"></param>
         /// <param name="boneColor">color to use for drawing bones</param>
         /// <param name="jointColor">color to use for drawing joints</param>
         public static WriteableBitmap GetBitmap(this IBody body, Color boneColor, Color jointColor)
@@ -97,6 +98,7 @@ namespace KinectEx
         /// <summary>
         /// Draws the body joints and bones to a WriteableBitmap
         /// </summary>
+        /// <param name="body"></param>
         /// <param name="bitmap">the bitmap to which to draw the body</param>
         /// <param name="boneColor">color to use for drawing bones</param>
         /// <param name="jointColor">color to use for drawing joints</param>
@@ -112,6 +114,7 @@ namespace KinectEx
         /// <summary>
         /// Gets the body joints and bones drawn as a WriteableBitmap
         /// </summary>
+        /// <param name="bodies"></param>
         /// <param name="boneColor">color to use for drawing bones</param>
         /// <param name="jointColor">color to use for drawing joints</param>
         public static WriteableBitmap GetBitmap(this IEnumerable<IBody> bodies, Color boneColor, Color jointColor)
@@ -124,6 +127,7 @@ namespace KinectEx
         /// <summary>
         /// Draws the body joints and bones to a WriteableBitmap
         /// </summary>
+        /// <param name="bodies"></param>
         /// <param name="bitmap">the bitmap to which to draw the bodies</param>
         /// <param name="boneColor">color to use for drawing bones</param>
         /// <param name="jointColor">color to use for drawing joints</param>
@@ -139,6 +143,7 @@ namespace KinectEx
         /// <summary>
         /// Gets the body joints and bones drawn as a WriteableBitmap
         /// </summary>
+        /// <param name="body"></param>
         /// <param name="boneColor">color to use for drawing bones</param>
         /// <param name="jointColor">color to use for drawing joints</param>
         public static WriteableBitmap GetBitmap(this Body body, Color boneColor, Color jointColor)
@@ -149,6 +154,7 @@ namespace KinectEx
         /// <summary>
         /// Draws the body joints and bones to a WriteableBitmap
         /// </summary>
+        /// <param name="body"></param>
         /// <param name="bitmap">the bitmap to which to draw the body</param>
         /// <param name="boneColor">color to use for drawing bones</param>
         /// <param name="jointColor">color to use for drawing joints</param>
@@ -163,6 +169,7 @@ namespace KinectEx
         /// <summary>
         /// Gets the body joints and bones drawn as a WriteableBitmap
         /// </summary>
+        /// <param name="bodies"></param>
         /// <param name="boneColor">color to use for drawing bones</param>
         /// <param name="jointColor">color to use for drawing joints</param>
         public static WriteableBitmap GetBitmap(this IEnumerable<Body> bodies, Color boneColor, Color jointColor)
@@ -175,6 +182,7 @@ namespace KinectEx
         /// <summary>
         /// Draws the body joints and bones to a WriteableBitmap
         /// </summary>
+        /// <param name="bodies"></param>
         /// <param name="bitmap">the bitmap to which to draw the bodies</param>
         /// <param name="boneColor">color to use for drawing bones</param>
         /// <param name="jointColor">color to use for drawing joints</param>

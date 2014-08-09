@@ -11,6 +11,9 @@ using Microsoft.Kinect;
 
 namespace KinectEx.Smoothing
 {
+    /// <summary>
+    /// A specialized list of <c>SmoothedBody</c> objects.
+    /// </summary>
     public class SmoothedBodyList<T> : List<SmoothedBody<T>> where T : ISmoother
     {
         object _parameters;

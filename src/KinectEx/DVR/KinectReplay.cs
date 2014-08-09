@@ -258,9 +258,9 @@ namespace KinectEx.DVR
                             break;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    throw ex;
+                    throw;
                 }
             }
 
@@ -304,7 +304,7 @@ namespace KinectEx.DVR
             GC.SuppressFinalize(this);
         }
 
-        protected void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {

@@ -1,6 +1,6 @@
 ﻿namespace KinectEx.Smoothing
 {
-    public class ExponentialSmoothingParameters
+    public class ExponentialSmoothingParameters : ISmootherParameters
     {
         public static float DEFAULT_SMOOTHING = 0.25f;
         public static float DEFAULT_CORRECTION = 0.25f;
@@ -33,6 +33,9 @@
         /// </summary>
         public float MaxDeviationRadius { get; set; }
 
+        /// <summary>
+        /// Create an instance of 
+        /// </summary>
         public ExponentialSmoothingParameters()
         {
             Smoothing = DEFAULT_SMOOTHING;

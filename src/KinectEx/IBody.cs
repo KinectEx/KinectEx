@@ -27,7 +27,7 @@ namespace KinectEx
         HandState HandRightState { get; set; }
         bool IsRestricted { get; set; }
         bool IsTracked { get; set; }
-        IReadOnlyDictionary<JointType, JointOrientation> JointOrientations { get; }
+        IReadOnlyDictionary<JointType, IJointOrientation> JointOrientations { get; }
         IReadOnlyDictionary<JointType, IJoint> Joints { get; set; }
 #if NETFX_CORE
         Point Lean { get; set; }

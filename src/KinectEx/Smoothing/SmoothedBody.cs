@@ -26,9 +26,11 @@ namespace KinectEx.Smoothing
             ISmoother smoother = (ISmoother)Activator.CreateInstance(typeof(T));
 
             _joints.Clear();
+            _jointOrientations.Clear();
             foreach (var jointType in JointTypeEx.AllJoints)
             {
-                _joints.Add(jointType, (IJoint)Activator.CreateInstance(smoother.CustomJointType, jointType));
+                _joints.Add(jointType, (IJoint)Activator.CreateInstance(smoother.CustomJointType, (JointType)jointType));
+                _jointOrientations.Add(jointType, (IJointOrientation)Activator.CreateInstance(smoother.CustomJointOrientationType, (JointType)jointType));
             }
         }
 
@@ -42,9 +44,11 @@ namespace KinectEx.Smoothing
             ISmoother smoother = (ISmoother)Activator.CreateInstance(typeof(T));
 
             _joints.Clear();
+            _jointOrientations.Clear();
             foreach (var jointType in JointTypeEx.AllJoints)
             {
-                _joints.Add(jointType, (IJoint)Activator.CreateInstance(smoother.CustomJointType, jointType, parameters));
+                _joints.Add(jointType, (IJoint)Activator.CreateInstance(smoother.CustomJointType, (JointType)jointType, parameters));
+                _jointOrientations.Add(jointType, (IJointOrientation)Activator.CreateInstance(smoother.CustomJointOrientationType, (JointType)jointType, parameters));
             }
         }
     }

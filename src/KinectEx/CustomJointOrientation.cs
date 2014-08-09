@@ -16,7 +16,7 @@ namespace KinectEx
     /// are needed to support both the smoothing / filtering and the DVR functions of
     /// the KinectEx library.
     /// </summary>
-    public class CustomJoint : IJoint
+    public class CustomJointOrientation : IJointOrientation
     {
         protected JointType _jointType;
         public virtual JointType JointType
@@ -25,51 +25,43 @@ namespace KinectEx
             set { _jointType = value; }
         }
 
-        protected CameraSpacePoint _position;
-        public virtual CameraSpacePoint Position
+        protected Vector4 _orientation;
+        public virtual Vector4 Orientation
         {
-            get { return _position; }
-            set { _position = value; }
-        }
-
-        protected TrackingState _trackingState;
-        public virtual TrackingState TrackingState
-        {
-            get { return _trackingState; }
-            set { _trackingState = value; }
+            get { return _orientation; }
+            set { _orientation = value; }
         }
 
         /// <summary>
-        /// Create a new <c>CustomJoint</c> object based on the supplied
+        /// Create a new <c>CustomJointOrientation</c> object based on the supplied
         /// <c>JointType</c> value.
         /// </summary>
-        public CustomJoint(JointType type)
+        public CustomJointOrientation(JointType type)
         {
             _jointType = type;
-            _position = new CameraSpacePoint();
-            _trackingState = TrackingState.NotTracked;
+            _orientation = new Vector4();
         }
 
         /// <summary>
-        /// Update the joint position based on the referenced <c>IJoint</c>.
+        /// Update the joint orientation based on the referenced <c>IJointOrientation</c>.
         /// </summary>
-        public virtual void Update(IJoint joint)
+        public virtual void Update(IJointOrientation jointOrientation)
         {
-            if (this.JointType != joint.JointType)
+            if (this.JointType != jointOrientation.JointType)
                 throw new Exception("Cannot Update with Joint of a different Type");
 
-            _trackingState = joint.TrackingState;
-            _position = joint.Position;
+            _orientation = jointOrientation.Orientation;
         }
 
 #if !NOSDK
         /// <summary>
         /// Update the joint position based on the referened <c>Joint</c>.
         /// </summary>
-        public virtual void Update(Joint joint)
+        public virtual void Update(JointOrientation jointOrientation)
         {
-            Update((KinectJoint)joint);
+            Update((KinectJointOrientation)jointOrientation);
         }
 #endif
+
     }
 }
