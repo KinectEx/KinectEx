@@ -152,7 +152,28 @@
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
 </td>
-        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder__ctor');" href="M_KinectEx_DVR_KinectRecorder__ctor.htm" >KinectRecorder</a></td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder__ctor');" href="M_KinectEx_DVR_KinectRecorder__ctor.htm" >KinectRecorder(Stream, KinectSensor)</a></td>
+    <td class="desc-col"><para>
+                Creates a new instance of a <c>KinectRecorder</c> which can save frames to
+                the referenced stream.
+            </para><para>
+                The KinectRecorder can operate in two distinct modes. The "Automatic" mode
+                requires only that you pass a valid <c>KinectSensor</c> object to this
+                constructor. Recording of frames for each enabled frame type happens automatically
+                between the time Start() and StopAsync() are called.
+            </para><para>
+                In certain situations, the developer may wish to have more precise control
+                over when and how frames are recorded. If no <c>KinectSensor</c> is passed in
+                to this constructor, Start() and StopAsync() must still be called to begin and
+                end the recording session. However, the KinectRecorder will be in "Manual" mode,
+                and frames are recorded only when passed in to the RecordFrame() method.
+            </para>&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Constructor"></div>
+</td>
+    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder__ctor_1');" href="M_KinectEx_DVR_KinectRecorder__ctor_1.htm" >KinectRecorder(Stream, KinectSensor)</a></td>
     <td class="desc-col"><para>
                 Creates a new instance of a <c>KinectRecorder</c> which can save frames to
                 the referenced stream.
@@ -198,6 +219,7 @@
                 <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectRecorder_ColorRecorderCodec');" href="P_KinectEx_DVR_KinectRecorder_ColorRecorderCodec.htm" >ColorRecorderCodec</a></td>
     <td class="desc-col">The codec used to encode Color frame images. By default, this is a <c>RawColorCodec</c>
@@ -207,6 +229,7 @@
                 <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectRecorder_EnableBodyRecorder');" href="P_KinectEx_DVR_KinectRecorder_EnableBodyRecorder.htm" >EnableBodyRecorder</a></td>
     <td class="desc-col">Determines whether the KinectRecorder will record Body frames. Applies only when the
@@ -215,6 +238,7 @@
                 <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectRecorder_EnableColorRecorder');" href="P_KinectEx_DVR_KinectRecorder_EnableColorRecorder.htm" >EnableColorRecorder</a></td>
     <td class="desc-col">Determines whether the KinectRecorder will record Color frames. Applies only when the
@@ -223,6 +247,7 @@
                 <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectRecorder_EnableDepthRecorder');" href="P_KinectEx_DVR_KinectRecorder_EnableDepthRecorder.htm" >EnableDepthRecorder</a></td>
     <td class="desc-col">Determines whether the KinectRecorder will record Depth frames. Applies only when the
@@ -231,6 +256,7 @@
                 <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectRecorder_IsStarted');" href="P_KinectEx_DVR_KinectRecorder_IsStarted.htm" >IsStarted</a></td>
     <td class="desc-col">Indicates whether the recorder is currently started. Will be true
@@ -265,6 +291,7 @@
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_Dispose');" href="M_KinectEx_DVR_KinectRecorder_Dispose.htm" >Dispose()</a></td>
     <td class="desc-col">&nbsp;(Implements <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/es4s3w1d"  target='_blank'>IDisposable.Dispose()</a>.)</td>
@@ -272,6 +299,7 @@
                 <tr>        <td class="icon-col">        <div class="icon protmethod" title="Protected Method"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_Dispose_1');" href="M_KinectEx_DVR_KinectRecorder_Dispose_1.htm" >Dispose(bool)</a></td>
     <td class="desc-col">&nbsp;</td>
@@ -279,44 +307,45 @@
                 <tr>        <td class="icon-col">        <div class="icon protmethod" title="Protected Method"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_Finalize');" href="M_KinectEx_DVR_KinectRecorder_Finalize.htm" >Finalize</a></td>
     <td class="desc-col">&nbsp;(Overrides <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/4k87zsw7"  target='_blank'>object.Finalize()</a>.)</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
-    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
-        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame.htm" >RecordFrame(DepthFrame, UInt16[])</a></td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame.htm" >RecordFrame(BodyFrame)</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>BodyFrame</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_1');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_1.htm" >RecordFrame(DepthFrame, UInt16[])</a></td>
     <td class="desc-col">Used in "Manual" mode to record a single <c>DepthFrame</c> if
             the depth frame data has already been retrieved from the frame.&nbsp;</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
-    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
-        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_1');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_1.htm" >RecordFrame(BodyFrame)</a></td>
-    <td class="desc-col">Used in "Manual" mode to record a single <c>BodyFrame</c>.&nbsp;</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_2');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_2.htm" >RecordFrame(DepthFrame)</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>DepthFrame</c>.&nbsp;</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
-    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
-        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_2');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_2.htm" >RecordFrame(BodyFrame, List&lt;CustomBody&gt;)</a></td>
-    <td class="desc-col">Used in "Manual" mode to record a single <c>BodyFrame</c> if
-            the body frame data has already been retrieved from the frame.&nbsp;</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_3');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_3.htm" >RecordFrame(ColorFrame, Byte[])</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>ColorFrame</c> if
+            the color frame data has already been retrieved from the frame.
+            Note that the frame data must have been converted to BGRA format.&nbsp;</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
-    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
-</td>
-        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_3');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_3.htm" >RecordFrame(BodyFrame, Body[])</a></td>
-    <td class="desc-col">Used in "Manual" mode to record a single <c>BodyFrame</c> if
-            the body frame data has already been retrieved from the frame.&nbsp;</td>
-</tr>
-                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
-</td>
-    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_4');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_4.htm" >RecordFrame(ColorFrame)</a></td>
     <td class="desc-col">Used in "Manual" mode to record a single <c>ColorFrame</c>.&nbsp;</td>
@@ -325,7 +354,45 @@
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
 </td>
-        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_5');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_5.htm" >RecordFrame(ColorFrame, Byte[])</a></td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_5');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_5.htm" >RecordFrame(BodyFrame, Body[])</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>BodyFrame</c> if
+            the body frame data has already been retrieved from the frame.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_6');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_6.htm" >RecordFrame(BodyFrame, List&lt;CustomBody&gt;)</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>BodyFrame</c> if
+            the body frame data has already been retrieved from the frame.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_7');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_7.htm" >RecordFrame(BodyFrame)</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>BodyFrame</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_8');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_8.htm" >RecordFrame(DepthFrame, UInt16[])</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>DepthFrame</c> if
+            the depth frame data has already been retrieved from the frame.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_9');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_9.htm" >RecordFrame(DepthFrame)</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>DepthFrame</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_10');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_10.htm" >RecordFrame(ColorFrame, Byte[])</a></td>
     <td class="desc-col">Used in "Manual" mode to record a single <c>ColorFrame</c> if
             the color frame data has already been retrieved from the frame.
             Note that the frame data must have been converted to BGRA format.&nbsp;</td>
@@ -334,12 +401,29 @@
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
 </td>
-        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_6');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_6.htm" >RecordFrame(DepthFrame)</a></td>
-    <td class="desc-col">Used in "Manual" mode to record a single <c>DepthFrame</c>.&nbsp;</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_11');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_11.htm" >RecordFrame(ColorFrame)</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>ColorFrame</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_12');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_12.htm" >RecordFrame(BodyFrame, List&lt;CustomBody&gt;)</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>BodyFrame</c> if
+            the body frame data has already been retrieved from the frame.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_RecordFrame_13');" href="M_KinectEx_DVR_KinectRecorder_RecordFrame_13.htm" >RecordFrame(BodyFrame, Body[])</a></td>
+    <td class="desc-col">Used in "Manual" mode to record a single <c>BodyFrame</c> if
+            the body frame data has already been retrieved from the frame.&nbsp;</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_Start');" href="M_KinectEx_DVR_KinectRecorder_Start.htm" >Start</a></td>
     <td class="desc-col">Start the <c>KinectRecorder</c> session. This will write the file header and
@@ -348,6 +432,7 @@
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectRecorder_StopAsync');" href="M_KinectEx_DVR_KinectRecorder_StopAsync.htm" >StopAsync</a></td>
     <td class="desc-col">Stops the <c>KinectRecorder</c>, writes all frames remaining in the
@@ -379,6 +464,7 @@
         <div class="title"><a id="section_VersionandPlatformInformation_toggle" href="#" class="title"><div id="section_VersionandPlatformInformation_icon" class="toggle_icon out"></div><span class="title">Version and Platform Information</span></a><div class="hr"><hr/></div></div>
         <div id="section_VersionandPlatformInformation_content" class="block">
         Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5"></div>&nbsp;Windows Desktop - .NET 4.5<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>&nbsp;Windows 8.1 Store - WinRT<br/>
 
         </div>
     </div>    

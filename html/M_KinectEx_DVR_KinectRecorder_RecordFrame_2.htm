@@ -22,10 +22,10 @@
         SyntaxHighlighter.all();
     </script>
     <script src="../js/sharpdoc.js" language="javascript"></script>            
-    <meta name="Microsoft.Help.Id" content="M:KinectEx.DVR.KinectRecorder.RecordFrame(Microsoft.Kinect.BodyFrame,System.Collections.Generic.List{KinectEx.CustomBody})" />
+    <meta name="Microsoft.Help.Id" content="M:KinectEx.DVR.KinectRecorder.RecordFrame(WindowsPreview.Kinect.DepthFrame)" />
     <meta name="Microsoft.Help.SelfBranded" content="true" />
     <meta name="Microsoft.Help.Locale" content="en-us" />
-    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DVR.KinectRecorder::RecordFrame(Microsoft.Kinect.BodyFrame,System.Collections.Generic.List" />
+    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DVR.KinectRecorder::RecordFrame(WindowsPreview.Kinect.DepthFrame)" />
     <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
     <meta name="Microsoft.Help.Category" content="DevLang:VB" />
     <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
@@ -58,8 +58,7 @@
 </div>
 <div style="clear: both;"></div>
         
-<div class="summary">Used in "Manual" mode to record a single <c>BodyFrame</c> if
-            the body frame data has already been retrieved from the frame.</div>
+<div class="summary">Used in "Manual" mode to record a single <c>DepthFrame</c>.</div>
 
 <br/>
 <div class="origin">
@@ -92,8 +91,7 @@
 	    </ul>            
         <div class="tabcontent selected">     
         <pre class='brush: csharp;'>public void RecordFrame(
-	BodyFrame frame, 
-	List&lt;CustomBody&gt; bodies
+	DepthFrame frame
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -116,17 +114,7 @@
 					<span class="sdoc-parameter">frame</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="" >Microsoft.Kinect.BodyFrame</a><br />
-						
-					</span>            
-				</dd>
-			</dl>
-			<dl>
-				<dt>
-					<span class="sdoc-parameter">bodies</span>
-				</dt>
-				<dd>
-					<span>Type: <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/6sh2ey19"  target='_blank'>List</a>&lt;<a target="mainFrame" onclick="hightLightTopic('T_KinectEx_CustomBody');" href="T_KinectEx_CustomBody.htm" >CustomBody</a>&gt;<br />
+					<span>Type: <a target="_blank" href="" >WindowsPreview.Kinect.DepthFrame</a><br />
 						
 					</span>            
 				</dd>
@@ -155,7 +143,7 @@
     <div id="section_VersionandPlatformInformation" class="section">
         <div class="title"><a id="section_VersionandPlatformInformation_toggle" href="#" class="title"><div id="section_VersionandPlatformInformation_icon" class="toggle_icon out"></div><span class="title">Version and Platform Information</span></a><div class="hr"><hr/></div></div>
         <div id="section_VersionandPlatformInformation_content" class="block">
-        Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5"></div>&nbsp;Windows Desktop - .NET 4.5<br/>
+        Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>&nbsp;Windows 8.1 Store - WinRT<br/>
 
         </div>
     </div>    

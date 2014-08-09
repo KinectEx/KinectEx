@@ -22,10 +22,10 @@
         SyntaxHighlighter.all();
     </script>
     <script src="../js/sharpdoc.js" language="javascript"></script>            
-    <meta name="Microsoft.Help.Id" content="M:KinectEx.BodyExtensions.GetVector(Microsoft.Kinect.Body,KinectEx.BoneTypeEx,System.Boolean)" />
+    <meta name="Microsoft.Help.Id" content="M:KinectEx.BodyExtensions.GetVector(Microsoft.Kinect.Body,Microsoft.Kinect.JointType,Microsoft.Kinect.JointType)" />
     <meta name="Microsoft.Help.SelfBranded" content="true" />
     <meta name="Microsoft.Help.Locale" content="en-us" />
-    <meta name="Microsoft.Help.F1" content="SharpDX.Vector3 KinectEx.BodyExtensions::GetVector(Microsoft.Kinect.Body,KinectEx.BoneTypeEx,System.Boolean)" />
+    <meta name="Microsoft.Help.F1" content="SharpDX.Vector3 KinectEx.BodyExtensions::GetVector(Microsoft.Kinect.Body,Microsoft.Kinect.JointType,Microsoft.Kinect.JointType)" />
     <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
     <meta name="Microsoft.Help.Category" content="DevLang:VB" />
     <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
@@ -59,8 +59,7 @@
 <div style="clear: both;"></div>
         
 <div class="summary">Get a <c>Vector3</c> (SharpDX / DirectX) object representing the vector 
-            between the joints of the specified <c>BoneTypeEx</c> value. Optionally
-            allows for the bone to be inverted to achieve the desired orientation.</div>
+            between two given <c>JointType</c> values..</div>
 
 <br/>
 <div class="origin">
@@ -95,8 +94,8 @@
         <pre class='brush: csharp;'>[ExtensionAttribute]
 public static Vector3 GetVector(
 	this Body body, 
-	BoneTypeEx boneType, 
-	bool invert
+	JointType jointTypeA, 
+	JointType jointTypeB
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -126,20 +125,20 @@ public static Vector3 GetVector(
 			</dl>
 			<dl>
 				<dt>
-					<span class="sdoc-parameter">boneType</span>
+					<span class="sdoc-parameter">jointTypeA</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_BoneTypeEx');" href="T_KinectEx_BoneTypeEx.htm" >KinectEx.BoneTypeEx</a><br />
+					<span>Type: <a target="_blank" href="" >Microsoft.Kinect.JointType</a><br />
 						
 					</span>            
 				</dd>
 			</dl>
 			<dl>
 				<dt>
-					<span class="sdoc-parameter">invert</span>
+					<span class="sdoc-parameter">jointTypeB</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/a28wyd50"  target='_blank'>System.Boolean</a><br />
+					<span>Type: <a target="_blank" href="" >Microsoft.Kinect.JointType</a><br />
 						
 					</span>            
 				</dd>
