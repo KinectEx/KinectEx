@@ -1,7 +1,5 @@
 index.htm|index
-main.htm|SharpDoc
-test.htm|TestSharpDoc
-api.htm|Class Library Reference
+api.htm|KinectEx Reference
 search-results.htm|Search results
 N_KinectEx.htm|KinectEx Namespace (KinectEx)
 T_KinectEx_BodyExtensions.htm|BodyExtensions Class (KinectEx)
