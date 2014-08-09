@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+    <head>
+    	<title>CustomBody Class (KinectEx)</title>
+    <link href="../syntaxhighlighter/styles/shCoreDefault.css" rel="stylesheet" type="text/css" />
+    <link href="../css/syntaxHighlighter.css" rel="stylesheet" type="text/css" />
+    <link href="../css/sharpdoc.css" rel="stylesheet" type="text/css" />
+    <script src="../js/mootools.js" language="javascript"></script>
+    <script src="../js/mootools-more.js" language="javascript"></script>
+    <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushXml.js" type="text/javascript"></script>
+    <script type="text/javascript" language="javascript">
+        SyntaxHighlighter.defaults['gutter'] = false;
+        SyntaxHighlighter.defaults['smart-tabs'] = false;
+        SyntaxHighlighter.all();
+    </script>
+    <script src="../js/sharpdoc.js" language="javascript"></script>            
+    <meta name="Microsoft.Help.Id" content="T:KinectEx.CustomBody" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Microsoft.Help.Locale" content="en-us" />
+    <meta name="Microsoft.Help.F1" content="KinectEx.CustomBody" />
+    <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
+    <meta name="Microsoft.Help.Category" content="DevLang:VB" />
+    <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
+    <meta name="Microsoft.Help.Category" content="DevLang:FSharp" />
+        <meta name="Microsoft.Help.TocParent" content="N:KinectEx" />
+        <meta name="Microsoft.Help.TocOrder" content="-1" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+    </head>
+	<body>
+        <script type="text/javascript" language="javascript">
+            if(window == window.top)
+                location.href = "index.htm?page=T_KinectEx_CustomBody";
+            document.addEvent('domready', function () {
+                InstallCodeTabs();
+            });
+    </script>
+    <div class="sharpdoc">
+        <div class="content">
+            
+
+
+
+
+
+
+
+
+<div class="content-title">
+	<h1 id="#top" class="content-title">CustomBody Class (KinectEx)</h1>
+</div>
+<div style="clear: both;"></div>
+        
+<div class="summary">This class effectively mimics the Kinect SDK's <c>Body</c> struct, but does
+            so with a class that can be serialized and is not sealed. These capabilities
+            are needed to support both the smoothing / filtering and the DVR functions of
+            the KinectEx library.</div>
+
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_partial_inheritance_slider = new Fx.Slide('section_partial_inheritance_content');
+            $('section_partial_inheritance_toggle').addEvent('click', function (event) {
+                $('section_partial_inheritance_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_partial_inheritance_slider.open]);
+                event.stop();
+                section_partial_inheritance_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_partial_inheritance" class="section">
+        <div class="title"><a id="section_partial_inheritance_toggle" href="#" class="title"><div id="section_partial_inheritance_icon" class="toggle_icon out"></div><span class="title">Inheritance Hierarchy</span></a><div class="hr"><hr/></div></div>
+        <div id="section_partial_inheritance_content" class="block">
+        <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/e5kfa45b"  target='_blank'>System.Object</a><br />&nbsp;&nbsp;&nbsp;<strong>KinectEx.CustomBody</strong><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="mainFrame" onclick="hightLightTopic('T_KinectEx_Smoothing_SmoothedBody_1');" href="T_KinectEx_Smoothing_SmoothedBody_1.htm" >KinectEx.Smoothing.SmoothedBody&lt;T&gt;</a><br />
+        </div>
+    </div>    
+<br/>
+<div class="origin">
+<strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx</a><br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+      
+
+</div>
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Syntax_slider = new Fx.Slide('section_Syntax_content');
+            $('section_Syntax_toggle').addEvent('click', function (event) {
+                $('section_Syntax_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Syntax_slider.open]);
+                event.stop();
+                section_Syntax_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Syntax" class="section">
+        <div class="title"><a id="section_Syntax_toggle" href="#" class="title"><div id="section_Syntax_icon" class="toggle_icon out"></div><span class="title">Syntax</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Syntax_content" class="block">
+            <div class="grouptab">
+	    <ul class="tabs"> 
+            <li class="code selected tab">C#</li> 
+    	    <li class="code tab">VB</li> 
+    	    <li class="code tab">C++</li> 
+    	    <li class="code tab">F#</li> 
+	    </ul>            
+        <div class="tabcontent selected">     
+        <pre class='brush: csharp;'>public class CustomBody : IBody</pre>
+        </div>
+        <div class="tabcontent">     
+            <p>Syntax for VB is not yet implemented.</p>
+
+        </div>
+        <div class="tabcontent">     
+            <p>Syntax for C++ is not yet implemented</p>
+
+        </div>
+        <div class="tabcontent">     
+            <p>Syntax for F# is not yet implemented.</p>
+
+        </div>
+    </div>
+        <p>The CustomBody type exposes the following members.</p>
+
+        </div>
+    </div>    
+
+<div class="members">
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Constructors_slider = new Fx.Slide('section_Constructors_content');
+            $('section_Constructors_toggle').addEvent('click', function (event) {
+                $('section_Constructors_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Constructors_slider.open]);
+                event.stop();
+                section_Constructors_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Constructors" class="section">
+        <div class="title"><a id="section_Constructors_toggle" href="#" class="title"><div id="section_Constructors_icon" class="toggle_icon out"></div><span class="title">Constructors</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Constructors_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Constructor"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_CustomBody__ctor');" href="M_KinectEx_CustomBody__ctor.htm" >CustomBody</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Fields_slider = new Fx.Slide('section_Fields_content');
+            $('section_Fields_toggle').addEvent('click', function (event) {
+                $('section_Fields_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Fields_slider.open]);
+                event.stop();
+                section_Fields_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Fields" class="section">
+        <div class="title"><a id="section_Fields_toggle" href="#" class="title"><div id="section_Fields_icon" class="toggle_icon out"></div><span class="title">Fields</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Fields_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__activities');" href="F_KinectEx_CustomBody__activities.htm" >_activities</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__appearance');" href="F_KinectEx_CustomBody__appearance.htm" >_appearance</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__clippedEdges');" href="F_KinectEx_CustomBody__clippedEdges.htm" >_clippedEdges</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__engaged');" href="F_KinectEx_CustomBody__engaged.htm" >_engaged</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__expressions');" href="F_KinectEx_CustomBody__expressions.htm" >_expressions</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__handLeftConfidence');" href="F_KinectEx_CustomBody__handLeftConfidence.htm" >_handLeftConfidence</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__handLeftState');" href="F_KinectEx_CustomBody__handLeftState.htm" >_handLeftState</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__handRightConfidence');" href="F_KinectEx_CustomBody__handRightConfidence.htm" >_handRightConfidence</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__handRightState');" href="F_KinectEx_CustomBody__handRightState.htm" >_handRightState</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__isDisposed');" href="F_KinectEx_CustomBody__isDisposed.htm" >_isDisposed</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__isRestricted');" href="F_KinectEx_CustomBody__isRestricted.htm" >_isRestricted</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__isTracked');" href="F_KinectEx_CustomBody__isTracked.htm" >_isTracked</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__jointOrientations');" href="F_KinectEx_CustomBody__jointOrientations.htm" >_jointOrientations</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__joints');" href="F_KinectEx_CustomBody__joints.htm" >_joints</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__lean');" href="F_KinectEx_CustomBody__lean.htm" >_lean</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__leanTrackingState');" href="F_KinectEx_CustomBody__leanTrackingState.htm" >_leanTrackingState</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protfield" title="Protected Field"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_CustomBody__trackingId');" href="F_KinectEx_CustomBody__trackingId.htm" >_trackingId</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Properties_slider = new Fx.Slide('section_Properties_content');
+            $('section_Properties_toggle').addEvent('click', function (event) {
+                $('section_Properties_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Properties_slider.open]);
+                event.stop();
+                section_Properties_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Properties" class="section">
+        <div class="title"><a id="section_Properties_toggle" href="#" class="title"><div id="section_Properties_icon" class="toggle_icon out"></div><span class="title">Properties</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Properties_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_Activities');" href="P_KinectEx_CustomBody_Activities.htm" >Activities</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_Activities');" href="P_KinectEx_IBody_Activities.htm" >IBody.Activities()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_Appearance');" href="P_KinectEx_CustomBody_Appearance.htm" >Appearance</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_Appearance');" href="P_KinectEx_IBody_Appearance.htm" >IBody.Appearance()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_ClippedEdges');" href="P_KinectEx_CustomBody_ClippedEdges.htm" >ClippedEdges</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_ClippedEdges');" href="P_KinectEx_IBody_ClippedEdges.htm" >IBody.ClippedEdges()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_Engaged');" href="P_KinectEx_CustomBody_Engaged.htm" >Engaged</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_Engaged');" href="P_KinectEx_IBody_Engaged.htm" >IBody.Engaged()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_Expressions');" href="P_KinectEx_CustomBody_Expressions.htm" >Expressions</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_Expressions');" href="P_KinectEx_IBody_Expressions.htm" >IBody.Expressions()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_HandLeftConfidence');" href="P_KinectEx_CustomBody_HandLeftConfidence.htm" >HandLeftConfidence</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_HandLeftConfidence');" href="P_KinectEx_IBody_HandLeftConfidence.htm" >IBody.HandLeftConfidence()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_HandLeftState');" href="P_KinectEx_CustomBody_HandLeftState.htm" >HandLeftState</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_HandLeftState');" href="P_KinectEx_IBody_HandLeftState.htm" >IBody.HandLeftState()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_HandRightConfidence');" href="P_KinectEx_CustomBody_HandRightConfidence.htm" >HandRightConfidence</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_HandRightConfidence');" href="P_KinectEx_IBody_HandRightConfidence.htm" >IBody.HandRightConfidence()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_HandRightState');" href="P_KinectEx_CustomBody_HandRightState.htm" >HandRightState</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_HandRightState');" href="P_KinectEx_IBody_HandRightState.htm" >IBody.HandRightState()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_IsDisposed');" href="P_KinectEx_CustomBody_IsDisposed.htm" >IsDisposed</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_IsRestricted');" href="P_KinectEx_CustomBody_IsRestricted.htm" >IsRestricted</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_IsRestricted');" href="P_KinectEx_IBody_IsRestricted.htm" >IBody.IsRestricted()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_IsTracked');" href="P_KinectEx_CustomBody_IsTracked.htm" >IsTracked</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_IsTracked');" href="P_KinectEx_IBody_IsTracked.htm" >IBody.IsTracked()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_JointOrientations');" href="P_KinectEx_CustomBody_JointOrientations.htm" >JointOrientations</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_JointOrientations');" href="P_KinectEx_IBody_JointOrientations.htm" >IBody.JointOrientations()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_Joints');" href="P_KinectEx_CustomBody_Joints.htm" >Joints</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_Joints');" href="P_KinectEx_IBody_Joints.htm" >IBody.Joints()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_Lean');" href="P_KinectEx_CustomBody_Lean.htm" >Lean</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_Lean');" href="P_KinectEx_IBody_Lean.htm" >IBody.Lean()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_LeanTrackingState');" href="P_KinectEx_CustomBody_LeanTrackingState.htm" >LeanTrackingState</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_LeanTrackingState');" href="P_KinectEx_IBody_LeanTrackingState.htm" >IBody.LeanTrackingState()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_TrackingId');" href="P_KinectEx_CustomBody_TrackingId.htm" >TrackingId</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IBody_TrackingId');" href="P_KinectEx_IBody_TrackingId.htm" >IBody.TrackingId()</a>.)</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Methods_slider = new Fx.Slide('section_Methods_content');
+            $('section_Methods_toggle').addEvent('click', function (event) {
+                $('section_Methods_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Methods_slider.open]);
+                event.stop();
+                section_Methods_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Methods" class="section">
+        <div class="title"><a id="section_Methods_toggle" href="#" class="title"><div id="section_Methods_icon" class="toggle_icon out"></div><span class="title">Methods</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Methods_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_CustomBody_Update');" href="M_KinectEx_CustomBody_Update.htm" >Update(IBody)</a></td>
+    <td class="desc-col">Updates the values of this <c>CustomBody</c> with the values contained
+            in the referenced <c>IBody</c>.&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('M_KinectEx_IBody_Update_1');" href="M_KinectEx_IBody_Update_1.htm" >IBody.Update()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_CustomBody_Update_1');" href="M_KinectEx_CustomBody_Update_1.htm" >Update(Body)</a></td>
+    <td class="desc-col">Updates the values of this <c>CustomBody</c> with the values contained
+            in the referenced <c>Body</c>.&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('M_KinectEx_IBody_Update');" href="M_KinectEx_IBody_Update.htm" >IBody.Update()</a>.)</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+
+
+
+
+
+	
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_VersionandPlatformInformation_slider = new Fx.Slide('section_VersionandPlatformInformation_content');
+            $('section_VersionandPlatformInformation_toggle').addEvent('click', function (event) {
+                $('section_VersionandPlatformInformation_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_VersionandPlatformInformation_slider.open]);
+                event.stop();
+                section_VersionandPlatformInformation_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_VersionandPlatformInformation" class="section">
+        <div class="title"><a id="section_VersionandPlatformInformation_toggle" href="#" class="title"><div id="section_VersionandPlatformInformation_icon" class="toggle_icon out"></div><span class="title">Version and Platform Information</span></a><div class="hr"><hr/></div></div>
+        <div id="section_VersionandPlatformInformation_content" class="block">
+        Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5"></div>&nbsp;Windows Desktop - .NET 4.5<br/>
+
+        </div>
+    </div>    
+
+
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_SeeAlso_slider = new Fx.Slide('section_SeeAlso_content');
+            $('section_SeeAlso_toggle').addEvent('click', function (event) {
+                $('section_SeeAlso_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_SeeAlso_slider.open]);
+                event.stop();
+                section_SeeAlso_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_SeeAlso" class="section">
+        <div class="title"><a id="section_SeeAlso_toggle" href="#" class="title"><div id="section_SeeAlso_icon" class="toggle_icon out"></div><span class="title">See Also</span></a><div class="hr"><hr/></div></div>
+        <div id="section_SeeAlso_content" class="block">
+        <h4 class='sdoc-subheading'>Reference</h4>
+<div class='seeAlsoStyle'>
+<a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx Namespace (KinectEx)</a></div>
+<div class='seeAlsoStyle'>
+<a target="mainFrame" onclick="hightLightTopic('api');" href="api.htm" >Class Library Reference</a></div>
+
+        </div>
+    </div>    
+
+</div>
+
+
+        </div>
+    </div>
+
+
+    
+    <br />
+    <br />
+    <br />
+
+	</body>
+</html>                                                                                

@@ -1,0 +1,492 @@
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+    <head>
+    	<title>BodyExtensions Class (KinectEx)</title>
+    <link href="../syntaxhighlighter/styles/shCoreDefault.css" rel="stylesheet" type="text/css" />
+    <link href="../css/syntaxHighlighter.css" rel="stylesheet" type="text/css" />
+    <link href="../css/sharpdoc.css" rel="stylesheet" type="text/css" />
+    <script src="../js/mootools.js" language="javascript"></script>
+    <script src="../js/mootools-more.js" language="javascript"></script>
+    <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushXml.js" type="text/javascript"></script>
+    <script type="text/javascript" language="javascript">
+        SyntaxHighlighter.defaults['gutter'] = false;
+        SyntaxHighlighter.defaults['smart-tabs'] = false;
+        SyntaxHighlighter.all();
+    </script>
+    <script src="../js/sharpdoc.js" language="javascript"></script>            
+    <meta name="Microsoft.Help.Id" content="T:KinectEx.BodyExtensions" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Microsoft.Help.Locale" content="en-us" />
+    <meta name="Microsoft.Help.F1" content="KinectEx.BodyExtensions" />
+    <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
+    <meta name="Microsoft.Help.Category" content="DevLang:VB" />
+    <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
+    <meta name="Microsoft.Help.Category" content="DevLang:FSharp" />
+        <meta name="Microsoft.Help.TocParent" content="N:KinectEx" />
+        <meta name="Microsoft.Help.TocOrder" content="-1" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+    </head>
+	<body>
+        <script type="text/javascript" language="javascript">
+            if(window == window.top)
+                location.href = "index.htm?page=T_KinectEx_BodyExtensions";
+            document.addEvent('domready', function () {
+                InstallCodeTabs();
+            });
+    </script>
+    <div class="sharpdoc">
+        <div class="content">
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="content-title">
+	<h1 id="#top" class="content-title">BodyExtensions Class (KinectEx)</h1>
+</div>
+<div style="clear: both;"></div>
+        
+<div class="summary">Contains a number of helpful extensions to Kinect Body (and KinectEx IBody)
+            class. Included are methods to get individual bones (really start and end
+            joints), find angles between bones (whether connected by a common joint or
+            not), and to find the distance between joints.</div>
+
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_partial_inheritance_slider = new Fx.Slide('section_partial_inheritance_content');
+            $('section_partial_inheritance_toggle').addEvent('click', function (event) {
+                $('section_partial_inheritance_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_partial_inheritance_slider.open]);
+                event.stop();
+                section_partial_inheritance_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_partial_inheritance" class="section">
+        <div class="title"><a id="section_partial_inheritance_toggle" href="#" class="title"><div id="section_partial_inheritance_icon" class="toggle_icon out"></div><span class="title">Inheritance Hierarchy</span></a><div class="hr"><hr/></div></div>
+        <div id="section_partial_inheritance_content" class="block">
+        <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/e5kfa45b"  target='_blank'>System.Object</a><br />&nbsp;&nbsp;&nbsp;<strong>KinectEx.BodyExtensions</strong><br/>
+        </div>
+    </div>    
+<br/>
+<div class="origin">
+<strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx</a><br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+      
+
+</div>
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Syntax_slider = new Fx.Slide('section_Syntax_content');
+            $('section_Syntax_toggle').addEvent('click', function (event) {
+                $('section_Syntax_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Syntax_slider.open]);
+                event.stop();
+                section_Syntax_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Syntax" class="section">
+        <div class="title"><a id="section_Syntax_toggle" href="#" class="title"><div id="section_Syntax_icon" class="toggle_icon out"></div><span class="title">Syntax</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Syntax_content" class="block">
+            <div class="grouptab">
+	    <ul class="tabs"> 
+            <li class="code selected tab">C#</li> 
+    	    <li class="code tab">VB</li> 
+    	    <li class="code tab">C++</li> 
+    	    <li class="code tab">F#</li> 
+	    </ul>            
+        <div class="tabcontent selected">     
+        <pre class='brush: csharp;'>[ExtensionAttribute]
+public static class BodyExtensions</pre>
+        </div>
+        <div class="tabcontent">     
+            <p>Syntax for VB is not yet implemented.</p>
+
+        </div>
+        <div class="tabcontent">     
+            <p>Syntax for C++ is not yet implemented</p>
+
+        </div>
+        <div class="tabcontent">     
+            <p>Syntax for F# is not yet implemented.</p>
+
+        </div>
+    </div>
+        <p>The BodyExtensions type exposes the following members.</p>
+
+        </div>
+    </div>    
+
+<div class="members">
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Properties_slider = new Fx.Slide('section_Properties_content');
+            $('section_Properties_toggle').addEvent('click', function (event) {
+                $('section_Properties_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Properties_slider.open]);
+                event.stop();
+                section_Properties_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Properties" class="section">
+        <div class="title"><a id="section_Properties_toggle" href="#" class="title"><div id="section_Properties_icon" class="toggle_icon out"></div><span class="title">Properties</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Properties_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_BodyExtensions_BonesAt');" href="P_KinectEx_BodyExtensions_BonesAt.htm" >BonesAt</a></td>
+    <td class="desc-col">Lists the two <c>BoneTypeEx</c> values that intersect at a given joint.&nbsp;</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Methods_slider = new Fx.Slide('section_Methods_content');
+            $('section_Methods_toggle').addEvent('click', function (event) {
+                $('section_Methods_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Methods_slider.open]);
+                event.stop();
+                section_Methods_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Methods" class="section">
+        <div class="title"><a id="section_Methods_toggle" href="#" class="title"><div id="section_Methods_icon" class="toggle_icon out"></div><span class="title">Methods</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Methods_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_AngleBetween');" href="M_KinectEx_BodyExtensions_AngleBetween.htm" >AngleBetween</a></td>
+    <td class="desc-col">Gets the angle between two <c>Vector3</c> (SharpDX / DirectX) values.
+            Derived from System.Media.Media3D.Vector3D source code.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetAngleAt');" href="M_KinectEx_BodyExtensions_GetAngleAt.htm" >GetAngleAt(Body, JointType)</a></td>
+    <td class="desc-col">Returns the angle (in degrees) between the two bones that
+            intersect at the specified <c>JointType</c> value.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetAngleAt_1');" href="M_KinectEx_BodyExtensions_GetAngleAt_1.htm" >GetAngleAt(IBody, JointTypeEx)</a></td>
+    <td class="desc-col">Returns the angle (in degrees) between the two bones that
+            intersect at the specified <c>JointTypeEx</c> value.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetAngleBetween');" href="M_KinectEx_BodyExtensions_GetAngleBetween.htm" >GetAngleBetween(Body, BoneTypeEx, BoneTypeEx, bool, bool)</a></td>
+    <td class="desc-col">Returns the angle (in degrees) between the two specified
+            <c>BoneTypeEx</c> values. Optionally allows for either or
+            both bones to be inverted to achieve the desired orientation.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetAngleBetween_1');" href="M_KinectEx_BodyExtensions_GetAngleBetween_1.htm" >GetAngleBetween(IBody, BoneTypeEx, BoneTypeEx, bool, bool)</a></td>
+    <td class="desc-col">Returns the angle (in degrees) between the two specified
+            <c>BoneTypeEx</c> values. Optionally allows for either or
+            both bones to be inverted to achieve the desired orientation.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetBone');" href="M_KinectEx_BodyExtensions_GetBone.htm" >GetBone(IBody, BoneTypeEx)</a></td>
+    <td class="desc-col">Gets a <c>Bone</c> structure containing the two <c>IJoint</c> values
+            that constitute the start and end of the specified <c>BoneTypeEx</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetBone_1');" href="M_KinectEx_BodyExtensions_GetBone_1.htm" >GetBone(Body, BoneTypeEx)</a></td>
+    <td class="desc-col">Gets a <c>Bone</c> structure containing the two <c>IJoint</c> values
+            that constitute the start and end of the specified <c>BoneTypeEx</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetBonesAt');" href="M_KinectEx_BodyExtensions_GetBonesAt.htm" >GetBonesAt(IBody, JointTypeEx)</a></td>
+    <td class="desc-col">Gets a list of the two <c>Bone</c> values that share the specified
+            <c>JointTypeEx</c> value.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetBonesAt_1');" href="M_KinectEx_BodyExtensions_GetBonesAt_1.htm" >GetBonesAt(Body, JointType)</a></td>
+    <td class="desc-col">Gets a list of the two <c>Bone</c> values that share the specified
+            <c>JointType</c> value.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetDistanceBetween');" href="M_KinectEx_BodyExtensions_GetDistanceBetween.htm" >GetDistanceBetween(Body, JointTypeEx, JointTypeEx)</a></td>
+    <td class="desc-col">Returns the distance (in meters) between the two specified joints.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetDistanceBetween_1');" href="M_KinectEx_BodyExtensions_GetDistanceBetween_1.htm" >GetDistanceBetween(IBody, JointTypeEx, JointTypeEx)</a></td>
+    <td class="desc-col">Returns the distance (in meters) between the two specified joints.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetMirroredJoint');" href="M_KinectEx_BodyExtensions_GetMirroredJoint.htm" >GetMirroredJoint(Body, JointType)</a></td>
+    <td class="desc-col">Gets an <c>IJoint</c> object representing the joint that mirrors the 
+            specified <c>JointType</c> (e.g., the left wrist mirrors the right wrist).&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetMirroredJoint_1');" href="M_KinectEx_BodyExtensions_GetMirroredJoint_1.htm" >GetMirroredJoint(IBody, JointTypeEx)</a></td>
+    <td class="desc-col">Gets an <c>IJoint</c> object representing the joint that mirrors the 
+            specified <c>JointTypeEx</c> (e.g., the left wrist mirrors the right wrist).&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetMirroredJointOrientation');" href="M_KinectEx_BodyExtensions_GetMirroredJointOrientation.htm" >GetMirroredJointOrientation(Body, JointType)</a></td>
+    <td class="desc-col">Gets the <c>IJointOrientation</c> of the joint that mirrors the specified
+            <c>JointType</c> (e.g., the left wrist mirrors the right wrist).&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetMirroredJointOrientation_1');" href="M_KinectEx_BodyExtensions_GetMirroredJointOrientation_1.htm" >GetMirroredJointOrientation(IBody, JointTypeEx)</a></td>
+    <td class="desc-col">Gets the <c>IJointOrientation</c> of the joint that mirrors the specified
+            <c>JointTypeEx</c> (e.g., the left wrist mirrors the right wrist).&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetVector');" href="M_KinectEx_BodyExtensions_GetVector.htm" >GetVector(Body, BoneTypeEx, bool)</a></td>
+    <td class="desc-col">Get a <c>Vector3</c> (SharpDX / DirectX) object representing the vector 
+            between the joints of the specified <c>BoneTypeEx</c> value. Optionally
+            allows for the bone to be inverted to achieve the desired orientation.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetVector_1');" href="M_KinectEx_BodyExtensions_GetVector_1.htm" >GetVector(IBody, BoneTypeEx, bool)</a></td>
+    <td class="desc-col">Get a <c>Vector3</c> (SharpDX / DirectX) object representing the vector 
+            between the joints of the specified <c>BoneTypeEx</c> value. Optionally
+            allows for the bone to be inverted to achieve the desired orientation.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetVector_2');" href="M_KinectEx_BodyExtensions_GetVector_2.htm" >GetVector(IBody, JointTypeEx, JointTypeEx)</a></td>
+    <td class="desc-col">Get a <c>Vector3</c> (SharpDX / DirectX) object representing the vector 
+            between two given <c>JointTypeEx</c> values..&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_GetVector_3');" href="M_KinectEx_BodyExtensions_GetVector_3.htm" >GetVector(Body, JointType, JointType)</a></td>
+    <td class="desc-col">Get a <c>Vector3</c> (SharpDX / DirectX) object representing the vector 
+            between two given <c>JointType</c> values..&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_RefreshFromBodyArray__1');" href="M_KinectEx_BodyExtensions_RefreshFromBodyArray__1.htm" >RefreshFromBodyArray&lt;T&gt;</a></td>
+    <td class="desc-col">Similar to the Kinect SDK method BodyFrame.GetAndRefreshBodyData, this
+            method uses the values from the specified <c>Body</c> array to update
+            the values in this collection. If the current collection does not contain
+            the correct number of bodies, this method clears and refills this collection
+            with new bodies of type T. Note that if this behavior is undesirable,
+            insure that the collection contains the right number of bodies before
+            calling this method.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_BodyExtensions_RefreshFromBodyList__1');" href="M_KinectEx_BodyExtensions_RefreshFromBodyList__1.htm" >RefreshFromBodyList&lt;T&gt;</a></td>
+    <td class="desc-col">Similar to the Kinect SDK method BodyFrame.GetAndRefreshBodyData, this
+            method uses the values from the source <c>IBody</c> collection to update
+            the values in this collection. If the current collection does not contain
+            the correct number of bodies, this method clears and refills this collection
+            with new bodies of type T. Note that if this behavior is undesirable,
+            insure that the collection contains the right number of bodies before
+            calling this method.&nbsp;</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+
+
+
+
+
+	
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_VersionandPlatformInformation_slider = new Fx.Slide('section_VersionandPlatformInformation_content');
+            $('section_VersionandPlatformInformation_toggle').addEvent('click', function (event) {
+                $('section_VersionandPlatformInformation_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_VersionandPlatformInformation_slider.open]);
+                event.stop();
+                section_VersionandPlatformInformation_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_VersionandPlatformInformation" class="section">
+        <div class="title"><a id="section_VersionandPlatformInformation_toggle" href="#" class="title"><div id="section_VersionandPlatformInformation_icon" class="toggle_icon out"></div><span class="title">Version and Platform Information</span></a><div class="hr"><hr/></div></div>
+        <div id="section_VersionandPlatformInformation_content" class="block">
+        Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5"></div>&nbsp;Windows Desktop - .NET 4.5<br/>
+
+        </div>
+    </div>    
+
+
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_SeeAlso_slider = new Fx.Slide('section_SeeAlso_content');
+            $('section_SeeAlso_toggle').addEvent('click', function (event) {
+                $('section_SeeAlso_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_SeeAlso_slider.open]);
+                event.stop();
+                section_SeeAlso_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_SeeAlso" class="section">
+        <div class="title"><a id="section_SeeAlso_toggle" href="#" class="title"><div id="section_SeeAlso_icon" class="toggle_icon out"></div><span class="title">See Also</span></a><div class="hr"><hr/></div></div>
+        <div id="section_SeeAlso_content" class="block">
+        <h4 class='sdoc-subheading'>Reference</h4>
+<div class='seeAlsoStyle'>
+<a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx Namespace (KinectEx)</a></div>
+<div class='seeAlsoStyle'>
+<a target="mainFrame" onclick="hightLightTopic('api');" href="api.htm" >Class Library Reference</a></div>
+
+        </div>
+    </div>    
+
+</div>
+
+
+        </div>
+    </div>
+
+
+    
+    <br />
+    <br />
+    <br />
+
+	</body>
+</html>                                                                                

@@ -1,0 +1,488 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+    <head>
+    	<title>KinectReplay Class (KinectEx.DVR)</title>
+    <link href="../syntaxhighlighter/styles/shCoreDefault.css" rel="stylesheet" type="text/css" />
+    <link href="../css/syntaxHighlighter.css" rel="stylesheet" type="text/css" />
+    <link href="../css/sharpdoc.css" rel="stylesheet" type="text/css" />
+    <script src="../js/mootools.js" language="javascript"></script>
+    <script src="../js/mootools-more.js" language="javascript"></script>
+    <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushXml.js" type="text/javascript"></script>
+    <script type="text/javascript" language="javascript">
+        SyntaxHighlighter.defaults['gutter'] = false;
+        SyntaxHighlighter.defaults['smart-tabs'] = false;
+        SyntaxHighlighter.all();
+    </script>
+    <script src="../js/sharpdoc.js" language="javascript"></script>            
+    <meta name="Microsoft.Help.Id" content="T:KinectEx.DVR.KinectReplay" />
+    <meta name="Microsoft.Help.SelfBranded" content="true" />
+    <meta name="Microsoft.Help.Locale" content="en-us" />
+    <meta name="Microsoft.Help.F1" content="KinectEx.DVR.KinectReplay" />
+    <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
+    <meta name="Microsoft.Help.Category" content="DevLang:VB" />
+    <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
+    <meta name="Microsoft.Help.Category" content="DevLang:FSharp" />
+        <meta name="Microsoft.Help.TocParent" content="N:KinectEx.DVR" />
+        <meta name="Microsoft.Help.TocOrder" content="-1" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+    </head>
+	<body>
+        <script type="text/javascript" language="javascript">
+            if(window == window.top)
+                location.href = "index.htm?page=T_KinectEx_DVR_KinectReplay";
+            document.addEvent('domready', function () {
+                InstallCodeTabs();
+            });
+    </script>
+    <div class="sharpdoc">
+        <div class="content">
+            
+
+
+
+
+
+
+
+
+<div class="content-title">
+	<h1 id="#top" class="content-title">KinectReplay Class (KinectEx.DVR)</h1>
+</div>
+<div style="clear: both;"></div>
+        
+<div class="summary">This class is one of two primary programmatic interfaces into the 
+            KinectEx.DVR subsystem. Created to enable playback of frames from
+            a <c>Stream</c>.</div>
+
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_partial_inheritance_slider = new Fx.Slide('section_partial_inheritance_content');
+            $('section_partial_inheritance_toggle').addEvent('click', function (event) {
+                $('section_partial_inheritance_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_partial_inheritance_slider.open]);
+                event.stop();
+                section_partial_inheritance_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_partial_inheritance" class="section">
+        <div class="title"><a id="section_partial_inheritance_toggle" href="#" class="title"><div id="section_partial_inheritance_icon" class="toggle_icon out"></div><span class="title">Inheritance Hierarchy</span></a><div class="hr"><hr/></div></div>
+        <div id="section_partial_inheritance_content" class="block">
+        <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/e5kfa45b"  target='_blank'>System.Object</a><br />&nbsp;&nbsp;&nbsp;<strong>KinectEx.DVR.KinectReplay</strong><br/>
+        </div>
+    </div>    
+<br/>
+<div class="origin">
+<strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_DVR');" href="N_KinectEx_DVR.htm" >KinectEx.DVR</a><br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+      
+
+</div>
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Syntax_slider = new Fx.Slide('section_Syntax_content');
+            $('section_Syntax_toggle').addEvent('click', function (event) {
+                $('section_Syntax_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Syntax_slider.open]);
+                event.stop();
+                section_Syntax_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Syntax" class="section">
+        <div class="title"><a id="section_Syntax_toggle" href="#" class="title"><div id="section_Syntax_icon" class="toggle_icon out"></div><span class="title">Syntax</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Syntax_content" class="block">
+            <div class="grouptab">
+	    <ul class="tabs"> 
+            <li class="code selected tab">C#</li> 
+    	    <li class="code tab">VB</li> 
+    	    <li class="code tab">C++</li> 
+    	    <li class="code tab">F#</li> 
+	    </ul>            
+        <div class="tabcontent selected">     
+        <pre class='brush: csharp;'>public class KinectReplay : IDisposable, INotifyPropertyChanged</pre>
+        </div>
+        <div class="tabcontent">     
+            <p>Syntax for VB is not yet implemented.</p>
+
+        </div>
+        <div class="tabcontent">     
+            <p>Syntax for C++ is not yet implemented</p>
+
+        </div>
+        <div class="tabcontent">     
+            <p>Syntax for F# is not yet implemented.</p>
+
+        </div>
+    </div>
+        <p>The KinectReplay type exposes the following members.</p>
+
+        </div>
+    </div>    
+
+<div class="members">
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Constructors_slider = new Fx.Slide('section_Constructors_content');
+            $('section_Constructors_toggle').addEvent('click', function (event) {
+                $('section_Constructors_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Constructors_slider.open]);
+                event.stop();
+                section_Constructors_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Constructors" class="section">
+        <div class="title"><a id="section_Constructors_toggle" href="#" class="title"><div id="section_Constructors_icon" class="toggle_icon out"></div><span class="title">Constructors</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Constructors_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Constructor"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay__ctor');" href="M_KinectEx_DVR_KinectReplay__ctor.htm" >KinectReplay</a></td>
+    <td class="desc-col">Creates a new instance of a <c>KinectReplay</c> using the referenced stream.
+            This will read in the headers for all frames in the stream and make them
+            available for playback. The stream will remain open until the instance
+            is disposed.&nbsp;</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Fields_slider = new Fx.Slide('section_Fields_content');
+            $('section_Fields_toggle').addEvent('click', function (event) {
+                $('section_Fields_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Fields_slider.open]);
+                event.stop();
+                section_Fields_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Fields" class="section">
+        <div class="title"><a id="section_Fields_toggle" href="#" class="title"><div id="section_Fields_icon" class="toggle_icon out"></div><span class="title">Fields</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Fields_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubfield" title="Public Field"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_DVR_KinectReplay_FrameTime');" href="F_KinectEx_DVR_KinectReplay_FrameTime.htm" >FrameTime</a></td>
+    <td class="desc-col">The length of each frame (effectively 30fps ==&gt; 33ms)&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubfield" title="Public Field"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_DVR_KinectReplay_IsFinishedPropertyName');" href="F_KinectEx_DVR_KinectReplay_IsFinishedPropertyName.htm" >IsFinishedPropertyName</a></td>
+    <td class="desc-col">The string name of the IsFinished property (for use in PropertyChanged
+            event handlers).&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubfield" title="Public Field"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_DVR_KinectReplay_IsStartedPropertyName');" href="F_KinectEx_DVR_KinectReplay_IsStartedPropertyName.htm" >IsStartedPropertyName</a></td>
+    <td class="desc-col">The string name of the IsStarted property (for use in PropertyChanged
+            event handlers).&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubfield" title="Public Field"></div>
+        <div class="icon static" title="Static"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_DVR_KinectReplay_LocationPropertyName');" href="F_KinectEx_DVR_KinectReplay_LocationPropertyName.htm" >LocationPropertyName</a></td>
+    <td class="desc-col">The string name of the Location property (for use in PropertyChanged
+            event handlers).&nbsp;</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Properties_slider = new Fx.Slide('section_Properties_content');
+            $('section_Properties_toggle').addEvent('click', function (event) {
+                $('section_Properties_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Properties_slider.open]);
+                event.stop();
+                section_Properties_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Properties" class="section">
+        <div class="title"><a id="section_Properties_toggle" href="#" class="title"><div id="section_Properties_icon" class="toggle_icon out"></div><span class="title">Properties</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Properties_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectReplay_Duration');" href="P_KinectEx_DVR_KinectReplay_Duration.htm" >Duration</a></td>
+    <td class="desc-col">The total duration of the playback stream.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectReplay_HasBodyFrames');" href="P_KinectEx_DVR_KinectReplay_HasBodyFrames.htm" >HasBodyFrames</a></td>
+    <td class="desc-col">Whether this playback stream contains <c>ReplayBodyFrame</c> frames.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectReplay_HasColorFrames');" href="P_KinectEx_DVR_KinectReplay_HasColorFrames.htm" >HasColorFrames</a></td>
+    <td class="desc-col">Whether this playback stream contains <c>ReplayColorFrame</c> frames.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectReplay_HasDepthFrames');" href="P_KinectEx_DVR_KinectReplay_HasDepthFrames.htm" >HasDepthFrames</a></td>
+    <td class="desc-col">Whether this playback stream contains <c>ReplayDepthFrame</c> frames.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectReplay_IsFinished');" href="P_KinectEx_DVR_KinectReplay_IsFinished.htm" >IsFinished</a></td>
+    <td class="desc-col">Whether this instance of <c>KinectReplay</c> has finished playback.
+            While IsStarted can change to false any time playback is stopped,
+            this property is only changed when playback stops due to reaching the
+            end of the playback stream.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectReplay_IsStarted');" href="P_KinectEx_DVR_KinectReplay_IsStarted.htm" >IsStarted</a></td>
+    <td class="desc-col">Whether this instance of <c>KinectReplay</c> is currently started.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectReplay_Location');" href="P_KinectEx_DVR_KinectReplay_Location.htm" >Location</a></td>
+    <td class="desc-col">The current location within the playback stream.&nbsp;</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Methods_slider = new Fx.Slide('section_Methods_content');
+            $('section_Methods_toggle').addEvent('click', function (event) {
+                $('section_Methods_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Methods_slider.open]);
+                event.stop();
+                section_Methods_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Methods" class="section">
+        <div class="title"><a id="section_Methods_toggle" href="#" class="title"><div id="section_Methods_icon" class="toggle_icon out"></div><span class="title">Methods</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Methods_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay_Dispose');" href="M_KinectEx_DVR_KinectReplay_Dispose.htm" >Dispose()</a></td>
+    <td class="desc-col">&nbsp;(Implements <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/es4s3w1d"  target='_blank'>IDisposable.Dispose()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protmethod" title="Protected Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay_Dispose_1');" href="M_KinectEx_DVR_KinectReplay_Dispose_1.htm" >Dispose(bool)</a></td>
+    <td class="desc-col">&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon protmethod" title="Protected Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay_Finalize');" href="M_KinectEx_DVR_KinectReplay_Finalize.htm" >Finalize</a></td>
+    <td class="desc-col">&nbsp;(Overrides <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/4k87zsw7"  target='_blank'>object.Finalize()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay_ScrubTo');" href="M_KinectEx_DVR_KinectReplay_ScrubTo.htm" >ScrubTo</a></td>
+    <td class="desc-col">Move the playback location to the specified time.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay_Start');" href="M_KinectEx_DVR_KinectReplay_Start.htm" >Start</a></td>
+    <td class="desc-col">Start playback.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay_Stop');" href="M_KinectEx_DVR_KinectReplay_Stop.htm" >Stop</a></td>
+    <td class="desc-col">Stop playback.&nbsp;</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_Events_slider = new Fx.Slide('section_Events_content');
+            $('section_Events_toggle').addEvent('click', function (event) {
+                $('section_Events_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_Events_slider.open]);
+                event.stop();
+                section_Events_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_Events" class="section">
+        <div class="title"><a id="section_Events_toggle" href="#" class="title"><div id="section_Events_icon" class="toggle_icon out"></div><span class="title">Events</span></a><div class="hr"><hr/></div></div>
+        <div id="section_Events_content" class="block">
+            <div class="members">
+        <table class="members">
+            <tr>		<th class="icon-col">&nbsp;</th>
+	<th class="platicon-col">Platforms</th>
+    <th class="name-col">Name</th>
+    <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubevent" title="Public Event"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('E_KinectEx_DVR_KinectReplay_BodyFrameArrived');" href="E_KinectEx_DVR_KinectReplay_BodyFrameArrived.htm" >BodyFrameArrived</a></td>
+    <td class="desc-col">Signals the "arrival" of a new <c>ReplayBodyFrame</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubevent" title="Public Event"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('E_KinectEx_DVR_KinectReplay_ColorFrameArrived');" href="E_KinectEx_DVR_KinectReplay_ColorFrameArrived.htm" >ColorFrameArrived</a></td>
+    <td class="desc-col">Signals the "arrival" of a new <c>ReplayColorFrame</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubevent" title="Public Event"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('E_KinectEx_DVR_KinectReplay_DepthFrameArrived');" href="E_KinectEx_DVR_KinectReplay_DepthFrameArrived.htm" >DepthFrameArrived</a></td>
+    <td class="desc-col">Signals the "arrival" of a new <c>ReplayDepthFrame</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubevent" title="Public Event"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('E_KinectEx_DVR_KinectReplay_PropertyChanged');" href="E_KinectEx_DVR_KinectReplay_PropertyChanged.htm" >PropertyChanged</a></td>
+    <td class="desc-col">Signals a change in value of one of the properties.&nbsp;(Implements <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/ms133023"  target='_blank'>PropertyChanged()</a>.)</td>
+</tr>
+        </table>
+        <a href="#top">Top</a>
+    </div>
+
+        </div>
+    </div>    
+
+
+
+
+
+	
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_VersionandPlatformInformation_slider = new Fx.Slide('section_VersionandPlatformInformation_content');
+            $('section_VersionandPlatformInformation_toggle').addEvent('click', function (event) {
+                $('section_VersionandPlatformInformation_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_VersionandPlatformInformation_slider.open]);
+                event.stop();
+                section_VersionandPlatformInformation_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_VersionandPlatformInformation" class="section">
+        <div class="title"><a id="section_VersionandPlatformInformation_toggle" href="#" class="title"><div id="section_VersionandPlatformInformation_icon" class="toggle_icon out"></div><span class="title">Version and Platform Information</span></a><div class="hr"><hr/></div></div>
+        <div id="section_VersionandPlatformInformation_content" class="block">
+        Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5"></div>&nbsp;Windows Desktop - .NET 4.5<br/>
+
+        </div>
+    </div>    
+
+
+    <script language="javascript">
+        window.addEvent('domready', function() {           
+            var section_SeeAlso_slider = new Fx.Slide('section_SeeAlso_content');
+            $('section_SeeAlso_toggle').addEvent('click', function (event) {
+                $('section_SeeAlso_icon').setProperty('class', {'true': 'toggle_icon in', 'false': 'toggle_icon out'}[section_SeeAlso_slider.open]);
+                event.stop();
+                section_SeeAlso_slider.toggle();
+            });
+        });
+    </script>        
+    <div id="section_SeeAlso" class="section">
+        <div class="title"><a id="section_SeeAlso_toggle" href="#" class="title"><div id="section_SeeAlso_icon" class="toggle_icon out"></div><span class="title">See Also</span></a><div class="hr"><hr/></div></div>
+        <div id="section_SeeAlso_content" class="block">
+        <h4 class='sdoc-subheading'>Reference</h4>
+<div class='seeAlsoStyle'>
+<a target="mainFrame" onclick="hightLightTopic('N_KinectEx_DVR');" href="N_KinectEx_DVR.htm" >KinectEx.DVR Namespace (KinectEx)</a></div>
+<div class='seeAlsoStyle'>
+<a target="mainFrame" onclick="hightLightTopic('api');" href="api.htm" >Class Library Reference</a></div>
+
+        </div>
+    </div>    
+
+</div>
+
+
+        </div>
+    </div>
+
+
+    
+    <br />
+    <br />
+    <br />
+
+	</body>
+</html>                                                                                
