@@ -17,10 +17,12 @@ namespace KinectEx.Smoothing
     /// </summary>
     public class KalmanJoint : CustomJoint
     {
-        private Vector3 _pos, _vel, _deltavel, _posvar, _velvar, _measurementUncertainty;
-        private Vector3 _oldpos, _oldvel;
-        private Vector3 _rawpos, _diffvec;
-        float _diffval;
+        private Vector3 _filteredPosition,
+                        _velocity,
+                        _velocityDelta,
+                        _positionVariance,
+                        _velocityVariance,
+                        _measurementUncertainty;
         float _jitterRadius;
         private bool _init = true;
 
@@ -32,9 +34,7 @@ namespace KinectEx.Smoothing
             : base(jointType)
         {
             var parms = new KalmanSmoothingParameters();
-            _measurementUncertainty.X = parms.MeasurementUncertainty;
-            _measurementUncertainty.Y = parms.MeasurementUncertainty;
-            _measurementUncertainty.Z = parms.MeasurementUncertainty;
+            _measurementUncertainty = new Vector3(parms.MeasurementUncertainty);
             _jitterRadius = parms.JitterRadius;
         }
 
@@ -51,9 +51,7 @@ namespace KinectEx.Smoothing
             if (parms == null)
                 parms = new KalmanSmoothingParameters();
 
-            _measurementUncertainty.X = parms.MeasurementUncertainty;
-            _measurementUncertainty.Y = parms.MeasurementUncertainty;
-            _measurementUncertainty.Z = parms.MeasurementUncertainty;
+            _measurementUncertainty = new Vector3(parms.MeasurementUncertainty);
             _jitterRadius = parms.JitterRadius;
         }
 
@@ -62,75 +60,58 @@ namespace KinectEx.Smoothing
         /// </summary>
         public override void Update(IJoint joint)
         {
-            if (joint.TrackingState == TrackingState.NotTracked)
-                return;
+            _trackingState = joint.TrackingState;
 
-            this.TrackingState = joint.TrackingState;
+            if (_trackingState == TrackingState.NotTracked)
+            {
+                _position = new CameraSpacePoint();
+                return;
+            }
 
             if (_init)
             {
                 _init = false;
 
-                _pos.X = joint.Position.X;
-                _pos.Y = joint.Position.Y;
-                _pos.Z = joint.Position.Z;
-                _posvar.X = 1000;
-                _posvar.Y = 1000;
-                _posvar.Z = 1000;
-                _velvar.X = 1000;
-                _velvar.Y = 1000;
-                _velvar.Z = 1000;
+                _filteredPosition = new Vector3(joint.Position.X, joint.Position.Y, joint.Position.Z);
+                _positionVariance = new Vector3(1000f);
+                _velocityVariance = new Vector3(1000f);
             }
             else
             {
-                _oldpos = _pos;
-                _oldvel = _vel;
+                var oldPosition = _filteredPosition;
+                var oldVelocity = _velocity;
 
                 // Predict
-                _pos = _pos + _vel;
-                _vel = _vel + _deltavel;
-                _posvar = _posvar + _measurementUncertainty;
-                _velvar = _velvar + _measurementUncertainty;
+                _filteredPosition = _filteredPosition + _velocity;
+                _velocity = _velocity + _velocityDelta;
+                _positionVariance = _positionVariance + _measurementUncertainty;
+                _velocityVariance = _velocityVariance + _measurementUncertainty;
 
                 // Update
-                _rawpos.X = joint.Position.X;
-                _rawpos.Y = joint.Position.Y;
-                _rawpos.Z = joint.Position.Z;
+                var reportedPosition = new Vector3(joint.Position.X, joint.Position.Y, joint.Position.Z);
 
                 // ... but first filter for jitter ...
-                _diffvec = _rawpos - _oldpos;
-                _diffval = Math.Abs(_diffvec.Length());
-                var jr = joint.TrackingState == TrackingState.Tracked ? _jitterRadius : _jitterRadius * 2;
-                if (_diffval <= jr)
+                var positionDelta = reportedPosition - oldPosition;
+                var differenceLength = Math.Abs((float)positionDelta.Length());
+                var jitterRadiusMod = joint.TrackingState == TrackingState.Tracked ? _jitterRadius : _jitterRadius * 2;
+                if (differenceLength <= jitterRadiusMod)
                 {
-                    _rawpos = (_rawpos * (_diffval / jr)) +
-                              (_oldpos * (1.0f - (_diffval / jr)));
+                    reportedPosition = (reportedPosition * (differenceLength / jitterRadiusMod)) +
+                             (oldPosition * (1.0f - (differenceLength / jitterRadiusMod)));
                 }
 
-                _pos.X = (_posvar.X * _rawpos.X + _measurementUncertainty.X * _pos.X) / (_measurementUncertainty.X + _posvar.X);
-                _pos.Y = (_posvar.Y * _rawpos.Y + _measurementUncertainty.Y * _pos.Y) / (_measurementUncertainty.Y + _posvar.Y);
-                _pos.Z = (_posvar.Z * _rawpos.Z + _measurementUncertainty.Z * _pos.Z) / (_measurementUncertainty.Z + _posvar.Z);
+                _filteredPosition = (_positionVariance * reportedPosition + _measurementUncertainty * _filteredPosition) / (_measurementUncertainty + _positionVariance);
+                _velocity = (_velocityVariance * (reportedPosition - oldPosition) + _measurementUncertainty * _velocity) / (_measurementUncertainty + _velocityVariance);
 
-                _vel.X = (_velvar.X * (_rawpos.X - _oldpos.X) + _measurementUncertainty.X * _vel.X) / (_measurementUncertainty.X + _velvar.X);
-                _vel.Y = (_velvar.Y * (_rawpos.Y - _oldpos.Y) + _measurementUncertainty.Y * _vel.Y) / (_measurementUncertainty.Y + _velvar.Y);
-                _vel.Z = (_velvar.Z * (_rawpos.Z - _oldpos.Z) + _measurementUncertainty.Z * _vel.Z) / (_measurementUncertainty.Z + _velvar.Z);
+                _velocityDelta = _velocity - oldVelocity;
 
-                _deltavel = _vel - _oldvel;
-
-                _posvar.X = 1 / ((1 / _measurementUncertainty.X) + (1 / _posvar.X));
-                _posvar.Y = 1 / ((1 / _measurementUncertainty.Y) + (1 / _posvar.Y));
-                _posvar.Z = 1 / ((1 / _measurementUncertainty.Z) + (1 / _posvar.Z));
-
-                _velvar.X = 1 / ((1 / _measurementUncertainty.X) + (1 / _velvar.X));
-                _velvar.Y = 1 / ((1 / _measurementUncertainty.Y) + (1 / _velvar.Y));
-                _velvar.Z = 1 / ((1 / _measurementUncertainty.Z) + (1 / _velvar.Z));
+                _positionVariance = Vector3.One / ((Vector3.One / _measurementUncertainty) + (Vector3.One / _positionVariance));
+                _velocityVariance = Vector3.One / ((Vector3.One / _measurementUncertainty) + (Vector3.One / _velocityVariance));
             }
 
-            var jointPos = this.Position;
-            jointPos.X = _pos.X;
-            jointPos.Y = _pos.Y;
-            jointPos.Z = _pos.Z;
-            this.Position = jointPos;
+            _position.X = _filteredPosition.X;
+            _position.Y = _filteredPosition.Y;
+            _position.Z = _filteredPosition.Z;
         }
     }
 }

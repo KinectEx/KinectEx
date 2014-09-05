@@ -17,7 +17,11 @@ namespace KinectEx.Smoothing
     /// </summary>
     public class ExponentialJoint : CustomJoint
     {
-        float _smoothing, _correction, _prediction, _jitterRadius,_maxDeviationRadius;
+        float _smoothing,
+              _correction,
+              _prediction,
+              _jitterRadius,
+              _maxDeviationRadius;
         FilterDoubleExponentialData _history;
 
         /// <summary>
@@ -61,7 +65,7 @@ namespace KinectEx.Smoothing
 
         private void Reset()
         {
-            this._history = new FilterDoubleExponentialData();
+            _history = new FilterDoubleExponentialData();
         }
 
         /// <summary>
@@ -69,13 +73,14 @@ namespace KinectEx.Smoothing
         /// </summary>
         public override void Update(IJoint joint)
         {
-            if (joint.TrackingState == TrackingState.NotTracked)
+            _trackingState = joint.TrackingState;
+
+            if (_trackingState == TrackingState.NotTracked)
             {
+                _position = new CameraSpacePoint();
                 Reset();
                 return;
             }
-
-            this.TrackingState = joint.TrackingState;
 
             // If not tracked, we smooth a bit more by using a bigger jitter radius
             // Always filter feet highly as they are so noisy
@@ -87,23 +92,19 @@ namespace KinectEx.Smoothing
                 maxDeviationRadius *= 2.0f;
             }
 
-            Vector3 filteredPosition;
-            Vector3 diffvec;
-            Vector3 trend;
+            Vector3 filteredPosition,
+                    positionDelta,
+                    trend;
             float diffVal;
 
-            Vector3 rawPosition = new Vector3()
-                {
-                    X = joint.Position.X,
-                    Y = joint.Position.Y,
-                    Z = joint.Position.Z
-                };
-            Vector3 prevFilteredPosition = this._history.FilteredPosition;
-            Vector3 prevTrend = this._history.Trend;
-            Vector3 prevRawPosition = this._history.RawPosition;
+            var reportedPosition = new Vector3(joint.Position.X, joint.Position.Y, joint.Position.Z);
+
+            var prevFilteredPosition = _history.FilteredPosition;
+            var prevTrend = _history.Trend;
+            var prevRawPosition = _history.ReportedPosition;
 
             // If joint is invalid, reset the filter
-            if (rawPosition.X == 0 && rawPosition.Y == 0 && rawPosition.Z == 0)
+            if (reportedPosition.X == 0 && reportedPosition.Y == 0 && reportedPosition.Z == 0)
             {
                 Reset();
             }
@@ -111,69 +112,67 @@ namespace KinectEx.Smoothing
             // Initial start values
             if (this._history.FrameCount == 0)
             {
-                filteredPosition = rawPosition;
+                filteredPosition = reportedPosition;
                 trend = new Vector3();
             }
             else if (this._history.FrameCount == 1)
             {
-                filteredPosition = (rawPosition + prevRawPosition) * 0.5f;
-                diffvec = filteredPosition - prevFilteredPosition;
-                trend = (diffvec * _correction) + (prevTrend * (1.0f - _correction));
+                filteredPosition = (reportedPosition + prevRawPosition) * 0.5f;
+                positionDelta = filteredPosition - prevFilteredPosition;
+                trend = (positionDelta * _correction) + (prevTrend * (1.0f - _correction));
             }
             else
             {
                 // First apply jitter filter
-                diffvec = rawPosition - prevFilteredPosition;
-                diffVal = Math.Abs(diffvec.Length());
+                positionDelta = reportedPosition - prevFilteredPosition;
+                diffVal = Math.Abs(positionDelta.Length());
 
                 if (diffVal <= jitterRadius)
                 {
-                    filteredPosition = (rawPosition * (diffVal / jitterRadius)) +
+                    filteredPosition = (reportedPosition * (diffVal / jitterRadius)) +
                                        (prevFilteredPosition * (1.0f - (diffVal / jitterRadius)));
                 }
                 else
                 {
-                    filteredPosition = rawPosition;
+                    filteredPosition = reportedPosition;
                 }
 
                 // Now the double exponential smoothing filter
                 filteredPosition = (filteredPosition * (1.0f - _smoothing)) +
                                    ((prevFilteredPosition + prevTrend) * _smoothing);
 
-                diffvec = filteredPosition - prevFilteredPosition;
-                trend = (diffvec * _correction) + (prevTrend * (1.0f - _correction));
+                positionDelta = filteredPosition - prevFilteredPosition;
+                trend = (positionDelta * _correction) + (prevTrend * (1.0f - _correction));
             }
 
             // Predict into the future to reduce latency
-            Vector3 predictedPosition = filteredPosition + (trend * _prediction);
+            var predictedPosition = filteredPosition + (trend * _prediction);
 
             // Check that we are not too far away from raw data
-            diffvec = predictedPosition - rawPosition;
-            diffVal = Math.Abs(diffvec.Length());
+            positionDelta = predictedPosition - reportedPosition;
+            diffVal = Math.Abs(positionDelta.Length());
 
             if (diffVal > maxDeviationRadius)
             {
                 predictedPosition = (predictedPosition * (maxDeviationRadius / diffVal)) +
-                                    (rawPosition * (1.0f - (maxDeviationRadius / diffVal)));
+                                    (reportedPosition * (1.0f - (maxDeviationRadius / diffVal)));
             }
 
             // Save the data from this frame
-            this._history.RawPosition = rawPosition;
+            this._history.ReportedPosition = reportedPosition;
             this._history.FilteredPosition = filteredPosition;
             this._history.Trend = trend;
             this._history.FrameCount++;
 
             // Set the filtered data back into the joint
-            var jointPos = this.Position;
-            jointPos.X = predictedPosition.X;
-            jointPos.Y = predictedPosition.Y;
-            jointPos.Z = predictedPosition.Z;
-            this.Position = jointPos;
+            _position.X = predictedPosition.X;
+            _position.Y = predictedPosition.Y;
+            _position.Z = predictedPosition.Z;
         }
 
         private struct FilterDoubleExponentialData
         {
-            public Vector3 RawPosition;
+            public Vector3 ReportedPosition;
             public Vector3 FilteredPosition;
             public Vector3 Trend;
             public uint FrameCount;

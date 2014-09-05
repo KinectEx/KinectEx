@@ -23,7 +23,7 @@ namespace KinectEx
     /// </summary>
     public class CustomBody : IBody
     {
-        protected Dictionary<Activity, DetectionResult> _activities;
+        protected internal Dictionary<Activity, DetectionResult> _activities;
         public virtual IReadOnlyDictionary<Activity, DetectionResult> Activities 
         { 
             get { return _activities; }
@@ -232,7 +232,7 @@ namespace KinectEx
 
             foreach (var key in body.JointOrientations.Keys)
             {
-                _jointOrientations[key] = body.JointOrientations[key];
+                _jointOrientations[key].Update(body.JointOrientations[key]);
             }
 
             foreach (var joint in body.Joints.Values)

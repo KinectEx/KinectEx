@@ -12,7 +12,7 @@ namespace KinectEx.DVR
     public interface IColorCodec
     {
         /// <summary>
-        /// Uniue ID for this <c>IColorCodec</c> instance.
+        /// Unique ID for this <c>IColorCodec</c> instance.
         /// </summary>
         int CodecId { get; }
 
