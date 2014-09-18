@@ -23,39 +23,11 @@ namespace KinectEx
     /// </summary>
     public class CustomBody : IBody
     {
-        protected internal Dictionary<Activity, DetectionResult> _activities;
-        public virtual IReadOnlyDictionary<Activity, DetectionResult> Activities 
-        { 
-            get { return _activities; }
-            set { _activities = value as Dictionary<Activity, DetectionResult>; }
-        }
-
-        protected Dictionary<Appearance, DetectionResult> _appearance;
-        public virtual IReadOnlyDictionary<Appearance, DetectionResult> Appearance
-        { 
-            get { return _appearance; }
-            set { _appearance = value as Dictionary<Appearance, DetectionResult>; }
-        }
-
         protected FrameEdges _clippedEdges;
         public virtual FrameEdges ClippedEdges
         {
             get { return _clippedEdges; }
             set { _clippedEdges = value; }
-        }
-
-        protected DetectionResult _engaged;
-        public virtual DetectionResult Engaged
-        {
-            get { return _engaged; }
-            set { _engaged = value; }
-        }
-        
-        protected Dictionary<Expression, DetectionResult> _expressions;
-        public virtual IReadOnlyDictionary<Expression, DetectionResult> Expressions
-        {
-            get { return _expressions; }
-            set { _expressions = value as Dictionary<Expression, DetectionResult>; }
         }
 
         protected TrackingConfidence _handLeftConfidence;
@@ -154,26 +126,7 @@ namespace KinectEx
         
         public CustomBody()
         {
-            _activities = new Dictionary<Activity, DetectionResult>();
-            foreach (var activity in (Activity[])Enum.GetValues(typeof(Activity)))
-            {
-                _activities.Add(activity, DetectionResult.Unknown);
-            }
-
-            _appearance = new Dictionary<Appearance, DetectionResult>();
-            foreach (var appearance in (Appearance[])Enum.GetValues(typeof(Appearance)))
-            {
-                _appearance.Add(appearance, DetectionResult.Unknown);
-            }
-
             _clippedEdges = FrameEdges.None;
-            _engaged = DetectionResult.Unknown;
-
-            _expressions = new Dictionary<Expression, DetectionResult>();
-            foreach (var expression in (Expression[])Enum.GetValues(typeof(Expression)))
-            {
-                _expressions.Add(expression, DetectionResult.Unknown);
-            }
 
             _handLeftConfidence = TrackingConfidence.Low;
             _handLeftState = HandState.Unknown;
@@ -206,23 +159,7 @@ namespace KinectEx
         /// </summary>
         public virtual void Update(IBody body)
         {
-            foreach (var key in body.Activities.Keys)
-            {
-                _activities[key] = body.Activities[key];
-            }
-
-            foreach (var key in body.Appearance.Keys)
-            {
-                _appearance[key] = body.Appearance[key];
-            }
-
             this.ClippedEdges = body.ClippedEdges;
-            this.Engaged = body.Engaged;
-
-            foreach (var key in body.Expressions.Keys)
-            {
-                _expressions[key] = body.Expressions[key];
-            }
             this.HandLeftConfidence = body.HandLeftConfidence;
             this.HandLeftState = body.HandLeftState;
             this.HandRightConfidence = body.HandRightConfidence;

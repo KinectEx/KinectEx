@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 
 #if NETFX_CORE
@@ -214,6 +215,8 @@ namespace KinectEx.DVR
             _timer.Tick += _timer_Tick;
 
             var metadata = JsonConvert.DeserializeObject<FileMetadata>(_reader.ReadString());
+            Version version = this.GetType().GetTypeInfo().Assembly.GetName().Version;
+            Version.TryParse(metadata.Version, out version);
 
             while (_reader.BaseStream.Position != _reader.BaseStream.Length)
             {
@@ -254,7 +257,7 @@ namespace KinectEx.DVR
                                 _bodyReplay.PropertyChanged += replay_PropertyChanged;
                                 _bodyReplay.FrameArrived += bodyReplay_FrameArrived;
                             }
-                            _bodyReplay.AddFrame(_reader);
+                            _bodyReplay.AddFrame(_reader, version);
                             break;
                     }
                 }

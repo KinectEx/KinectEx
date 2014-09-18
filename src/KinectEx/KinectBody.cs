@@ -13,6 +13,8 @@ using Microsoft.Kinect;
 using Windows.Foundation;
 #endif
 
+#pragma warning (disable : 4996)
+
 namespace KinectEx
 {
     /// <summary>
@@ -27,31 +29,9 @@ namespace KinectEx
         private Dictionary<JointType, IJoint> _joints = null;
         private Dictionary<JointType, IJointOrientation> _jointOrientations = null;
 
-        public IReadOnlyDictionary<Activity, DetectionResult> Activities
-        {
-            get { return _body.Activities; }
-        }
-
-        public IReadOnlyDictionary<Appearance, DetectionResult> Appearance
-        {
-            get { return _body.Appearance; }
-        }
-
         public FrameEdges ClippedEdges
         {
             get { return _body.ClippedEdges; }
-            set { }
-        }
-
-        public DetectionResult Engaged
-        {
-            get { return _body.Engaged; }
-            set { }
-        }
-
-        public IReadOnlyDictionary<Expression, DetectionResult> Expressions
-        {
-            get { return _body.Expressions; }
             set { }
         }
 

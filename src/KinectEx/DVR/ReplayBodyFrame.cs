@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 #if NETFX_CORE
 using Windows.Foundation;
@@ -147,7 +148,7 @@ namespace KinectEx.DVR
 
         // and a factory method
 
-        internal static ReplayBodyFrame FromReader(BinaryReader reader)
+        internal static ReplayBodyFrame FromReader(BinaryReader reader, Version version)
         {
             var frame = new ReplayBodyFrame();
 
@@ -169,7 +170,7 @@ namespace KinectEx.DVR
             frame.Bodies = new List<CustomBody>();
             for (var i = 0; i < frame.BodyCount; i++)
             {
-                frame.Bodies.Add(CreateBodyFromReader(reader));
+                frame.Bodies.Add(CreateBodyFromReader(reader, version));
             }
 
             // Do Frame Integrity Check
@@ -187,7 +188,7 @@ namespace KinectEx.DVR
             return frame;
         }
 
-        private static CustomBody CreateBodyFromReader(BinaryReader reader)
+        private static CustomBody CreateBodyFromReader(BinaryReader reader, Version version)
         {
             CustomBody body = new CustomBody();
 
@@ -197,38 +198,40 @@ namespace KinectEx.DVR
 
                 if (body.IsTracked)
                 {
-                    int activityCount = reader.ReadInt32();
-                    for (var i = 0; i < activityCount; i++)
+                    #region Old Version
+                    if (version.Minor == 1)
                     {
-                        var key = (Activity)reader.ReadInt32();
-                        var value = (DetectionResult)reader.ReadInt32();
-                        var dict = body.Activities as IDictionary<Activity, DetectionResult>;
-                        if (dict != null)
-                            dict[key] = value;
+                        int count;
+                        count = reader.ReadInt32(); // Activities.Count
+                        for (int i = 0; i < count; i++)
+                        {
+                            reader.ReadInt32(); // key
+                            reader.ReadInt32(); // value
+                        }
+                        count = reader.ReadInt32(); // Appearance.Count
+                        for (int i = 0; i < count; i++)
+                        {
+                            reader.ReadInt32(); // key
+                            reader.ReadInt32(); // value
+                        }
                     }
-
-                    int appearanceCount = reader.ReadInt32();
-                    for (var i = 0; i < appearanceCount; i++)
-                    {
-                        var key = (Appearance)reader.ReadInt32();
-                        var value = (DetectionResult)reader.ReadInt32();
-                        var dict = body.Appearance as IDictionary<Appearance, DetectionResult>;
-                        if (dict != null)
-                            dict[key] = value;
-                    }
+                    #endregion
 
                     body.ClippedEdges = (FrameEdges)reader.ReadInt32();
-                    body.Engaged = (DetectionResult)reader.ReadInt32();
 
-                    int expressionCount = reader.ReadInt32();
-                    for (var i = 0; i < expressionCount; i++)
+                    #region Old Version
+                    if (version.Minor == 1)
                     {
-                        var key = (Expression)reader.ReadInt32();
-                        var value = (DetectionResult)reader.ReadInt32();
-                        var dict = body.Expressions as IDictionary<Expression, DetectionResult>;
-                        if (dict != null)
-                            dict[key] = value;
+                        reader.ReadInt32(); // Engaged
+                        int count;
+                        count = reader.ReadInt32(); // Expressions.Count
+                        for (int i = 0; i < count; i++)
+                        {
+                            reader.ReadInt32(); // key
+                            reader.ReadInt32(); // value
+                        }
                     }
+                    #endregion
 
                     body.HandLeftConfidence = (TrackingConfidence)reader.ReadInt32();
                     body.HandLeftState = (HandState)reader.ReadInt32();

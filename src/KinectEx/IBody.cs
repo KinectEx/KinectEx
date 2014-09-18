@@ -16,11 +16,7 @@ namespace KinectEx
 {
     public interface IBody
     {
-        IReadOnlyDictionary<Activity, DetectionResult> Activities { get;  }
-        IReadOnlyDictionary<Appearance, DetectionResult> Appearance { get; }
         FrameEdges ClippedEdges { get; set; }
-        DetectionResult Engaged { get; set; }
-        IReadOnlyDictionary<Expression, DetectionResult> Expressions { get; }
         TrackingConfidence HandLeftConfidence { get; set; }
         HandState HandLeftState { get; set; }
         TrackingConfidence HandRightConfidence { get; set; }

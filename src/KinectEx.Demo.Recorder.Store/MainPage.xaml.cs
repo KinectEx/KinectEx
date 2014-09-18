@@ -111,7 +111,7 @@ namespace KinectEx.Demo.Recorder.Store
 
                         if (shouldRecord)
                         {
-                            _recorder.RecordFrame(frame, (List<CustomBody>)bodies);
+                            _recorder.RecordFrame(frame, bodies.Cast<CustomBody>().ToList());
                         }
                     }
                 }

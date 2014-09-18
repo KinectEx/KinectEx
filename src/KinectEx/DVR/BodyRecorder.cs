@@ -84,30 +84,7 @@ namespace KinectEx.DVR
             if (!body.IsTracked)
                 return false;
 
-            dataWriter.Write(body.Activities.Count);
-            foreach (var pair in body.Activities)
-            {
-                dataWriter.Write((int)pair.Key);
-                dataWriter.Write((int)pair.Value);
-            }
-
-            dataWriter.Write(body.Appearance.Count);
-            foreach (var pair in body.Appearance)
-            {
-                dataWriter.Write((int)pair.Key);
-                dataWriter.Write((int)pair.Value);
-            }
-
             dataWriter.Write((int)body.ClippedEdges);
-            dataWriter.Write((int)body.Engaged);
-
-            dataWriter.Write(body.Expressions.Count);
-            foreach (var pair in body.Expressions)
-            {
-                dataWriter.Write((int)pair.Key);
-                dataWriter.Write((int)pair.Value);
-            }
-
             dataWriter.Write((int)body.HandLeftConfidence);
             dataWriter.Write((int)body.HandLeftState);
             dataWriter.Write((int)body.HandRightConfidence);

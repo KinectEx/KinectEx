@@ -11,9 +11,9 @@ namespace KinectEx.DVR
     {
         public event Action<ReplayBodyFrame> FrameArrived;
 
-        public void AddFrame(BinaryReader reader)
+        public void AddFrame(BinaryReader reader, Version version)
         {
-            var frame = ReplayBodyFrame.FromReader(reader);
+            var frame = ReplayBodyFrame.FromReader(reader, version);
             if (frame != null)
                 this.Frames.Add(frame);
         }
