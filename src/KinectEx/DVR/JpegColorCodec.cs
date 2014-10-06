@@ -202,13 +202,12 @@ namespace KinectEx.DVR
                 return bmp;
             }
 #else
-            await Task.Delay(0);
             using (var str = new MemoryStream())
             {
                 str.Write(bytes, 0, bytes.Length);
                 str.Position = 0;
                 var dec = new JpegBitmapDecoder(str, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-                return dec.Frames[0];
+                return await Task.FromResult(dec.Frames[0]);
             }
 #endif
         }

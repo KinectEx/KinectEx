@@ -67,7 +67,6 @@ namespace KinectEx.DVR
         /// </summary>
         public async Task EncodeAsync(byte[] bytes, BinaryWriter writer)
         {
-            await Task.Delay(0); // can't run writeable bitmap stuff in background thread
             if (this.Width == this.OutputWidth && this.Height == this.OutputHeight)
             {
                 // Header
@@ -91,7 +90,7 @@ namespace KinectEx.DVR
                 var dirtyRect = new Int32Rect(0, 0, this.Width, this.Height);
                 bmp.WritePixels(dirtyRect, bytes, stride, 0);
 #endif
-                var newBytes = bmp.Resize(this.OutputHeight, this.OutputHeight, WriteableBitmapExtensions.Interpolation.Bilinear).ToByteArray();
+                var newBytes = await Task.FromResult(bmp.Resize(this.OutputHeight, this.OutputHeight, WriteableBitmapExtensions.Interpolation.Bilinear).ToByteArray());
 
                 // Header
                 writer.Write(this.OutputWidth);
@@ -126,8 +125,7 @@ namespace KinectEx.DVR
         /// </summary>
         public async Task<BitmapSource> DecodeAsync(byte[] bytes)
         {
-            await Task.Delay(0);
-            return BitmapFactory.New(this.Width, this.Height).FromByteArray(bytes);
+            return await Task.FromResult(BitmapFactory.New(this.Width, this.Height).FromByteArray(bytes));
         }
     }
 }
