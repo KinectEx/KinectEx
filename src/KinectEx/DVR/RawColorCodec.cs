@@ -90,7 +90,7 @@ namespace KinectEx.DVR
                 var dirtyRect = new Int32Rect(0, 0, this.Width, this.Height);
                 bmp.WritePixels(dirtyRect, bytes, stride, 0);
 #endif
-                var newBytes = await Task.FromResult(bmp.Resize(this.OutputHeight, this.OutputHeight, WriteableBitmapExtensions.Interpolation.Bilinear).ToByteArray());
+                var newBytes = await Task.FromResult(bmp.Resize(this.OutputWidth, this.OutputHeight, WriteableBitmapExtensions.Interpolation.Bilinear).ToByteArray());
 
                 // Header
                 writer.Write(this.OutputWidth);
