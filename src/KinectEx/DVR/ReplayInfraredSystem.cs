@@ -5,22 +5,15 @@ namespace KinectEx.DVR
 {
     /// <summary>
     /// Internal class that provides the services necessary to decode and playback
-    /// a <c>ReplayColorFrame</c>.
+    /// a <c>ReplayInfraredFrame</c>.
     /// </summary>
-    internal class ReplayColorSystem : ReplaySystem
+    internal class ReplayInfraredSystem : ReplaySystem
     {
-        private IColorCodec _codec;
-
-        public event Action<ReplayColorFrame> FrameArrived;
-
-        public ReplayColorSystem(IColorCodec codec)
-        {
-            this._codec = codec;
-        }
+        public event Action<ReplayInfraredFrame> FrameArrived;
 
         public void AddFrame(BinaryReader reader)
         {
-            var frame = ReplayColorFrame.FromReader(reader, _codec);
+            var frame = ReplayInfraredFrame.FromReader(reader);
             if (frame != null)
                 this.Frames.Add(frame);
         }
@@ -30,7 +23,7 @@ namespace KinectEx.DVR
             if (this.FrameCount == 0)
                 return;
 
-            var frame = (ReplayColorFrame)this.Frames[CurrentFrame];
+            var frame = (ReplayInfraredFrame)this.Frames[CurrentFrame];
             if (FrameArrived != null)
                 FrameArrived(frame);
         }

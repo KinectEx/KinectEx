@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 #if NETFX_CORE
 using Windows.UI.Xaml.Media.Imaging;
 #else
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 #endif
 
@@ -40,6 +41,13 @@ namespace KinectEx.DVR
         /// </summary>
         int OutputHeight { get; set; }
 
+#if !NETFX_CORE
+        /// <summary>
+        /// Gets the pixel format of the last image decoded.
+        /// </summary>
+        PixelFormat PixelFormat { get; }
+#endif
+
         /// <summary>
         /// Encodes the specified bitmap data and outputs it to the specified
         /// <c>BinaryWriter</c>. Bitmap data should be in BGRA format.
@@ -55,9 +63,9 @@ namespace KinectEx.DVR
         void ReadHeader(BinaryReader reader, ReplayFrame frame);
 
         /// <summary>
-        /// Decodes the supplied encoded bitmap data and outputs a <c>BitmapSource</c>.
+        /// Decodes the supplied encoded bitmap data into an array of pixels.
         /// For internal use only.
         /// </summary>
-        Task<BitmapSource> DecodeAsync(byte[] bytes);
+        Task<byte[]> DecodeAsync(byte[] encodedBytes);
     }
 }

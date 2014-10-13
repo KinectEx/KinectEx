@@ -19,6 +19,8 @@ namespace KinectEx.DVR
 
         public TimeSpan StartingOffset { get; set; }
 
+        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+
         private TimeSpan _currentRelativeTime;
         public TimeSpan CurrentRelativeTime
         {
@@ -28,11 +30,18 @@ namespace KinectEx.DVR
                 if (value == _currentRelativeTime)
                     return;
 
+                System.Diagnostics.Debug.WriteLine("??? CurrentRelativeTime Changed");
+
                 var frame = this.CurrentFrame;
                 if (frame != _currentFrame)
                 {
+                    sw.Start();
+                    System.Diagnostics.Debug.WriteLine(">>> PushCurrentFrame()");
                     _currentFrame = frame;
+                    //this.PushCurrentFrame();
                     this.PushCurrentFrame();
+                    System.Diagnostics.Debug.WriteLine("<<< PushCurrentFrame() {0}", sw.ElapsedTicks);
+                    sw.Reset();
 
                     if (frame == this.FrameCount - 1)
                         IsFinished = true;

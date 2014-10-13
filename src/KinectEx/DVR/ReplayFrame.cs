@@ -11,11 +11,6 @@ namespace KinectEx.DVR
 
         internal long FrameSize;
 
-#if !NOSDK
-        // Used to create linked list for queuing encoding and saving
-        internal ReplayFrame NextFrame;
-#endif
-
         /// <summary>
         /// The type of frame represented by this <c>ReplayFrame</c>.
         /// </summary>

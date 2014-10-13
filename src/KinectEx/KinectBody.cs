@@ -13,8 +13,6 @@ using Microsoft.Kinect;
 using Windows.Foundation;
 #endif
 
-#pragma warning (disable : 4996)
-
 namespace KinectEx
 {
     /// <summary>

@@ -62,7 +62,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\START\src\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="SharpDX">
@@ -81,10 +81,16 @@
   <ItemGroup>
     <Compile Include="Bone.cs" />
     <Compile Include="CustomJointOrientation.cs" />
+    <Compile Include="DVR\InfraredRecorder.cs" />
+    <Compile Include="InfraredFrameBitmap.cs" />
     <Compile Include="DepthFrameBitmap.cs" />
     <Compile Include="ColorFrameBitmap.cs" />
+    <Compile Include="DVR\PngColorCodec.cs" />
+    <Compile Include="DVR\ReplayInfraredFrame.cs" />
+    <Compile Include="DVR\ReplayInfraredSystem.cs" />
     <Compile Include="IJointOrientation.cs" />
     <Compile Include="KinectJointOrientation.cs" />
+    <Compile Include="KinectSDK\CameraIntrinsics.cs" />
     <Compile Include="KinectSDK\DepthSpacePoint.cs" />
     <Compile Include="Smoothing\ExponentialJointOrientation.cs" />
     <Compile Include="Smoothing\ISmootherParameters.cs" />

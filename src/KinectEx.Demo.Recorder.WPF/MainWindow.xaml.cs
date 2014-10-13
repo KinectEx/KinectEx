@@ -21,9 +21,13 @@ namespace KinectEx.RecorderDemo.WPF
         BodyFrameReader _bodyReader = null;
         ColorFrameReader _colorReader = null;
         DepthFrameReader _depthReader = null;
+        InfraredFrameReader _infraredReader = null;
+
+        FrameTypes _displayType = FrameTypes.Body;
 
         ColorFrameBitmap _colorBitmap = new ColorFrameBitmap();
         DepthFrameBitmap _depthBitmap = new DepthFrameBitmap();
+        InfraredFrameBitmap _infraredBitmap = new InfraredFrameBitmap();
 
         KinectRecorder _recorder = null;
 
@@ -37,14 +41,16 @@ namespace KinectEx.RecorderDemo.WPF
 
             RecordButton.Click += RecordButton_Click;
 
-            CompressionCombo.Items.Add("None (1920x1080)");
-            CompressionCombo.Items.Add("None (1280x720)");
-            CompressionCombo.Items.Add("None (640x360)");
-            CompressionCombo.Items.Add("Jpeg (1920x1080)");
-            CompressionCombo.Items.Add("Jpeg (1280x720)");
-            CompressionCombo.Items.Add("Jpeg (640x360)");
-            CompressionCombo.SelectionChanged += CompressionCombo_SelectionChanged;
-            CompressionCombo.SelectedIndex = 0;
+            ColorCompressionCombo.Items.Add("None (1920x1080)");
+            ColorCompressionCombo.Items.Add("None (1280x720)");
+            ColorCompressionCombo.Items.Add("None (640x360)");
+            ColorCompressionCombo.Items.Add("JPEG (1920x1080)");
+            ColorCompressionCombo.Items.Add("JPEG (1280x720)");
+            ColorCompressionCombo.Items.Add("JPEG (640x360)");
+            ColorCompressionCombo.Items.Add("PNG (1920x1080)");
+            ColorCompressionCombo.Items.Add("PNG (1280x720)");
+            ColorCompressionCombo.Items.Add("PNG (640x360)");
+            ColorCompressionCombo.SelectedIndex = 0;
 
             SmoothingCombo.Items.Add("None");
             SmoothingCombo.Items.Add("Kalman Filter");
@@ -55,6 +61,7 @@ namespace KinectEx.RecorderDemo.WPF
             DisplayCombo.Items.Add("Body");
             DisplayCombo.Items.Add("Color");
             DisplayCombo.Items.Add("Depth");
+            DisplayCombo.Items.Add("Infrared");
             DisplayCombo.SelectionChanged += DisplayCombo_SelectionChanged;
             DisplayCombo.SelectedIndex = 0;
 
@@ -69,12 +76,18 @@ namespace KinectEx.RecorderDemo.WPF
             _depthReader = _sensor.DepthFrameSource.OpenReader();
             _depthReader.FrameArrived += _depthReader_FrameArrived;
 
+            _infraredReader = _sensor.InfraredFrameSource.OpenReader();
+            _infraredReader.FrameArrived += _infraredReader_FrameArrived;
+
             _sensor.Open();
             OutputImage.Source = _colorBitmap.Bitmap;
         }
 
         void _bodyReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
+            if (_displayType != FrameTypes.Body)
+                return;
+
             IEnumerable<IBody> bodies = null; // to make the GetBitmap call a little cleaner
             using (var frame = e.FrameReference.AcquireFrame())
             {
@@ -98,18 +111,15 @@ namespace KinectEx.RecorderDemo.WPF
                 }
             }
 
-            if (DisplayCombo.SelectedIndex == 0)
-            {
-                if (bodies != null)
-                    OutputImage.Source = bodies.GetBitmap(Colors.LightGreen, Colors.Yellow);
-                else
-                    OutputImage.Source = null;
-            }
+            if (bodies != null)
+                OutputImage.Source = bodies.GetBitmap(Colors.LightGreen, Colors.Yellow);
+            else
+                OutputImage.Source = null;
         }
 
         void _colorReader_FrameArrived(object sender, ColorFrameArrivedEventArgs e)
         {
-            if (DisplayCombo.SelectedIndex == 1)
+            if (_displayType == FrameTypes.Color)
             {
                 _colorBitmap.Update(e.FrameReference);
             }
@@ -117,9 +127,17 @@ namespace KinectEx.RecorderDemo.WPF
 
         private void _depthReader_FrameArrived(object sender, DepthFrameArrivedEventArgs e)
         {
-            if (DisplayCombo.SelectedIndex == 2)
+            if (_displayType == FrameTypes.Depth)
             {
                 _depthBitmap.Update(e.FrameReference);
+            }
+        }
+
+        private void _infraredReader_FrameArrived(object sender, InfraredFrameArrivedEventArgs e)
+        {
+            if (_displayType == FrameTypes.Infrared)
+            {
+                _infraredBitmap.Update(e.FrameReference);
             }
         }
 
@@ -140,20 +158,27 @@ namespace KinectEx.RecorderDemo.WPF
                     _recorder.EnableBodyRecorder = BodyCheckBox.IsChecked.GetValueOrDefault();
                     _recorder.EnableColorRecorder = ColorCheckBox.IsChecked.GetValueOrDefault();
                     _recorder.EnableDepthRecorder = DepthCheckBox.IsChecked.GetValueOrDefault();
+                    _recorder.EnableInfraredRecorder = InfraredCheckBox.IsChecked.GetValueOrDefault();
 
                     // NOTE : Default ColorRecorderCodec is Raw @ 1920 x 1080. Only need to change the
                     //        bits that differ from the default.
 
-                    if (CompressionCombo.SelectedIndex > 2)
+                    int colorCompressionType = ColorCompressionCombo.SelectedIndex / 3;
+                    int colorCompressionSize = ColorCompressionCombo.SelectedIndex % 3;
+                    if (colorCompressionType == 1)
                     {
                         _recorder.ColorRecorderCodec = new JpegColorCodec();
                     }
-                    if (CompressionCombo.SelectedIndex % 3 == 1) // 1280 x 720
+                    else if (colorCompressionType == 2)
+                    {
+                        _recorder.ColorRecorderCodec = new PngColorCodec();
+                    }
+                    if (colorCompressionSize == 1) // 1280 x 720
                     {
                         _recorder.ColorRecorderCodec.OutputWidth = 1280;
                         _recorder.ColorRecorderCodec.OutputHeight = 720;
                     }
-                    else if (CompressionCombo.SelectedIndex % 3 == 2) // 640 x 360
+                    else if (colorCompressionSize == 2) // 640 x 360
                     {
                         _recorder.ColorRecorderCodec.OutputWidth = 640;
                         _recorder.ColorRecorderCodec.OutputHeight = 360;
@@ -165,7 +190,7 @@ namespace KinectEx.RecorderDemo.WPF
                     BodyCheckBox.IsEnabled = false;
                     ColorCheckBox.IsEnabled = false;
                     DepthCheckBox.IsEnabled = false;
-                    CompressionCombo.IsEnabled = false;
+                    ColorCompressionCombo.IsEnabled = false;
                 }
             }
             else
@@ -180,12 +205,8 @@ namespace KinectEx.RecorderDemo.WPF
                 BodyCheckBox.IsEnabled = true;
                 ColorCheckBox.IsEnabled = true;
                 DepthCheckBox.IsEnabled = true;
-                CompressionCombo.IsEnabled = true;
+                ColorCompressionCombo.IsEnabled = true;
             }
-        }
-
-        void CompressionCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
         }
 
         void SmoothingCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -199,15 +220,23 @@ namespace KinectEx.RecorderDemo.WPF
         {
             if (DisplayCombo.SelectedIndex == 0)
             {
+                _displayType = FrameTypes.Body;
                 OutputImage.Source = null;
             }
             else if (DisplayCombo.SelectedIndex == 1)
             {
+                _displayType = FrameTypes.Color;
                 OutputImage.Source = _colorBitmap.Bitmap;
+            }
+            else if (DisplayCombo.SelectedIndex == 2)
+            {
+                _displayType = FrameTypes.Depth;
+                OutputImage.Source = _depthBitmap.Bitmap;
             }
             else
             {
-                OutputImage.Source = _depthBitmap.Bitmap;
+                _displayType = FrameTypes.Infrared;
+                OutputImage.Source = _infraredBitmap.Bitmap;
             }
         }
     }

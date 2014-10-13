@@ -1,13 +1,16 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 #if NETFX_CORE
 using Windows.Storage.Streams;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 #else
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 #endif
 
@@ -22,9 +25,9 @@ using Microsoft.Kinect;
 namespace KinectEx.DVR
 {
     /// <summary>
-    /// A recordable / replayable version of a <c>DepthFrame</c>.
+    /// A recordable / replayable version of an <c>InfraredFrame</c>.
     /// </summary>
-    public class ReplayDepthFrame : ReplayFrame
+    public class ReplayInfraredFrame : ReplayFrame
     {
         private static byte[] _staticBytes = null;
         private static ushort[] _staticData = null;
@@ -35,24 +38,12 @@ namespace KinectEx.DVR
         internal long StreamPosition;
 
         /// <summary>
-        /// The minimum reliable distance at which depth data can be interpreted
-        /// (as reported by the Kinect sensor).
-        /// </summary>
-        public uint DepthMinReliableDistance { get; set; }
-
-        /// <summary>
-        /// The maximum reliable distance at which depth data can be interpreted
-        /// (as reported by the Kinect sensor).
-        /// </summary>
-        public uint DepthMaxReliableDistance { get; set; }
-
-        /// <summary>
-        /// The width (in pixels) of the depth frame.
+        /// The width (in pixels) of the infrared frame.
         /// </summary>
         public int Width { get; set; }
 
         /// <summary>
-        /// The height (in pixels) of the depth frame.
+        /// The height (in pixels) of the infrared frame.
         /// </summary>
         public int Height { get; set; }
 
@@ -62,7 +53,7 @@ namespace KinectEx.DVR
         public uint BytesPerPixel { get; private set; }
 
         /// <summary>
-        /// The raw depth data stored in this frame.
+        /// The raw infrared data stored in this frame.
         /// </summary>
         public ushort[] FrameData
         {
@@ -76,30 +67,16 @@ namespace KinectEx.DVR
                 return _frameData;
             }
         }
-        
-        /// <summary>
-        /// OBSOLETE. Retrieve a bitmap representation of the depth data stored in this frame.
-        /// </summary>
-        [Obsolete("Use a DepthFrameBitmap instead")]
-        public BitmapSource GetBitmap()
-        {
-            DepthFrameBitmap bitmap = new DepthFrameBitmap(this.Width, this.Height);
-            bitmap.Update(this);
-            return bitmap.Bitmap;
-        }
 
         // Multiple Constructor options
 
-        internal ReplayDepthFrame() { }
+        internal ReplayInfraredFrame() { }
 
 #if !NOSDK
-        internal ReplayDepthFrame(DepthFrame frame)
+        internal ReplayInfraredFrame(InfraredFrame frame)
         {
-            this.FrameType = FrameTypes.Depth;
+            this.FrameType = FrameTypes.Infrared;
             this.RelativeTime = frame.RelativeTime;
-
-            this.DepthMinReliableDistance = frame.DepthMinReliableDistance;
-            this.DepthMaxReliableDistance = frame.DepthMaxReliableDistance;
 
             this.Width = frame.FrameDescription.Width;
             this.Height = frame.FrameDescription.Height;
@@ -110,13 +87,10 @@ namespace KinectEx.DVR
             frame.CopyFrameDataToArray(_frameData);
         }
 
-        internal ReplayDepthFrame(DepthFrame frame, ushort[] frameData)
+        internal ReplayInfraredFrame(InfraredFrame frame, ushort[] frameData)
         {
-            this.FrameType = FrameTypes.Depth;
+            this.FrameType = FrameTypes.Infrared;
             this.RelativeTime = frame.RelativeTime;
-
-            this.DepthMinReliableDistance = frame.DepthMinReliableDistance;
-            this.DepthMaxReliableDistance = frame.DepthMaxReliableDistance;
 
             this.Width = frame.FrameDescription.Width;
             this.Height = frame.FrameDescription.Height;
@@ -128,18 +102,15 @@ namespace KinectEx.DVR
 
         // and a factory method
 
-        internal static ReplayDepthFrame FromReader(BinaryReader reader)
+        internal static ReplayInfraredFrame FromReader(BinaryReader reader)
         {
-            var frame = new ReplayDepthFrame();
+            var frame = new ReplayInfraredFrame();
 
-            frame.FrameType = FrameTypes.Depth;
+            frame.FrameType = FrameTypes.Infrared;
             frame.RelativeTime = TimeSpan.FromMilliseconds(reader.ReadDouble());
             frame.FrameSize = reader.ReadInt64();
 
             long frameStartPos = reader.BaseStream.Position;
-
-            frame.DepthMinReliableDistance = reader.ReadUInt32();
-            frame.DepthMaxReliableDistance = reader.ReadUInt32();
 
             frame.Width = reader.ReadInt32();
             frame.Height = reader.ReadInt32();
@@ -166,13 +137,12 @@ namespace KinectEx.DVR
         }
 
         /// <summary>
-        /// Used during replay to retrieve the raw depth data stored on 
+        /// Used during replay to retrieve the raw infrared data stored on 
         /// disk for this frame.
         /// </summary>
         public Task<ushort[]> GetFrameDataAsync()
         {
-            return Task<ushort[]>.Run(() =>
-            {
+            return Task<ushort[]>.Run(() => {
                 Monitor.Enter(Stream);
                 var reader = new BinaryReader(Stream);
                 if (_staticBytes == null)
@@ -187,7 +157,6 @@ namespace KinectEx.DVR
                 System.Buffer.BlockCopy(_staticBytes, 0, _staticData, 0, _staticBytes.Length);
 
                 Stream.Position = savedPosition;
-
                 Monitor.Exit(Stream);
                 return _staticData;
             });

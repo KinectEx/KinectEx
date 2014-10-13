@@ -15,20 +15,19 @@ using System.Windows.Media.Imaging;
 namespace KinectEx.DVR
 {
     /// <summary>
-    /// An <c>IColorCodec</c> that performs compresses bitmaps using the JPEG
+    /// An <c>IColorCodec</c> that performs compresses bitmaps using the PNG
     /// standard. Choosing this codec when creating a <c>KinectRecorder</c>
-    /// effectively saves color frames as an MJPEG.
+    /// effectively saves color frames as an MPNG.
     /// </summary>
-    public class JpegColorCodec : IColorCodec
+    public class PngColorCodec : IColorCodec
     {
         private int _outputWidth = int.MinValue;
         private int _outputHeight = int.MinValue;
-        private int _jpegQuality = 70;
 
         /// <summary>
-        /// Uniue ID for this <c>IColorCodec</c> instance.
+        /// Unique ID for this <c>IColorCodec</c> instance.
         /// </summary>
-        public int CodecId { get { return 1; } }
+        public int CodecId { get { return 2; } }
 
         /// <summary>
         /// Width of the frame in pixels.
@@ -62,17 +61,6 @@ namespace KinectEx.DVR
             set { _outputHeight = value; }
         }
 
-        /// <summary>
-        /// Gets or sets the compression quality factor used to encode the individual
-        /// JPEG bitmaps. Should be between 1 (smallest / lowest quality) and 100
-        /// (largest / highest quality). Default is 70.
-        /// </summary>
-        public int JpegQuality
-        {
-            get { return _jpegQuality; }
-            set { _jpegQuality = value; }
-        }
-
 #if !NETFX_CORE
         /// <summary>
         /// Gets the pixel format of the last image decoded.
@@ -88,13 +76,9 @@ namespace KinectEx.DVR
         public async Task EncodeAsync(byte[] bytes, BinaryWriter writer)
         {
 #if NETFX_CORE
-            using (var jpegStream = new InMemoryRandomAccessStream())
+            using (var pngStream = new InMemoryRandomAccessStream())
             {
-                var propertySet = new BitmapPropertySet();
-                var qualityValue = new BitmapTypedValue(this.JpegQuality / 100.0, PropertyType.Single);
-                propertySet.Add("ImageQuality", qualityValue);
-
-                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, jpegStream, propertySet);
+                var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, pngStream);
                 if (this.Width != this.OutputWidth)
                 {
                     encoder.BitmapTransform.ScaledWidth = (uint)this.OutputWidth;
@@ -117,10 +101,10 @@ namespace KinectEx.DVR
                 // Header
                 writer.Write(this.OutputWidth);
                 writer.Write(this.OutputHeight);
-                writer.Write((int)jpegStream.Size);
+                writer.Write((int)pngStream.Size);
 
                 // Data
-                jpegStream.AsStreamForRead().CopyTo(writer.BaseStream);
+                pngStream.AsStreamForRead().CopyTo(writer.BaseStream);
             }
 #else
             await Task.Run(() =>
@@ -148,14 +132,11 @@ namespace KinectEx.DVR
                     frame = BitmapFrame.Create(bmp);
                 }
 
-                var encoder = new JpegBitmapEncoder()
-                {
-                    QualityLevel = this.JpegQuality
-                };
+                var encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(frame);
-                using (var jpegStream = new MemoryStream())
+                using (var pngStream = new MemoryStream())
                 {
-                    encoder.Save(jpegStream);
+                    encoder.Save(pngStream);
 
                     if (writer.BaseStream == null || writer.BaseStream.CanWrite == false)
                         return;
@@ -163,11 +144,11 @@ namespace KinectEx.DVR
                     // Header
                     writer.Write(this.OutputWidth);
                     writer.Write(this.OutputHeight);
-                    writer.Write((int)jpegStream.Length);
+                    writer.Write((int)pngStream.Length);
 
                     // Data
-                    jpegStream.Position = 0;
-                    jpegStream.CopyTo(writer.BaseStream);
+                    pngStream.Position = 0;
+                    pngStream.CopyTo(writer.BaseStream);
                 }
             });
 #endif
@@ -197,11 +178,13 @@ namespace KinectEx.DVR
         public async Task<byte[]> DecodeAsync(byte[] encodedBytes)
         {
 #if NETFX_CORE
+            BitmapDecoder dec = null;
+
             using (var ras = new InMemoryRandomAccessStream())
             {
                 await ras.AsStream().WriteAsync(encodedBytes, 0, encodedBytes.Length);
                 ras.Seek(0);
-                var dec = await BitmapDecoder.CreateAsync(BitmapDecoder.JpegDecoderId, ras);
+                dec = await BitmapDecoder.CreateAsync(BitmapDecoder.PngDecoderId, ras);
                 var pixelDataProvider = await dec.GetPixelDataAsync();
                 return pixelDataProvider.DetachPixelData();
             }
@@ -210,14 +193,11 @@ namespace KinectEx.DVR
             {
                 str.Write(encodedBytes, 0, encodedBytes.Length);
                 str.Position = 0;
-                var dec = new JpegBitmapDecoder(str, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                var dec = new PngBitmapDecoder(str, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                 var frame = dec.Frames[0];
                 this.PixelFormat = frame.Format;
-                var bpp = frame.Format.BitsPerPixel / 8;
-                var stride = bpp * frame.PixelWidth;
-                var size = stride * frame.PixelHeight;
-                var output = new byte[size];
-                frame.CopyPixels(output, stride, 0);
+                var output = new byte[frame.PixelWidth * frame.PixelHeight * 4];
+                frame.CopyPixels(output, frame.PixelWidth * 4, 0);
                 return await Task.FromResult(output);
             }
 #endif

@@ -40,9 +40,10 @@ namespace KinectEx.DVR
 #endif
 
         // Replay
+        ReplayBodySystem _bodyReplay;
         ReplayColorSystem _colorReplay;
         ReplayDepthSystem _depthReplay;
-        ReplayBodySystem _bodyReplay;
+        ReplayInfraredSystem _infraredReplay;
 
         List<ReplaySystem> _activeReplaySystems = new List<ReplaySystem>();
 
@@ -58,9 +59,9 @@ namespace KinectEx.DVR
         ////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
-        /// The length of each frame (effectively 30fps ==> 33ms)
+        /// The length of each frame (effectively 60fps ==> 16.67ms)
         /// </summary>
-        public static TimeSpan FrameTime = TimeSpan.FromTicks(333334);
+        public static TimeSpan FrameTime = TimeSpan.FromTicks(166667);
 
         /// <summary>
         /// The string name of the IsStarted property (for use in PropertyChanged
@@ -100,6 +101,11 @@ namespace KinectEx.DVR
         /// Signals the "arrival" of a new <c>ReplayDepthFrame</c>.
         /// </summary>
         public event EventHandler<ReplayFrameArrivedEventArgs<ReplayDepthFrame>> DepthFrameArrived;
+
+        /// <summary>
+        /// Signals the "arrival" of a new <c>InfraredDepthFrame</c>.
+        /// </summary>
+        public event EventHandler<ReplayFrameArrivedEventArgs<ReplayInfraredFrame>> InfraredFrameArrived;
 
         /// <summary>
         /// Signals a change in value of one of the properties.
@@ -188,6 +194,14 @@ namespace KinectEx.DVR
             get { return _depthReplay != null; }
         }
 
+        /// <summary>
+        /// Whether this playback stream contains <c>InfraredDepthFrame</c> frames.
+        /// </summary>
+        public bool HasInfraredFrames
+        {
+            get { return _infraredReplay != null; }
+        }
+
         #endregion
 
         ////////////////////////////////////////////////////////////////////////////
@@ -225,12 +239,24 @@ namespace KinectEx.DVR
                     FrameTypes type = (FrameTypes)_reader.ReadInt32();
                     switch (type)
                     {
+                        case FrameTypes.Body:
+                            if (_bodyReplay == null)
+                            {
+                                _bodyReplay = new ReplayBodySystem();
+                                _activeReplaySystems.Add(_bodyReplay);
+                                _bodyReplay.PropertyChanged += replay_PropertyChanged;
+                                _bodyReplay.FrameArrived += bodyReplay_FrameArrived;
+                            }
+                            _bodyReplay.AddFrame(_reader, version);
+                            break;
                         case FrameTypes.Color:
                             if (_colorReplay == null)
                             {
                                 IColorCodec codec = new RawColorCodec();
                                 if (metadata.ColorCodecId == ColorCodecs.Jpeg.CodecId)
                                     codec = new JpegColorCodec();
+                                if (metadata.ColorCodecId == ColorCodecs.Png.CodecId)
+                                    codec = new PngColorCodec();
 
                                 _colorReplay = new ReplayColorSystem(codec);
                                 _activeReplaySystems.Add(_colorReplay);
@@ -249,15 +275,15 @@ namespace KinectEx.DVR
                             }
                             _depthReplay.AddFrame(_reader);
                             break;
-                        case FrameTypes.Body:
-                            if (_bodyReplay == null)
+                        case FrameTypes.Infrared:
+                            if (_infraredReplay == null)
                             {
-                                _bodyReplay = new ReplayBodySystem();
-                                _activeReplaySystems.Add(_bodyReplay);
-                                _bodyReplay.PropertyChanged += replay_PropertyChanged;
-                                _bodyReplay.FrameArrived += bodyReplay_FrameArrived;
+                                _infraredReplay = new ReplayInfraredSystem();
+                                _activeReplaySystems.Add(_infraredReplay);
+                                _infraredReplay.PropertyChanged += replay_PropertyChanged;
+                                _infraredReplay.FrameArrived += infraredReplay_FrameArrived;
                             }
-                            _bodyReplay.AddFrame(_reader, version);
+                            _infraredReplay.AddFrame(_reader);
                             break;
                     }
                 }
@@ -287,13 +313,25 @@ namespace KinectEx.DVR
                 }
             }
 
+            bool hasFrames = false;
+
             foreach (var replaySystem in _activeReplaySystems)
             {
                 if (replaySystem.Frames.Count > 0)
+                {
                     replaySystem.StartingOffset = _minTimespan;
+                    hasFrames = true;
+                }
             }
 
-            this.Duration = _maxTimespan - _minTimespan;
+            if (hasFrames)
+            {
+                this.Duration = _maxTimespan - _minTimespan;
+            }
+            else
+            {
+                this.Duration = TimeSpan.Zero;
+            }
         }
         
         ~KinectReplay()
@@ -438,6 +476,14 @@ namespace KinectEx.DVR
                     BodyFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayBodyFrame> { Frame = frame });
             });
         }
+        private async void infraredReplay_FrameArrived(ReplayInfraredFrame frame)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                if (InfraredFrameArrived != null)
+                    InfraredFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayInfraredFrame> { Frame = frame });
+            });
+        }
 #else
         private void colorReplay_FrameArrived(ReplayColorFrame frame)
         {
@@ -455,13 +501,20 @@ namespace KinectEx.DVR
                     DepthFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayDepthFrame> { Frame = frame });
             }, null);
         }
-
         private void bodyReplay_FrameArrived(ReplayBodyFrame frame)
         {
             _synchronizationContext.Send(state =>
             {
                 if (BodyFrameArrived != null)
                     BodyFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayBodyFrame> { Frame = frame });
+            }, null);
+        }
+        private void infraredReplay_FrameArrived(ReplayInfraredFrame frame)
+        {
+            _synchronizationContext.Send(state =>
+            {
+                if (InfraredFrameArrived != null)
+                    InfraredFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayInfraredFrame> { Frame = frame });
             }, null);
         }
 #endif

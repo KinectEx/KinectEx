@@ -17,11 +17,14 @@
         <Image x:Name="OutputImage" Grid.Row="0" Margin="0 0 0 2"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button x:Name="RecordButton" Margin="5 0" Padding="5">Record</Button>
+            <Rectangle Fill="{StaticResource ApplicationForegroundThemeBrush}" Width="2" Margin="5 0"/>
             <CheckBox x:Name="BodyCheckBox" Margin="5" VerticalAlignment="Center">Body</CheckBox>
             <CheckBox x:Name="ColorCheckBox" Margin="5" VerticalAlignment="Center">Color</CheckBox>
             <CheckBox x:Name="DepthCheckBox" Margin="5" VerticalAlignment="Center">Depth</CheckBox>
-            <TextBlock FontSize="18" FontWeight="Bold" Margin="15 0 0 0" VerticalAlignment="Center">Compression:</TextBlock>
-            <ComboBox x:Name="CompressionCombo" Margin="5"/>
+            <CheckBox x:Name="InfraredCheckBox" Margin="5" VerticalAlignment="Center">Infrared</CheckBox>
+            <Rectangle Fill="{StaticResource ApplicationForegroundThemeBrush}" Width="2" Margin="5 0"/>
+            <TextBlock FontSize="18" FontWeight="Bold" Margin="15 0 0 0" VerticalAlignment="Center">Color Compression:</TextBlock>
+            <ComboBox x:Name="ColorCompressionCombo" Margin="5"/>
             <Rectangle Fill="{StaticResource ApplicationForegroundThemeBrush}" Width="2" Margin="5 0"/>
             <TextBlock FontSize="18" FontWeight="Bold" Margin="15 0 0 0" VerticalAlignment="Center">Smoothing:</TextBlock>
             <ComboBox x:Name="SmoothingCombo" Margin="5"/>

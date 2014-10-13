@@ -23,7 +23,7 @@ namespace KinectEx.DVR
             if (this.FrameCount == 0)
                 return;
 
-            ReplayDepthFrame frame = (ReplayDepthFrame)this.Frames[CurrentFrame];
+            var frame = (ReplayDepthFrame)this.Frames[CurrentFrame];
             if (FrameArrived != null)
                 FrameArrived(frame);
         }

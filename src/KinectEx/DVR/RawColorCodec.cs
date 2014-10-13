@@ -3,10 +3,12 @@ using System.IO;
 using System.Threading.Tasks;
 
 #if NETFX_CORE
+using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 #else
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 #endif
 
@@ -24,7 +26,7 @@ namespace KinectEx.DVR
         private int _outputWidth = int.MinValue;
 
         /// <summary>
-        /// Uniue ID for this <c>IColorCodec</c> instance.
+        /// Unique ID for this <c>IColorCodec</c> instance.
         /// </summary>
         public int CodecId { get { return 0; } }
 
@@ -60,6 +62,13 @@ namespace KinectEx.DVR
             set { _outputHeight = value; }
         }
 
+#if !NETFX_CORE
+        /// <summary>
+        /// Gets the pixel format of the last image decoded.
+        /// </summary>
+        public PixelFormat PixelFormat { get; private set; }
+#endif
+
         /// <summary>
         /// Encodes the specified bitmap data and outputs it to the specified
         /// <c>BinaryWriter</c>. Bitmap data should be in BGRA format.
@@ -79,17 +88,44 @@ namespace KinectEx.DVR
             }
             else
             {
-                WriteableBitmap bmp = BitmapFactory.New(this.Width, this.Height);
 #if NETFX_CORE
-                var ras = new InMemoryRandomAccessStream();
-                ras.AsStream().Write(bytes, 0, bytes.Length);
-                ras.AsStream().Flush();
-                bmp.SetSource(ras);
+                using (var bmpStream = new InMemoryRandomAccessStream())
+                {
+                    var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, bmpStream);
+                    encoder.BitmapTransform.ScaledWidth = (uint)this.OutputWidth;
+                    encoder.BitmapTransform.ScaledHeight = (uint)this.OutputHeight;
+
+                    encoder.SetPixelData(
+                        BitmapPixelFormat.Bgra8,
+                        BitmapAlphaMode.Straight,
+                        (uint)this.Width,
+                        (uint)this.Height,
+                        96,
+                        96,
+                        bytes);
+                    await encoder.FlushAsync();
+
+                    bmpStream.Seek(0);
+                    var dec = await BitmapDecoder.CreateAsync(BitmapDecoder.BmpDecoderId, bmpStream);
+                    var pixelDataProvider = await dec.GetPixelDataAsync();
+                    var pixelData = pixelDataProvider.DetachPixelData();
+
+                    if (writer.BaseStream == null || writer.BaseStream.CanWrite == false)
+                        return;
+
+                    // Header
+                    writer.Write(this.OutputWidth);
+                    writer.Write(this.OutputHeight);
+                    writer.Write((int)pixelData.Length);
+
+                    // Data
+                    writer.Write(pixelData);
+                }
 #else
+                WriteableBitmap bmp = BitmapFactory.New(this.Width, this.Height);
                 int stride = this.Width * 4; // 4 bytes per pixel in BGRA
                 var dirtyRect = new Int32Rect(0, 0, this.Width, this.Height);
                 bmp.WritePixels(dirtyRect, bytes, stride, 0);
-#endif
                 var newBytes = await Task.FromResult(bmp.Resize(this.OutputWidth, this.OutputHeight, WriteableBitmapExtensions.Interpolation.NearestNeighbor).ToByteArray());
 
                 // Header
@@ -99,6 +135,7 @@ namespace KinectEx.DVR
 
                 // Data
                 writer.Write(newBytes);
+#endif
             }
         }
 
@@ -120,12 +157,15 @@ namespace KinectEx.DVR
         }
 
         /// <summary>
-        /// Decodes the supplied encoded bitmap data and outputs a <c>BitmapSource</c>.
+        /// Decodes the supplied encoded bitmap data into an array of pixels.
         /// For internal use only.
         /// </summary>
-        public async Task<BitmapSource> DecodeAsync(byte[] bytes)
+        public async Task<byte[]> DecodeAsync(byte[] encodedBytes)
         {
-            return await Task.FromResult(BitmapFactory.New(this.Width, this.Height).FromByteArray(bytes));
+#if !NETFX_CORE
+            this.PixelFormat = PixelFormats.Pbgra32;
+#endif
+            return await Task.FromResult(encodedBytes);
         }
     }
 }

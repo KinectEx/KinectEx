@@ -36,7 +36,7 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\START\src\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="SharpDX">
@@ -65,6 +65,9 @@
     <Compile Include="..\KinectEx\BoneTypeEx.cs">
       <Link>BoneTypeEx.cs</Link>
     </Compile>
+    <Compile Include="..\KinectEx\ColorFrameBitmap.cs">
+      <Link>ColorFrameBitmap.cs</Link>
+    </Compile>
     <Compile Include="..\KinectEx\CustomBody.cs">
       <Link>CustomBody.cs</Link>
     </Compile>
@@ -73,6 +76,9 @@
     </Compile>
     <Compile Include="..\KinectEx\CustomJointOrientation.cs">
       <Link>CustomJointOrientation.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DepthFrameBitmap.cs">
+      <Link>DepthFrameBitmap.cs</Link>
     </Compile>
     <Compile Include="..\KinectEx\DVR\ColorCodecs.cs">
       <Link>DVR\ColorCodecs.cs</Link>
@@ -91,6 +97,9 @@
     </Compile>
     <Compile Include="..\KinectEx\DVR\KinectReplay.cs">
       <Link>DVR\KinectReplay.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\PngColorCodec.cs">
+      <Link>DVR\PngColorCodec.cs</Link>
     </Compile>
     <Compile Include="..\KinectEx\DVR\RawColorCodec.cs">
       <Link>DVR\RawColorCodec.cs</Link>
@@ -119,6 +128,12 @@
     <Compile Include="..\KinectEx\DVR\ReplayFrameArrivedEventArgs.cs">
       <Link>DVR\ReplayFrameArrivedEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayInfraredFrame.cs">
+      <Link>DVR\ReplayInfraredFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\DVR\ReplayInfraredSystem.cs">
+      <Link>DVR\ReplayInfraredSystem.cs</Link>
+    </Compile>
     <Compile Include="..\KinectEx\DVR\ReplaySystem.cs">
       <Link>DVR\ReplaySystem.cs</Link>
     </Compile>
@@ -130,6 +145,9 @@
     </Compile>
     <Compile Include="..\KinectEx\IJointOrientation.cs">
       <Link>IJointOrientation.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\InfraredFrameBitmap.cs">
+      <Link>InfraredFrameBitmap.cs</Link>
     </Compile>
     <Compile Include="..\KinectEx\JointTypeEx.cs">
       <Link>JointTypeEx.cs</Link>
@@ -151,6 +169,9 @@
     </Compile>
     <Compile Include="..\KinectEx\KinectSDK\Appearance.cs">
       <Link>KinectSDK\Appearance.cs</Link>
+    </Compile>
+    <Compile Include="..\KinectEx\KinectSDK\CameraIntrinsics.cs">
+      <Link>KinectSDK\CameraIntrinsics.cs</Link>
     </Compile>
     <Compile Include="..\KinectEx\KinectSDK\CameraSpacePoint.cs">
       <Link>KinectSDK\CameraSpacePoint.cs</Link>

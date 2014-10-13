@@ -287,7 +287,7 @@ namespace KinectEx
         /// <summary>
         /// Returns the distance (in meters) between the two specified joints.
         /// </summary>
-        public static double GetDistanceBetween(this Body body, JointTypeEx jointTypeA, JointTypeEx jointTypeB)
+        public static double GetDistanceBetween(this Body body, JointType jointTypeA, JointType jointTypeB)
         {
             return ((KinectBody)body).GetDistanceBetween(jointTypeA, jointTypeB);
         }

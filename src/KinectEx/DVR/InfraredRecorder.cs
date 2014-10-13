@@ -6,20 +6,20 @@ namespace KinectEx.DVR
 {
     /// <summary>
     /// Internal class that provides the services necessary to encode and store
-    /// a <c>DepthFrame</c>.
+    /// a <c>InfraredFrame</c>.
     /// </summary>
-    internal class DepthRecorder
+    internal class InfraredRecorder
     {
         private static byte[] _staticBytes = null;
 
         readonly BinaryWriter _writer;
 
-        public DepthRecorder(BinaryWriter writer)
+        public InfraredRecorder(BinaryWriter writer)
         {
             this._writer = writer;
         }
 
-        public async Task RecordAsync(ReplayDepthFrame frame)
+        public async Task RecordAsync(ReplayInfraredFrame frame)
         {
             await Task.Run(() =>
             {
@@ -34,9 +34,6 @@ namespace KinectEx.DVR
                     {
                         using (var dataWriter = new BinaryWriter(dataStream))
                         {
-                            dataWriter.Write(frame.DepthMinReliableDistance);
-                            dataWriter.Write(frame.DepthMaxReliableDistance);
-
                             dataWriter.Write(frame.Width);
                             dataWriter.Write(frame.Height);
                             dataWriter.Write(frame.BytesPerPixel);
