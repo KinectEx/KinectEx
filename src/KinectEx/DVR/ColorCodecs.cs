@@ -9,13 +9,11 @@
     {
         public static IColorCodec Raw { get; private set; }
         public static IColorCodec Jpeg { get; private set; }
-        public static IColorCodec Png { get; private set; }
 
         static ColorCodecs()
         {
             Raw = new RawColorCodec();
             Jpeg = new JpegColorCodec();
-            Png = new PngColorCodec();
         }
     }
 }

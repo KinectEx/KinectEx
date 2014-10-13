@@ -255,8 +255,6 @@ namespace KinectEx.DVR
                                 IColorCodec codec = new RawColorCodec();
                                 if (metadata.ColorCodecId == ColorCodecs.Jpeg.CodecId)
                                     codec = new JpegColorCodec();
-                                if (metadata.ColorCodecId == ColorCodecs.Png.CodecId)
-                                    codec = new PngColorCodec();
 
                                 _colorReplay = new ReplayColorSystem(codec);
                                 _activeReplaySystems.Add(_colorReplay);

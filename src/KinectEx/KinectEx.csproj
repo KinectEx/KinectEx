@@ -85,7 +85,6 @@
     <Compile Include="InfraredFrameBitmap.cs" />
     <Compile Include="DepthFrameBitmap.cs" />
     <Compile Include="ColorFrameBitmap.cs" />
-    <Compile Include="DVR\PngColorCodec.cs" />
     <Compile Include="DVR\ReplayInfraredFrame.cs" />
     <Compile Include="DVR\ReplayInfraredSystem.cs" />
     <Compile Include="IJointOrientation.cs" />

@@ -47,9 +47,6 @@ namespace KinectEx.RecorderDemo.WPF
             ColorCompressionCombo.Items.Add("JPEG (1920x1080)");
             ColorCompressionCombo.Items.Add("JPEG (1280x720)");
             ColorCompressionCombo.Items.Add("JPEG (640x360)");
-            ColorCompressionCombo.Items.Add("PNG (1920x1080)");
-            ColorCompressionCombo.Items.Add("PNG (1280x720)");
-            ColorCompressionCombo.Items.Add("PNG (640x360)");
             ColorCompressionCombo.SelectedIndex = 0;
 
             SmoothingCombo.Items.Add("None");
@@ -168,10 +165,6 @@ namespace KinectEx.RecorderDemo.WPF
                     if (colorCompressionType == 1)
                     {
                         _recorder.ColorRecorderCodec = new JpegColorCodec();
-                    }
-                    else if (colorCompressionType == 2)
-                    {
-                        _recorder.ColorRecorderCodec = new PngColorCodec();
                     }
                     if (colorCompressionSize == 1) // 1280 x 720
                     {

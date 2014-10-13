@@ -128,9 +128,6 @@
     <Compile Include="..\kinectex\dvr\KinectReplay.cs">
       <Link>DVR\KinectReplay.cs</Link>
     </Compile>
-    <Compile Include="..\KinectEx\DVR\PngColorCodec.cs">
-      <Link>DVR\PngColorCodec.cs</Link>
-    </Compile>
     <Compile Include="..\kinectex\dvr\RawColorCodec.cs">
       <Link>DVR\RawColorCodec.cs</Link>
     </Compile>
