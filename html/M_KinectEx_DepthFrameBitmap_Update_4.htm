@@ -22,10 +22,10 @@
         SyntaxHighlighter.all();
     </script>
     <script src="../js/sharpdoc.js" language="javascript"></script>            
-    <meta name="Microsoft.Help.Id" content="M:KinectEx.DepthFrameBitmap.Update(WindowsPreview.Kinect.DepthFrame)" />
+    <meta name="Microsoft.Help.Id" content="M:KinectEx.DepthFrameBitmap.Update(WindowsPreview.Kinect.DepthFrameReference)" />
     <meta name="Microsoft.Help.SelfBranded" content="true" />
     <meta name="Microsoft.Help.Locale" content="en-us" />
-    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DepthFrameBitmap::Update(WindowsPreview.Kinect.DepthFrame)" />
+    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DepthFrameBitmap::Update(WindowsPreview.Kinect.DepthFrameReference)" />
     <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
     <meta name="Microsoft.Help.Category" content="DevLang:VB" />
     <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
@@ -58,12 +58,12 @@
 </div>
 <div style="clear: both;"></div>
         
-<div class="summary">Update the Bitmap from the supplied <c>DepthFrame</c>.</div>
+<div class="summary">Update the Bitmap from the supplied <c>DepthFrameReference</c>.</div>
 
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
       
 
 </div>
@@ -90,8 +90,10 @@
     	    <li class="code tab">F#</li> 
 	    </ul>            
         <div class="tabcontent selected">     
-        <pre class='brush: csharp;'>public void Update(
-	DepthFrame frame
+        <pre class='brush: csharp;'>[DebuggerStepThroughAttribute]
+[AsyncStateMachineAttribute(KinectEx.DepthFrameBitmap/&lt;Update&gt;d__0)]
+public void Update(
+	DepthFrameReference frameReference
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -111,10 +113,10 @@
     <h4 class="sdoc-subheading">Parameters</h4>
 			<dl>
 				<dt>
-					<span class="sdoc-parameter">frame</span>
+					<span class="sdoc-parameter">frameReference</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="" >WindowsPreview.Kinect.DepthFrame</a><br />
+					<span>Type: <a target="_blank" href="" >WindowsPreview.Kinect.DepthFrameReference</a><br />
 						
 					</span>            
 				</dd>

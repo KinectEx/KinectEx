@@ -22,10 +22,10 @@
         SyntaxHighlighter.all();
     </script>
     <script src="../js/sharpdoc.js" language="javascript"></script>            
-    <meta name="Microsoft.Help.Id" content="M:KinectEx.DepthFrameBitmap.Update(WindowsPreview.Kinect.DepthFrameReference)" />
+    <meta name="Microsoft.Help.Id" content="M:KinectEx.DepthFrameBitmap.Update(System.UInt16[],System.UInt16,System.UInt16)" />
     <meta name="Microsoft.Help.SelfBranded" content="true" />
     <meta name="Microsoft.Help.Locale" content="en-us" />
-    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DepthFrameBitmap::Update(WindowsPreview.Kinect.DepthFrameReference)" />
+    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DepthFrameBitmap::Update(System.UInt16[],System.UInt16,System.UInt16)" />
     <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
     <meta name="Microsoft.Help.Category" content="DevLang:VB" />
     <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
@@ -58,12 +58,12 @@
 </div>
 <div style="clear: both;"></div>
         
-<div class="summary">Update the Bitmap from the supplied <c>DepthFrameReference</c>.</div>
+<div class="summary">Update the Bitmap from the supplied infrared frame data values.</div>
 
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
       
 
 </div>
@@ -90,8 +90,12 @@
     	    <li class="code tab">F#</li> 
 	    </ul>            
         <div class="tabcontent selected">     
-        <pre class='brush: csharp;'>public void Update(
-	DepthFrameReference frameReference
+        <pre class='brush: csharp;'>[DebuggerStepThroughAttribute]
+[AsyncStateMachineAttribute(KinectEx.DepthFrameBitmap/&lt;Update&gt;d__13)]
+public void Update(
+	UInt16[] data, 
+	ushort minDepth, 
+	ushort maxDepth
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -111,10 +115,30 @@
     <h4 class="sdoc-subheading">Parameters</h4>
 			<dl>
 				<dt>
-					<span class="sdoc-parameter">frameReference</span>
+					<span class="sdoc-parameter">data</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="" >WindowsPreview.Kinect.DepthFrameReference</a><br />
+					<span>Type: <a target="_blank" href="" >System.UInt16[]</a><br />
+						
+					</span>            
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<span class="sdoc-parameter">minDepth</span>
+				</dt>
+				<dd>
+					<span>Type: <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/s6eyk10z"  target='_blank'>System.UInt16</a><br />
+						
+					</span>            
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<span class="sdoc-parameter">maxDepth</span>
+				</dt>
+				<dd>
+					<span>Type: <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/s6eyk10z"  target='_blank'>System.UInt16</a><br />
 						
 					</span>            
 				</dd>
@@ -143,7 +167,11 @@
     <div id="section_VersionandPlatformInformation" class="section">
         <div class="title"><a id="section_VersionandPlatformInformation_toggle" href="#" class="title"><div id="section_VersionandPlatformInformation_icon" class="toggle_icon out"></div><span class="title">Version and Platform Information</span></a><div class="hr"><hr/></div></div>
         <div id="section_VersionandPlatformInformation_content" class="block">
-        Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>&nbsp;Windows 8.1 Store - WinRT<br/>
+        Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5"></div>&nbsp;Windows Desktop - .NET 4.5<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5 (without Kinect SDK)"></div>&nbsp;Windows Desktop - .NET 4.5 (without Kinect SDK)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>&nbsp;Windows 8.1 Store - WinRT<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>&nbsp;Windows 8.1 Store - WinRT (without Kinect SDK)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon wp8" title="Windows Phone 8 - WinRT"></div>&nbsp;Windows Phone 8 - WinRT<br/>
 
         </div>
     </div>    

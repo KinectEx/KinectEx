@@ -82,7 +82,7 @@
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_DVR');" href="N_KinectEx_DVR.htm" >KinectEx.DVR</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
       
 
 </div>
@@ -198,7 +198,7 @@
         <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('F_KinectEx_DVR_KinectReplay_FrameTime');" href="F_KinectEx_DVR_KinectReplay_FrameTime.htm" >FrameTime</a></td>
-    <td class="desc-col">The length of each frame (effectively 30fps ==&gt; 33ms)&nbsp;</td>
+    <td class="desc-col">The length of each frame (effectively 30fps ==&gt; 33.3ms)&nbsp;</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubfield" title="Public Field"></div>
         <div class="icon static" title="Static"></div>
@@ -317,6 +317,17 @@
         <div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>
         <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
 </td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectReplay_HasInfraredFrames');" href="P_KinectEx_DVR_KinectReplay_HasInfraredFrames.htm" >HasInfraredFrames</a></td>
+    <td class="desc-col">Whether this playback stream contains <c>InfraredDepthFrame</c> frames.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon default" title="Windows Desktop - .NET 4.5 (without Kinect SDK)"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>
+        <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
+</td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_DVR_KinectReplay_IsFinished');" href="P_KinectEx_DVR_KinectReplay_IsFinished.htm" >IsFinished</a></td>
     <td class="desc-col">Whether this instance of <c>KinectReplay</c> has finished playback.
             While IsStarted can change to false any time playback is stopped,
@@ -380,7 +391,7 @@
         <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay_Dispose');" href="M_KinectEx_DVR_KinectReplay_Dispose.htm" >Dispose()</a></td>
-    <td class="desc-col">&nbsp;(Implements <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/es4s3w1d"  target='_blank'>IDisposable.Dispose()</a>.)</td>
+    <td class="desc-col">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.&nbsp;(Implements <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/es4s3w1d"  target='_blank'>IDisposable.Dispose()</a>.)</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon protmethod" title="Protected Method"></div>
 </td>
@@ -391,7 +402,7 @@
         <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay_Dispose_1');" href="M_KinectEx_DVR_KinectReplay_Dispose_1.htm" >Dispose(bool)</a></td>
-    <td class="desc-col">&nbsp;</td>
+    <td class="desc-col">Releases unmanaged and - optionally - managed resources.&nbsp;</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon protmethod" title="Protected Method"></div>
 </td>
@@ -402,7 +413,7 @@
         <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_KinectReplay_Finalize');" href="M_KinectEx_DVR_KinectReplay_Finalize.htm" >Finalize</a></td>
-    <td class="desc-col">&nbsp;(Overrides <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/4k87zsw7"  target='_blank'>object.Finalize()</a>.)</td>
+    <td class="desc-col">Finalizes an instance of the <strong>KinectReplay</strong> class.&nbsp;(Overrides <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/4k87zsw7"  target='_blank'>object.Finalize()</a>.)</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
@@ -495,6 +506,17 @@
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('E_KinectEx_DVR_KinectReplay_DepthFrameArrived');" href="E_KinectEx_DVR_KinectReplay_DepthFrameArrived.htm" >DepthFrameArrived</a></td>
     <td class="desc-col">Signals the "arrival" of a new <c>ReplayDepthFrame</c>.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubevent" title="Public Event"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon default" title="Windows Desktop - .NET 4.5 (without Kinect SDK)"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>
+        <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('E_KinectEx_DVR_KinectReplay_InfraredFrameArrived');" href="E_KinectEx_DVR_KinectReplay_InfraredFrameArrived.htm" >InfraredFrameArrived</a></td>
+    <td class="desc-col">Signals the "arrival" of a new <c>InfraredDepthFrame</c>.&nbsp;</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubevent" title="Public Event"></div>
 </td>

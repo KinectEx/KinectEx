@@ -22,10 +22,10 @@
         SyntaxHighlighter.all();
     </script>
     <script src="../js/sharpdoc.js" language="javascript"></script>            
-    <meta name="Microsoft.Help.Id" content="M:KinectEx.DVR.KinectRecorder.RecordFrame(Microsoft.Kinect.ColorFrame)" />
+    <meta name="Microsoft.Help.Id" content="M:KinectEx.DVR.KinectRecorder.RecordFrame(Microsoft.Kinect.ColorFrame,System.Byte[])" />
     <meta name="Microsoft.Help.SelfBranded" content="true" />
     <meta name="Microsoft.Help.Locale" content="en-us" />
-    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DVR.KinectRecorder::RecordFrame(Microsoft.Kinect.ColorFrame)" />
+    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DVR.KinectRecorder::RecordFrame(Microsoft.Kinect.ColorFrame,System.Byte[])" />
     <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
     <meta name="Microsoft.Help.Category" content="DevLang:VB" />
     <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
@@ -58,12 +58,14 @@
 </div>
 <div style="clear: both;"></div>
         
-<div class="summary">Used in "Manual" mode to record a single <c>ColorFrame</c>.</div>
+<div class="summary">Used in "Manual" mode to record a single <c>ColorFrame</c> if
+            the color frame data has already been retrieved from the frame.
+            Note that the frame data must have been converted to BGRA format.</div>
 
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_DVR');" href="N_KinectEx_DVR.htm" >KinectEx.DVR</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
       
 
 </div>
@@ -91,7 +93,8 @@
 	    </ul>            
         <div class="tabcontent selected">     
         <pre class='brush: csharp;'>public void RecordFrame(
-	ColorFrame frame
+	ColorFrame frame, 
+	Byte[] bytes
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -115,6 +118,16 @@
 				</dt>
 				<dd>
 					<span>Type: <a target="_blank" href="" >Microsoft.Kinect.ColorFrame</a><br />
+						
+					</span>            
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<span class="sdoc-parameter">bytes</span>
+				</dt>
+				<dd>
+					<span>Type: <a target="_blank" href="" >System.Byte[]</a><br />
 						
 					</span>            
 				</dd>

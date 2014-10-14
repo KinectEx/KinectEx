@@ -58,12 +58,18 @@
 </div>
 <div style="clear: both;"></div>
         
-<div class="summary"></div>
+<div class="summary">Similar to the Kinect SDK method of the same name, this method retrieves
+            the array of bodies from a <c>BodyFrame</c> and updates the specified
+            <c>SmoothedBodyList</c> collection. If the collection does not contain
+            the correct number of bodies, this method clears and refills the collection
+            with new bodies of type T. Note that if this behavior is undesirable,
+            insure that the collection contains the right number of bodies before
+            calling this method.</div>
 
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
       
 
 </div>
@@ -117,7 +123,7 @@ public static void GetAndRefreshBodyData&lt;T&gt;(
 				</dt>
 				<dd>
 					<span>Type: <a target="_blank" href="" >WindowsPreview.Kinect.BodyFrame</a><br />
-						
+						The frame.
 					</span>            
 				</dd>
 			</dl>
@@ -127,7 +133,7 @@ public static void GetAndRefreshBodyData&lt;T&gt;(
 				</dt>
 				<dd>
 					<span>Type: <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/5y536ey6"  target='_blank'>IList</a>&lt;T&gt;<br />
-						
+						The bodies.
 					</span>            
 				</dd>
 			</dl>

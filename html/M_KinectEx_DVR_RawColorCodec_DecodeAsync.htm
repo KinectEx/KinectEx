@@ -58,13 +58,13 @@
 </div>
 <div style="clear: both;"></div>
         
-<div class="summary">Decodes the supplied encoded bitmap data and outputs a <c>BitmapSource</c>.
+<div class="summary">Decodes the supplied encoded bitmap data into an array of pixels.
             For internal use only.</div>
 
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_DVR');" href="N_KinectEx_DVR.htm" >KinectEx.DVR</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
       
 
 </div>
@@ -91,10 +91,10 @@
     	    <li class="code tab">F#</li> 
 	    </ul>            
         <div class="tabcontent selected">     
-        <pre class='brush: csharp;'>[AsyncStateMachineAttribute(KinectEx.DVR.RawColorCodec/&lt;DecodeAsync&gt;d__3)]
-[DebuggerStepThroughAttribute]
-public sealed Task&lt;BitmapSource&gt; DecodeAsync(
-	Byte[] bytes
+        <pre class='brush: csharp;'>[DebuggerStepThroughAttribute]
+[AsyncStateMachineAttribute(KinectEx.DVR.RawColorCodec/&lt;DecodeAsync&gt;d__7)]
+public sealed Task&lt;Byte[]&gt; DecodeAsync(
+	Byte[] encodedBytes
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -114,7 +114,7 @@ public sealed Task&lt;BitmapSource&gt; DecodeAsync(
     <h4 class="sdoc-subheading">Parameters</h4>
 			<dl>
 				<dt>
-					<span class="sdoc-parameter">bytes</span>
+					<span class="sdoc-parameter">encodedBytes</span>
 				</dt>
 				<dd>
 					<span>Type: <a target="_blank" href="" >System.Byte[]</a><br />
@@ -123,7 +123,7 @@ public sealed Task&lt;BitmapSource&gt; DecodeAsync(
 				</dd>
 			</dl>
             <h4 class="sdoc-subheading">Return Value</h4>
-        <span>Type: <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/dd321424"  target='_blank'>Task</a>&lt;<a target="_blank" href="http://msdn2.microsoft.com/en-us/library/ms653387"  target='_blank'>System.Windows.Media.Imaging.BitmapSource</a>&gt;<br />
+        <span>Type: <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/dd321424"  target='_blank'>Task</a>&lt;<a target="_blank" href="" >Byte[</a>&gt;<br />
         
         </span>            
     </div>

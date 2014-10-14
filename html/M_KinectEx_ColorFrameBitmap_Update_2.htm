@@ -22,10 +22,10 @@
         SyntaxHighlighter.all();
     </script>
     <script src="../js/sharpdoc.js" language="javascript"></script>            
-    <meta name="Microsoft.Help.Id" content="M:KinectEx.ColorFrameBitmap.Update(System.Byte[])" />
+    <meta name="Microsoft.Help.Id" content="M:KinectEx.ColorFrameBitmap.Update(KinectEx.DVR.ReplayColorFrame)" />
     <meta name="Microsoft.Help.SelfBranded" content="true" />
     <meta name="Microsoft.Help.Locale" content="en-us" />
-    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.ColorFrameBitmap::Update(System.Byte[])" />
+    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.ColorFrameBitmap::Update(KinectEx.DVR.ReplayColorFrame)" />
     <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
     <meta name="Microsoft.Help.Category" content="DevLang:VB" />
     <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
@@ -58,12 +58,12 @@
 </div>
 <div style="clear: both;"></div>
         
-<div class="summary">Update the Bitmap from the supplied color frame data values.</div>
+<div class="summary">Update the Bitmap from the supplied <c>ReplayColorFrame</c>.</div>
 
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.1.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
       
 
 </div>
@@ -91,7 +91,7 @@
 	    </ul>            
         <div class="tabcontent selected">     
         <pre class='brush: csharp;'>public void Update(
-	Byte[] bytes
+	ReplayColorFrame frame
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -111,10 +111,10 @@
     <h4 class="sdoc-subheading">Parameters</h4>
 			<dl>
 				<dt>
-					<span class="sdoc-parameter">bytes</span>
+					<span class="sdoc-parameter">frame</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="" >System.Byte[]</a><br />
+					<span>Type: <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_DVR_ReplayColorFrame');" href="T_KinectEx_DVR_ReplayColorFrame.htm" >KinectEx.DVR.ReplayColorFrame</a><br />
 						
 					</span>            
 				</dd>
@@ -144,7 +144,10 @@
         <div class="title"><a id="section_VersionandPlatformInformation_toggle" href="#" class="title"><div id="section_VersionandPlatformInformation_icon" class="toggle_icon out"></div><span class="title">Version and Platform Information</span></a><div class="hr"><hr/></div></div>
         <div id="section_VersionandPlatformInformation_content" class="block">
         Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5"></div>&nbsp;Windows Desktop - .NET 4.5<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5 (without Kinect SDK)"></div>&nbsp;Windows Desktop - .NET 4.5 (without Kinect SDK)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>&nbsp;Windows 8.1 Store - WinRT<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>&nbsp;Windows 8.1 Store - WinRT (without Kinect SDK)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon wp8" title="Windows Phone 8 - WinRT"></div>&nbsp;Windows Phone 8 - WinRT<br/>
 
         </div>
     </div>    
