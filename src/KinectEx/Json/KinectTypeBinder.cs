@@ -21,14 +21,17 @@ namespace KinectEx.Json
 
         private SerializationBinder _defaultBinder;
 
+        /// <summary>
+        /// Initializes the <see cref="KinectTypeBinder"/> class.
+        /// </summary>
         static KinectTypeBinder()
         {
 #if NOSDK
-            var typeinfo = typeof(KinectEx.KinectSDK.Activity).GetTypeInfo();
+            var typeinfo = typeof(KinectEx.KinectSDK.JointType).GetTypeInfo();
 #elif NETFX_CORE
-            var typeinfo = typeof(WindowsPreview.Kinect.Activity).GetTypeInfo();
+            var typeinfo = typeof(WindowsPreview.Kinect.JointType).GetTypeInfo();
 #else
-            var typeinfo = typeof(Microsoft.Kinect.Activity).GetTypeInfo();
+            var typeinfo = typeof(Microsoft.Kinect.JointType).GetTypeInfo();
 #endif
             _realKinectNamespace = typeinfo.Namespace;
             _realKinectAssembly = typeinfo.Assembly.FullName;
@@ -37,11 +40,21 @@ namespace KinectEx.Json
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KinectTypeBinder"/> class.
+        /// </summary>
+        /// <param name="defaultBinder">The default binder.</param>
         public KinectTypeBinder(SerializationBinder defaultBinder)
         {
             _defaultBinder = defaultBinder;
         }
 
+        /// <summary>
+        /// Controls the binding of a serialized object to a type.
+        /// </summary>
+        /// <param name="serializedType">The type of the object the formatter creates a new instance of.</param>
+        /// <param name="assemblyName">Specifies the <see cref="T:System.Reflection.Assembly" /> name of the serialized object.</param>
+        /// <param name="typeName">Specifies the <see cref="T:System.Type" /> name of the serialized object.</param>
         public override void BindToName(Type serializedType, out string assemblyName, out string typeName)
         {
             _defaultBinder.BindToName(serializedType, out assemblyName, out typeName);
@@ -56,6 +69,14 @@ namespace KinectEx.Json
             }
         }
 
+        /// <summary>
+        /// Controls the binding of a serialized object to a type.
+        /// </summary>
+        /// <param name="assemblyName">Specifies the <see cref="T:System.Reflection.Assembly" /> name of the serialized object.</param>
+        /// <param name="typeName">Specifies the <see cref="T:System.Type" /> name of the serialized object.</param>
+        /// <returns>
+        /// The type of the object the formatter creates a new instance of.
+        /// </returns>
         public override Type BindToType(string assemblyName, string typeName)
         {
             if (typeName.Contains(_jsonKinectNamespace))

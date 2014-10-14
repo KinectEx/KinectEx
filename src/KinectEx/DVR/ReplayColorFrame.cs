@@ -75,9 +75,17 @@ namespace KinectEx.DVR
 
         // Multiple Constructor options
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayColorFrame"/> class.
+        /// </summary>
         internal ReplayColorFrame() { }
 
 #if !NOSDK
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayColorFrame"/> class
+        /// based on the specified <c>ColorFrame</c>.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
         internal ReplayColorFrame(ColorFrame frame)
         {
             this.Codec = ColorCodecs.Raw;
@@ -101,6 +109,12 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayColorFrame"/> class
+        /// based on the specified <c>ColorFrame</c> and <c>byte</c> array.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
+        /// <param name="bytes">The bytes.</param>
         internal ReplayColorFrame(ColorFrame frame, byte[] bytes)
         {
             this.Codec = ColorCodecs.Raw;
@@ -116,8 +130,15 @@ namespace KinectEx.DVR
         }
 #endif
 
-        // and a factory method
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayColorFrame"/> class
+        /// by reading from the specified <c>BinaryReader</c> using the specified
+        /// <c>IColorCodec</c>.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="codec">The codec.</param>
+        /// <returns>The <c>ReplayColorFrame</c></returns>
+        /// <exception cref="System.IO.IOException">The recording appears to be corrupt.</exception>
         internal static ReplayColorFrame FromReader(BinaryReader reader, IColorCodec codec)
         {
             var frame = new ReplayColorFrame();

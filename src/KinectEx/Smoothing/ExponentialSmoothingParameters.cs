@@ -1,12 +1,15 @@
 ﻿namespace KinectEx.Smoothing
 {
+    /// <summary>
+    /// Parameters used to control the smoothing of an <c>ExponentialSmoother</c>.
+    /// </summary>
     public class ExponentialSmoothingParameters : ISmootherParameters
     {
-        public static float DEFAULT_SMOOTHING = 0.25f;
-        public static float DEFAULT_CORRECTION = 0.25f;
-        public static float DEFAULT_PREDICTION = 0.25f;
-        public static float DEFAULT_JITTER_RADIUS = 0.03f;
-        public static float DEFAULT_MAX_DEVIATION_RADIUS = 0.25f;
+        private static float DEFAULT_SMOOTHING = 0.25f;
+        private static float DEFAULT_CORRECTION = 0.25f;
+        private static float DEFAULT_PREDICTION = 0.25f;
+        private static float DEFAULT_JITTER_RADIUS = 0.03f;
+        private static float DEFAULT_MAX_DEVIATION_RADIUS = 0.25f;
 
         /// <summary>
         /// How much soothing will occur. Will lag when too high.

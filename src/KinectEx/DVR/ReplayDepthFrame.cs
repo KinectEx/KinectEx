@@ -77,22 +77,19 @@ namespace KinectEx.DVR
             }
         }
         
-        /// <summary>
-        /// OBSOLETE. Retrieve a bitmap representation of the depth data stored in this frame.
-        /// </summary>
-        [Obsolete("Use a DepthFrameBitmap instead")]
-        public BitmapSource GetBitmap()
-        {
-            DepthFrameBitmap bitmap = new DepthFrameBitmap(this.Width, this.Height);
-            bitmap.Update(this);
-            return bitmap.Bitmap;
-        }
-
         // Multiple Constructor options
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayDepthFrame"/> class.
+        /// </summary>
         internal ReplayDepthFrame() { }
 
 #if !NOSDK
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayDepthFrame"/> class
+        /// based on the specified <c>DepthFrame</c>.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
         internal ReplayDepthFrame(DepthFrame frame)
         {
             this.FrameType = FrameTypes.Depth;
@@ -110,6 +107,12 @@ namespace KinectEx.DVR
             frame.CopyFrameDataToArray(_frameData);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayDepthFrame"/> class
+        /// based on the specified <c>DepthFrame</c> and array of <c>ushort</c>.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
+        /// <param name="frameData">The frame data.</param>
         internal ReplayDepthFrame(DepthFrame frame, ushort[] frameData)
         {
             this.FrameType = FrameTypes.Depth;
@@ -126,8 +129,13 @@ namespace KinectEx.DVR
         }
 #endif
 
-        // and a factory method
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayDepthFrame"/> class
+        /// by reading from the specified <c>BinaryReader</c>.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>The <c>ReplayDepthFrame</c></returns>
+        /// <exception cref="System.IO.IOException">The recording appears to be corrupt.</exception>
         internal static ReplayDepthFrame FromReader(BinaryReader reader)
         {
             var frame = new ReplayDepthFrame();

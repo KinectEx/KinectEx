@@ -24,31 +24,25 @@ namespace KinectEx.DVR
     /// </summary>
     public class KinectReplay : IDisposable, INotifyPropertyChanged
     {
-        BinaryReader _reader;
-        Stream _stream;
+        private BinaryReader _reader;
+        private Stream _stream;
 
-        readonly DispatcherTimer _timer = new DispatcherTimer()
+        private readonly DispatcherTimer _timer = new DispatcherTimer()
         {
-            Interval = FrameTime
+            Interval = TimeSpan.FromTicks(FrameTime.Ticks / 2)
         };
-        readonly Stopwatch _stopwatch = new Stopwatch();
-
-#if NETFX_CORE
-        readonly CoreDispatcher _dispatcher;
-#else
-        readonly SynchronizationContext _synchronizationContext;
-#endif
+        private readonly Stopwatch _actualElapsedTimeStopwatch = new Stopwatch();
 
         // Replay
-        ReplayBodySystem _bodyReplay;
-        ReplayColorSystem _colorReplay;
-        ReplayDepthSystem _depthReplay;
-        ReplayInfraredSystem _infraredReplay;
+        private ReplayBodySystem _bodyReplay;
+        private ReplayColorSystem _colorReplay;
+        private ReplayDepthSystem _depthReplay;
+        private ReplayInfraredSystem _infraredReplay;
 
-        List<ReplaySystem> _activeReplaySystems = new List<ReplaySystem>();
+        private List<ReplaySystem> _activeReplaySystems = new List<ReplaySystem>();
 
-        TimeSpan _minTimespan = TimeSpan.MaxValue;
-        TimeSpan _maxTimespan = TimeSpan.MinValue;
+        private TimeSpan _minTimespan = TimeSpan.MaxValue;
+        private TimeSpan _maxTimespan = TimeSpan.MinValue;
 
         // Property Backers
         private bool _isStarted = false;
@@ -59,9 +53,9 @@ namespace KinectEx.DVR
         ////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
-        /// The length of each frame (effectively 60fps ==> 16.67ms)
+        /// The length of each frame (effectively 30fps ==> 33.3ms)
         /// </summary>
-        public static TimeSpan FrameTime = TimeSpan.FromTicks(166667);
+        public static TimeSpan FrameTime = TimeSpan.FromTicks(333333);
 
         /// <summary>
         /// The string name of the IsStarted property (for use in PropertyChanged
@@ -219,13 +213,6 @@ namespace KinectEx.DVR
             this._stream = stream;
             _reader = new BinaryReader(stream);
 
-#if NETFX_CORE
-			if(CoreWindow.GetForCurrentThread() != null)
-				_dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-#else
-            _synchronizationContext = SynchronizationContext.Current;
-#endif
-
             _timer.Tick += _timer_Tick;
 
             var metadata = JsonConvert.DeserializeObject<FileMetadata>(_reader.ReadString());
@@ -331,18 +318,28 @@ namespace KinectEx.DVR
                 this.Duration = TimeSpan.Zero;
             }
         }
-        
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="KinectReplay"/> class.
+        /// </summary>
         ~KinectReplay()
         {
             this.Dispose(false);
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -388,6 +385,7 @@ namespace KinectEx.DVR
         public void Stop()
         {
             _timer.Stop();
+            _actualElapsedTimeStopwatch.Reset();
             IsStarted = false;
         }
 
@@ -414,23 +412,23 @@ namespace KinectEx.DVR
         #region SUPPORT CODE
         ////////////////////////////////////////////////////////////////////////////
 
-        System.Diagnostics.Stopwatch st = new System.Diagnostics.Stopwatch();
 #if NETFX_CORE
         void _timer_Tick(object sender, object e)
 #else
         void _timer_Tick(object sender, EventArgs e)
 #endif
         {
-            _stopwatch.Start();
-            this.Location += FrameTime;
+            this.Location += _actualElapsedTimeStopwatch.Elapsed;
+            _actualElapsedTimeStopwatch.Restart();
 
             foreach (var replaySystem in _activeReplaySystems)
                 replaySystem.CurrentRelativeTime = replaySystem.StartingOffset + this.Location;
 
-            var interval = FrameTime - _stopwatch.Elapsed;
-            _timer.Interval = interval < TimeSpan.Zero ? TimeSpan.Zero : interval;
-            System.Diagnostics.Debug.WriteLine("{0}", interval);
-            _stopwatch.Reset();
+            //var interval = FrameTime - _stopwatch.Elapsed;
+            //interval = interval < TimeSpan.Zero ? TimeSpan.Zero : interval;
+            //_timer.Interval = interval;
+            //System.Diagnostics.Debug.WriteLine("... Set new interval to {0}", interval);
+            //_stopwatch.Reset();
         }
 
         private void replay_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -450,70 +448,46 @@ namespace KinectEx.DVR
         }
 
 #if NETFX_CORE
-        private async void colorReplay_FrameArrived(ReplayColorFrame frame)
+        private void bodyReplay_FrameArrived(ReplayBodyFrame frame)
         {
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                if (ColorFrameArrived != null)
-                    ColorFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayColorFrame> { Frame = frame });
-            });
+            if (BodyFrameArrived != null)
+                BodyFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayBodyFrame> { Frame = frame });
         }
-        private async void depthReplay_FrameArrived(ReplayDepthFrame frame)
-        {
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                if (DepthFrameArrived != null)
-                    DepthFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayDepthFrame> { Frame = frame });
-            });
-        }
-        private async void bodyReplay_FrameArrived(ReplayBodyFrame frame)
-        {
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                if (BodyFrameArrived != null)
-                    BodyFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayBodyFrame> { Frame = frame });
-            });
-        }
-        private async void infraredReplay_FrameArrived(ReplayInfraredFrame frame)
-        {
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                if (InfraredFrameArrived != null)
-                    InfraredFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayInfraredFrame> { Frame = frame });
-            });
-        }
-#else
         private void colorReplay_FrameArrived(ReplayColorFrame frame)
         {
-            _synchronizationContext.Send(state =>
-            {
-                if (ColorFrameArrived != null)
-                    ColorFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayColorFrame> { Frame = frame });
-            }, null);
+            if (ColorFrameArrived != null)
+                ColorFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayColorFrame> { Frame = frame });
         }
         private void depthReplay_FrameArrived(ReplayDepthFrame frame)
         {
-            _synchronizationContext.Send(state =>
-            {
-                if (DepthFrameArrived != null)
-                    DepthFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayDepthFrame> { Frame = frame });
-            }, null);
-        }
-        private void bodyReplay_FrameArrived(ReplayBodyFrame frame)
-        {
-            _synchronizationContext.Send(state =>
-            {
-                if (BodyFrameArrived != null)
-                    BodyFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayBodyFrame> { Frame = frame });
-            }, null);
+            if (DepthFrameArrived != null)
+                DepthFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayDepthFrame> { Frame = frame });
         }
         private void infraredReplay_FrameArrived(ReplayInfraredFrame frame)
         {
-            _synchronizationContext.Send(state =>
-            {
-                if (InfraredFrameArrived != null)
-                    InfraredFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayInfraredFrame> { Frame = frame });
-            }, null);
+            if (InfraredFrameArrived != null)
+                InfraredFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayInfraredFrame> { Frame = frame });
+        }
+#else
+        private void bodyReplay_FrameArrived(ReplayBodyFrame frame)
+        {
+            if (BodyFrameArrived != null)
+                BodyFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayBodyFrame> { Frame = frame });
+        }
+        private void colorReplay_FrameArrived(ReplayColorFrame frame)
+        {
+            if (ColorFrameArrived != null)
+                ColorFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayColorFrame> { Frame = frame });
+        }
+        private void depthReplay_FrameArrived(ReplayDepthFrame frame)
+        {
+            if (DepthFrameArrived != null)
+                DepthFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayDepthFrame> { Frame = frame });
+        }
+        private void infraredReplay_FrameArrived(ReplayInfraredFrame frame)
+        {
+            if (InfraredFrameArrived != null)
+                InfraredFrameArrived(this, new ReplayFrameArrivedEventArgs<ReplayInfraredFrame> { Frame = frame });
         }
 #endif
 

@@ -11,17 +11,44 @@ namespace KinectEx.DVR
     /// </summary>
     internal abstract class ReplaySystem : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public List<ReplayFrame> Frames { get; set; }
-
-        public Dictionary<TimeSpan, int> FrameTimeToIndex { get; set; }
-
-        public TimeSpan StartingOffset { get; set; }
-
-        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+        private int _mostRecentCurrentFrame = -1;
 
         private TimeSpan _currentRelativeTime;
+        public static readonly string IsFinishedPropertyName = "IsFinished";
+        private bool _isFinished = false;
+
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Gets or sets the list of frames.
+        /// </summary>
+        public List<ReplayFrame> Frames { get; set; }
+
+        /// <summary>
+        /// Gets or sets the dictionary relating FrameTime to the frame's index
+        /// in the Frames list.
+        /// </summary>
+        public Dictionary<TimeSpan, int> FrameTimeToIndex { get; set; }
+
+        /// <summary>
+        /// Gets or sets the starting offset.
+        /// </summary>
+        public TimeSpan StartingOffset { get; set; }
+
+#if DEBUG
+        System.Diagnostics.Stopwatch DEBUG_sw = new System.Diagnostics.Stopwatch();
+        string DEBUG_name = "";
+        TimeSpan DEBUG_lastRelativeTime = TimeSpan.Zero;
+#endif
+
+        /// <summary>
+        /// Gets or sets the current relative time. Setting the time causes the
+        /// current frame at that time to be pushed to consumer using the
+        /// FrameArrived event (defined the derived classes).
+        /// </summary>
         public TimeSpan CurrentRelativeTime
         {
             get { return _currentRelativeTime; }
@@ -30,30 +57,35 @@ namespace KinectEx.DVR
                 if (value == _currentRelativeTime)
                     return;
 
-                System.Diagnostics.Debug.WriteLine("??? CurrentRelativeTime Changed");
+                _currentRelativeTime = value;
 
                 var frame = this.CurrentFrame;
-                if (frame != _currentFrame)
+                if (frame != _mostRecentCurrentFrame)
                 {
-                    sw.Start();
-                    System.Diagnostics.Debug.WriteLine(">>> PushCurrentFrame()");
-                    _currentFrame = frame;
-                    //this.PushCurrentFrame();
+#if DEBUG
+                    System.Diagnostics.Debug.WriteLine(">>> PushCurrentFrame({0}) {1}ms {2}ms",
+                        frame,
+                        (Frames[frame].RelativeTime - DEBUG_lastRelativeTime).TotalMilliseconds,
+                        DEBUG_sw.ElapsedMilliseconds);
+                    DEBUG_lastRelativeTime = Frames[frame].RelativeTime;
+                    DEBUG_sw.Restart();
+#endif
+
+                    _mostRecentCurrentFrame = frame;
                     this.PushCurrentFrame();
-                    System.Diagnostics.Debug.WriteLine("<<< PushCurrentFrame() {0}", sw.ElapsedTicks);
-                    sw.Reset();
+                    System.Diagnostics.Debug.WriteLine("<<< PushCurrentFrame() {0}", DEBUG_sw.ElapsedTicks);
 
                     if (frame == this.FrameCount - 1)
                         IsFinished = true;
                     else
                         IsFinished = false;
                 }
-
-                _currentRelativeTime = value;
             }
         }
 
-        private int _currentFrame = -1;
+        /// <summary>
+        /// Gets the current frame number.
+        /// </summary>
         public int CurrentFrame
         {
             get
@@ -66,6 +98,9 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Gets the frame count.
+        /// </summary>
         public int FrameCount
         {
             get
@@ -74,8 +109,9 @@ namespace KinectEx.DVR
             }
         }
 
-        public static readonly string IsFinishedPropertyName = "IsFinished";
-        private bool _isFinished = false;
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is finished.
+        /// </summary>
         public bool IsFinished
         {
             get { return _isFinished; }
@@ -89,12 +125,20 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplaySystem"/> class.
+        /// </summary>
         public ReplaySystem()
         {
+            DEBUG_name = this.GetType().Name;
             this.Frames = new List<ReplayFrame>();
             this.FrameTimeToIndex = new Dictionary<TimeSpan, int>();
         }
 
+        /// <summary>
+        /// Notifies the property changed.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
         protected void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -102,6 +146,9 @@ namespace KinectEx.DVR
 
         }
 
+        /// <summary>
+        /// Pushes the current frame.
+        /// </summary>
         public abstract void PushCurrentFrame();
     }
 }

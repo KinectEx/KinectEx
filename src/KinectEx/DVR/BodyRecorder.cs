@@ -12,14 +12,22 @@ namespace KinectEx.DVR
     /// </summary>
     internal class BodyRecorder
     {
-        readonly BinaryWriter _writer = null;
-        List<CustomBody> _bodies = new List<CustomBody>();
+        private readonly BinaryWriter _writer = null;
+        private List<CustomBody> _bodies = new List<CustomBody>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BodyRecorder"/> class.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
         public BodyRecorder(BinaryWriter writer)
         {
             this._writer = writer;
         }
 
+        /// <summary>
+        /// Records a <c>ReplayBodyFrame</c>.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
         public async Task RecordAsync(ReplayBodyFrame frame)
         {
             if (_writer.BaseStream == null || _writer.BaseStream.CanWrite == false)

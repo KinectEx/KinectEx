@@ -56,36 +56,122 @@ namespace KinectEx
         // ==============================================================
         // Below the Waist
         // ==============================================================
+        /// <summary>
+        /// Gets the hip left.
+        /// </summary>
         public static BoneTypeEx HipLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the hip right.
+        /// </summary>
         public static BoneTypeEx HipRight { get; private set; }
+
+        /// <summary>
+        /// Gets the leg upper left.
+        /// </summary>
         public static BoneTypeEx LegUpperLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the leg upper right.
+        /// </summary>
         public static BoneTypeEx LegUpperRight { get; private set; }
+
+        /// <summary>
+        /// Gets the leg lower left.
+        /// </summary>
         public static BoneTypeEx LegLowerLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the leg lower right.
+        /// </summary>
         public static BoneTypeEx LegLowerRight { get; private set; }
+
+        /// <summary>
+        /// Gets the foot left.
+        /// </summary>
         public static BoneTypeEx FootLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the foot right.
+        /// </summary>
         public static BoneTypeEx FootRight { get; private set; }
 
         // ==============================================================
         // Above the Waist
         // ==============================================================
+
+        /// <summary>
+        /// Gets the spine lower.
+        /// </summary>
         public static BoneTypeEx SpineLower { get; private set; }
+
+        /// <summary>
+        /// Gets the spine upper.
+        /// </summary>
         public static BoneTypeEx SpineUpper { get; private set; }
+
+        /// <summary>
+        /// Gets the shoulder left.
+        /// </summary>
         public static BoneTypeEx ShoulderLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the shoulder right.
+        /// </summary>
         public static BoneTypeEx ShoulderRight { get; private set; }
+
+        /// <summary>
+        /// Gets the arm upper left.
+        /// </summary>
         public static BoneTypeEx ArmUpperLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the arm upper right.
+        /// </summary>
         public static BoneTypeEx ArmUpperRight { get; private set; }
+
+        /// <summary>
+        /// Gets the arm lower left.
+        /// </summary>
         public static BoneTypeEx ArmLowerLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the arm lower right.
+        /// </summary>
         public static BoneTypeEx ArmLowerRight { get; private set; }
+
+        /// <summary>
+        /// Gets the hand left.
+        /// </summary>
         public static BoneTypeEx HandLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the hand right.
+        /// </summary>
         public static BoneTypeEx HandRight { get; private set; }
+
+        /// <summary>
+        /// Gets the head.
+        /// </summary>
         public static BoneTypeEx Head { get; private set; }
 
         // ==============================================================
         // "Fake" Bones
         // ==============================================================
+
+        /// <summary>
+        /// Gets the hip full.
+        /// </summary>
         public static BoneTypeEx HipFull { get; private set; }
+
+        /// <summary>
+        /// Gets the shoulder full.
+        /// </summary>
         public static BoneTypeEx ShoulderFull { get; private set; }
 
+        /// <summary>
+        /// Initializes the <see cref="BoneTypeEx"/> class.
+        /// </summary>
         static BoneTypeEx()
         {
             HipLeft = new BoneTypeEx() { Name = "HipLeft", DisplayName = "Left Hip", StartJoint = JointTypeEx.SpineBase, EndJoint = JointTypeEx.HipLeft };
@@ -144,22 +230,48 @@ namespace KinectEx
             }
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return Name;
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
         public override bool Equals(object obj)
         {
             var bone = obj as BoneTypeEx;
             return bone != null && bone.Name == this.Name;
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
         {
             return this.Name.GetHashCode();
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.String"/> to <see cref="BoneTypeEx"/>.
+        /// </summary>
+        /// <param name="boneName">Name of the bone.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator BoneTypeEx(string boneName)
         {
             return ByName[boneName];

@@ -18,21 +18,42 @@ namespace KinectEx
     /// </summary>
     public class CustomJoint : IJoint
     {
+        /// <summary>
+        /// The type of the joint.
+        /// </summary>
         protected JointType _jointType;
+
+        /// <summary>
+        /// Gets or sets the type of the joint.
+        /// </summary>
         public virtual JointType JointType
         {
             get { return _jointType; }
             set { _jointType = value; }
         }
 
+        /// <summary>
+        /// The position.
+        /// </summary>
         protected CameraSpacePoint _position;
+
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>
         public virtual CameraSpacePoint Position
         {
             get { return _position; }
             set { _position = value; }
         }
 
+        /// <summary>
+        /// The state of the tracking.
+        /// </summary>
         protected TrackingState _trackingState;
+
+        /// <summary>
+        /// Gets or sets the state of the tracking.
+        /// </summary>
         public virtual TrackingState TrackingState
         {
             get { return _trackingState; }

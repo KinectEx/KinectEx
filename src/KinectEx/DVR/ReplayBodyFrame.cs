@@ -112,9 +112,17 @@ namespace KinectEx.DVR
 
         // Multiple Constructor options
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayBodyFrame"/> class.
+        /// </summary>
         internal ReplayBodyFrame() { }
 
 #if !NOSDK
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayBodyFrame"/> class
+        /// based on the specified <c>BodyFrame</c>.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
         internal ReplayBodyFrame(BodyFrame frame)
         {
             this.FrameType = FrameTypes.Body;
@@ -125,6 +133,12 @@ namespace KinectEx.DVR
             frame.GetAndRefreshBodyData(this.Bodies);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayBodyFrame"/> class
+        /// based on the specified <c>BodyFrame</c> and list of <c>CustomBody</c> objects.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
+        /// <param name="bodies">The bodies.</param>
         internal ReplayBodyFrame(BodyFrame frame, List<CustomBody> bodies)
         {
             this.FrameType = FrameTypes.Body;
@@ -134,6 +148,12 @@ namespace KinectEx.DVR
             this.Bodies = bodies;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayBodyFrame"/> class
+        /// based on the specified <c>BodyFrame</c> and array of <c>Body</c> objects.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
+        /// <param name="bodies">The bodies.</param>
         internal ReplayBodyFrame(BodyFrame frame, Body[] bodies)
         {
             this.FrameType = FrameTypes.Body;
@@ -146,8 +166,14 @@ namespace KinectEx.DVR
         }
 #endif
 
-        // and a factory method
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayBodyFrame"/> class
+        /// by reading from the specified <c>BinaryReader</c>.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="version">The version.</param>
+        /// <returns>The <c>ReplayBodyFrame</c></returns>
+        /// <exception cref="System.IO.IOException">The recording appears to be corrupt.</exception>
         internal static ReplayBodyFrame FromReader(BinaryReader reader, Version version)
         {
             var frame = new ReplayBodyFrame();

@@ -39,8 +39,13 @@ namespace KinectEx
         private Int32Rect _dirtyRect;
 #endif
 
+        // used to (dynamically) adjust the brightness of the IR frame's output
         private float _infraredOutputValueMinimum = 0.01f;
-        private float _infraredOutputValueMaximum = 0.9f;
+        private float _infraredOutputValueMaximum = 1.0f;
+        private int _resetAvgSdCounter = 15;
+        private float _avg = 0.08f;
+        private float _sd = 3.0f;
+        private float _max = (float)ushort.MaxValue;
 
         /// <summary>
         /// The <c>WriteableBitmap</c> representation of the <c>InfraredFrame</c>
@@ -52,6 +57,9 @@ namespace KinectEx
 	    }
 
 #if !NOSDK
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InfraredFrameBitmap"/> class.
+        /// </summary>
         public InfraredFrameBitmap()
         {
             var sensor = KinectSensor.GetDefault();
@@ -59,6 +67,11 @@ namespace KinectEx
         }
 #endif
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InfraredFrameBitmap"/> class.
+        /// </summary>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         public InfraredFrameBitmap(int width, int height)
         {
             Init(width, height);
@@ -77,17 +90,27 @@ namespace KinectEx
 #endif
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="InfraredFrameBitmap"/> class.
+        /// </summary>
         ~InfraredFrameBitmap()
         {
             this.Dispose(false);
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
 #if NETFX_CORE
@@ -148,11 +171,6 @@ namespace KinectEx
             }
         }
 
-        private int _resetAvgSdCounter = 15;
-        private float _avg = 0.08f;
-        private float _sd = 3.0f;
-        private float _max = (float)ushort.MaxValue;
-
         /// <summary>
         /// Update the Bitmap from the supplied infrared frame data values.
         /// </summary>
@@ -200,7 +218,7 @@ namespace KinectEx
 #else
                 await _bitmap.Dispatcher.InvokeAsync(() =>
                 {
-                    _bitmap.WritePixels(_dirtyRect, _bytes, _stride, 0);
+                    _bitmap.FromByteArray(_bytes);
                 });
 #endif
             });

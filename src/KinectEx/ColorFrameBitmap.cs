@@ -166,10 +166,7 @@ namespace KinectEx
                     });
 #else
                     await _bitmap.Dispatcher.InvokeAsync(() => {
-                        _bitmap.Lock();
-                        _bitmap.WritePixels(_dirtyRect, pixels.Result, frame.Width * (frame.Codec.PixelFormat.BitsPerPixel / 8), 0);
-                        _bitmap.AddDirtyRect(_dirtyRect);
-                        _bitmap.Unlock();
+                        _bitmap.FromByteArray(pixels.Result);
                     });
 #endif
                 });

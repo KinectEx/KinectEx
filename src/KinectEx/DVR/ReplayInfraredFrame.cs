@@ -70,9 +70,17 @@ namespace KinectEx.DVR
 
         // Multiple Constructor options
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayInfraredFrame"/> class.
+        /// </summary>
         internal ReplayInfraredFrame() { }
 
 #if !NOSDK
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayInfraredFrame"/> class
+        /// from an <c>InfraredFrame</c>.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
         internal ReplayInfraredFrame(InfraredFrame frame)
         {
             this.FrameType = FrameTypes.Infrared;
@@ -87,6 +95,12 @@ namespace KinectEx.DVR
             frame.CopyFrameDataToArray(_frameData);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayInfraredFrame"/> class
+        /// from an <c>InfraredFrame</c> with the data already extracted.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
+        /// <param name="frameData">The frame data.</param>
         internal ReplayInfraredFrame(InfraredFrame frame, ushort[] frameData)
         {
             this.FrameType = FrameTypes.Infrared;
@@ -100,8 +114,13 @@ namespace KinectEx.DVR
         }
 #endif
 
-        // and a factory method
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplayInfraredFrame"/> class
+        /// from a <c>BinaryReader</c>.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns></returns>
+        /// <exception cref="System.IO.IOException">The recording appears to be corrupt.</exception>
         internal static ReplayInfraredFrame FromReader(BinaryReader reader)
         {
             var frame = new ReplayInfraredFrame();

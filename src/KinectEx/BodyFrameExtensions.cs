@@ -27,7 +27,10 @@ namespace KinectEx
         /// with new bodies of type T. Note that if this behavior is undesirable,
         /// insure that the collection contains the right number of bodies before
         /// calling this method.
-        /// </summary> 
+        /// </summary>
+        /// <param name="frame">The frame.</param>
+        /// <param name="bodies">The bodies.</param>
+        /// <exception cref="System.ArgumentNullException">bodies list must not be null</exception>
         public static void GetAndRefreshBodyData(this BodyFrame frame, SmoothedBodyList<ISmoother> bodies)
         {
             if (bodies == null)
@@ -45,6 +48,19 @@ namespace KinectEx
             bodies.RefreshFromBodyArray(_bodies);
         }
 
+        /// <summary>
+        /// Similar to the Kinect SDK method of the same name, this method retrieves
+        /// the array of bodies from a <c>BodyFrame</c> and updates the specified
+        /// <c>SmoothedBodyList</c> collection. If the collection does not contain
+        /// the correct number of bodies, this method clears and refills the collection
+        /// with new bodies of type T. Note that if this behavior is undesirable,
+        /// insure that the collection contains the right number of bodies before
+        /// calling this method.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="frame">The frame.</param>
+        /// <param name="bodies">The bodies.</param>
+        /// <exception cref="System.ArgumentNullException">bodies list must not be null</exception>
         public static void GetAndRefreshBodyData<T>(this BodyFrame frame, IList<T> bodies) where T : IBody
         {
             if (bodies == null)

@@ -22,28 +22,28 @@ namespace KinectEx.DVR
     /// </summary>
     public class KinectRecorder : IDisposable
     {
-        BinaryWriter _writer;
-        SemaphoreSlim _writerSemaphore = new SemaphoreSlim(1);
-        KinectSensor _sensor;
+        private BinaryWriter _writer;
+        private SemaphoreSlim _writerSemaphore = new SemaphoreSlim(1);
+        private KinectSensor _sensor;
 
-        BodyRecorder _bodyRecorder;
-        ColorRecorder _colorRecorder;
-        DepthRecorder _depthRecorder;
-        InfraredRecorder _infraredRecorder;
+        private BodyRecorder _bodyRecorder;
+        private ColorRecorder _colorRecorder;
+        private DepthRecorder _depthRecorder;
+        private InfraredRecorder _infraredRecorder;
 
-        BodyFrameReader _bodyReader;
-        ColorFrameReader _colorReader;
-        DepthFrameReader _depthReader;
-        InfraredFrameReader _infraredReader;
+        private BodyFrameReader _bodyReader;
+        private ColorFrameReader _colorReader;
+        private DepthFrameReader _depthReader;
+        private InfraredFrameReader _infraredReader;
 
-        ConcurrentQueue<ReplayFrame> _recordQueue = new ConcurrentQueue<ReplayFrame>();
+        private ConcurrentQueue<ReplayFrame> _recordQueue = new ConcurrentQueue<ReplayFrame>();
 
-        bool _isStarted = false;
-        bool _isStopped = false;
-        Task _processFramesTask = null;
-        CancellationTokenSource _processFramesCancellationTokenSource;
+        private bool _isStarted = false;
+        private bool _isStopped = false;
+        private Task _processFramesTask = null;
+        private CancellationTokenSource _processFramesCancellationTokenSource = new CancellationTokenSource();
 
-        DateTime _previousFlushTime;
+        private DateTime _previousFlushTime;
 
         private bool _enableBodyRecorder;
         private bool _enableColorRecorder;
@@ -189,17 +189,27 @@ namespace KinectEx.DVR
             _infraredRecorder = new InfraredRecorder(_writer);
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="KinectRecorder"/> class.
+        /// </summary>
         ~KinectRecorder()
         {
             this.Dispose(false);
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -394,12 +404,11 @@ namespace KinectEx.DVR
 
             try
             {
-                _processFramesCancellationTokenSource.Cancel();
                 await _processFramesTask;
             }
             catch
             {
-                System.Diagnostics.Debug.WriteLine("!!! Process Canceled");
+                System.Diagnostics.Debug.WriteLine("!!! Process Canceled (in StopAsync)");
             }
             _processFramesTask = null;
 

@@ -12,13 +12,21 @@ namespace KinectEx.DVR
     {
         private static byte[] _staticBytes = null;
 
-        readonly BinaryWriter _writer;
+        private readonly BinaryWriter _writer;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DepthRecorder"/> class.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
         public DepthRecorder(BinaryWriter writer)
         {
             this._writer = writer;
         }
 
+        /// <summary>
+        /// Records a <c>ReplayDepthFrame</c>.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
         public async Task RecordAsync(ReplayDepthFrame frame)
         {
             await Task.Run(() =>

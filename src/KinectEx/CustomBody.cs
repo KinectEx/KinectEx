@@ -23,70 +23,119 @@ namespace KinectEx
     /// </summary>
     public class CustomBody : IBody
     {
-        protected FrameEdges _clippedEdges;
+        private FrameEdges _clippedEdges;
+
+        /// <summary>
+        /// Gets or sets the clipped edges.
+        /// </summary>
         public virtual FrameEdges ClippedEdges
         {
             get { return _clippedEdges; }
             set { _clippedEdges = value; }
         }
 
-        protected TrackingConfidence _handLeftConfidence;
+        private TrackingConfidence _handLeftConfidence;
+
+        /// <summary>
+        /// Gets or sets the hand left confidence.
+        /// </summary>
         public virtual TrackingConfidence HandLeftConfidence
         {
             get { return _handLeftConfidence; }
             set { _handLeftConfidence = value; }
         }
 
-        protected HandState _handLeftState;
+        private HandState _handLeftState;
+
+        /// <summary>
+        /// Gets or sets the state of the hand left.
+        /// </summary>
         public virtual HandState HandLeftState
         {
             get { return _handLeftState; }
             set { _handLeftState = value; }
         }
 
-        protected TrackingConfidence _handRightConfidence;
+        private TrackingConfidence _handRightConfidence;
+
+        /// <summary>
+        /// Gets or sets the hand right confidence.
+        /// </summary>
         public virtual TrackingConfidence HandRightConfidence
         {
             get { return _handRightConfidence; }
             set { _handRightConfidence = value; }
         }
 
-        protected HandState _handRightState;
+        private HandState _handRightState;
+
+        /// <summary>
+        /// Gets or sets the state of the hand right.
+        /// </summary>
         public virtual HandState HandRightState
         {
             get { return _handRightState; }
             set { _handRightState = value; }
         }
 
-        protected bool _isDisposed;
+        private bool _isDisposed;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is disposed.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is disposed; otherwise, <c>false</c>.
+        /// </value>
         public virtual bool IsDisposed
         {
             get { return _isDisposed; }
             set { _isDisposed = value; }
         }
 
-        protected bool _isRestricted;
+        private bool _isRestricted;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is restricted.
+        /// </summary>
         public virtual bool IsRestricted
         {
             get { return _isRestricted; }
             set { _isRestricted = value; }
         }
 
-        protected bool _isTracked;
+        private bool _isTracked;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is tracked.
+        /// </summary>
         public virtual bool IsTracked
         {
             get { return _isTracked; }
             set { _isTracked = value; }
         }
-        
+
+        /// <summary>
+        /// The joint orientations.
+        /// </summary>
         protected Dictionary<JointType, IJointOrientation> _jointOrientations;
+
+        /// <summary>
+        /// Gets the joint orientations.
+        /// </summary>
         public virtual IReadOnlyDictionary<JointType, IJointOrientation> JointOrientations
         {
             get { return _jointOrientations; }
             set { _jointOrientations = value as Dictionary<JointType, IJointOrientation>; }
         }
 
+        /// <summary>
+        /// The joints.
+        /// </summary>
         protected Dictionary<JointType, IJoint> _joints;
+
+        /// <summary>
+        /// Gets or sets the joints.
+        /// </summary>
         public virtual IReadOnlyDictionary<JointType, IJoint> Joints
         {
             get { return _joints; }
@@ -95,14 +144,22 @@ namespace KinectEx
 
 
 #if NETFX_CORE
-        protected Point _lean;
+        private Point _lean;
+
+        /// <summary>
+        /// Gets or sets the lean.
+        /// </summary>
         public virtual Point Lean
         {
             get { return _lean; }
             set { _lean = value; }
         }
 #else
-        protected PointF _lean;
+        private PointF _lean;
+
+        /// <summary>
+        /// Gets or sets the lean.
+        /// </summary>
         public virtual PointF Lean
         {
             get { return _lean; }
@@ -110,20 +167,31 @@ namespace KinectEx
         }
 #endif
 
-        protected TrackingState _leanTrackingState;
+        private TrackingState _leanTrackingState;
+
+        /// <summary>
+        /// Gets or sets the state of the lean tracking.
+        /// </summary>
         public virtual TrackingState LeanTrackingState
         {
             get { return _leanTrackingState; }
             set { _leanTrackingState = value; }
         }
 
-        protected ulong _trackingId;
+        private ulong _trackingId;
+
+        /// <summary>
+        /// Gets or sets the tracking identifier.
+        /// </summary>
         public virtual ulong TrackingId
         {
             get { return _trackingId; }
             set { _trackingId = value; }
         }
-        
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomBody"/> class.
+        /// </summary>
         public CustomBody()
         {
             _clippedEdges = FrameEdges.None;

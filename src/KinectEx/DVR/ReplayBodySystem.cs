@@ -9,8 +9,16 @@ namespace KinectEx.DVR
     /// </summary>
     internal class ReplayBodySystem : ReplaySystem
     {
+        /// <summary>
+        /// Occurs when a new frame is ready to be displayed.
+        /// </summary>
         public event Action<ReplayBodyFrame> FrameArrived;
 
+        /// <summary>
+        /// Adds a frame to the Frames list.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="version">The version.</param>
         public void AddFrame(BinaryReader reader, Version version)
         {
             var frame = ReplayBodyFrame.FromReader(reader, version);
@@ -18,6 +26,9 @@ namespace KinectEx.DVR
                 this.Frames.Add(frame);
         }
 
+        /// <summary>
+        /// Pushes the current frame.
+        /// </summary>
         public override void PushCurrentFrame()
         {
             if (this.FrameCount == 0)

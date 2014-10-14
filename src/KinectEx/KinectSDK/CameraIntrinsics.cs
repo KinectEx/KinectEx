@@ -8,38 +8,39 @@ namespace KinectEx.KinectSDK
 {
     public struct CameraIntrinsics
     {
-        // Summary:
-        //     The X focal length of the camera, in pixels.
+        /// <summary>
+        /// Gets or sets the X focal length of the camera, in pixels.
+        /// </summary>
         public float FocalLengthX { get; set; }
 
-        //
-        // Summary:
-        //     The Y focal length of the camera, in pixels.
+        /// <summary>
+        /// Gets or sets the Y focal length of the camera, in pixels.
+        /// </summary>
         public float FocalLengthY { get; set; }
 
-        //
-        // Summary:
-        //     The principal point of the camera in the X dimension, in pixels.
+        /// <summary>
+        /// Gets or sets the principal point of the camera in the X dimension, in pixels.
+        /// </summary>
         public float PrincipalPointX { get; set; }
 
-        //
-        // Summary:
-        //     The principal point of the camera in the Y dimension, in pixels.
+        /// <summary>
+        /// Gets or sets the principal point of the camera in the Y dimension, in pixels.
+        /// </summary>
         public float PrincipalPointY { get; set; }
 
-        //
-        // Summary:
-        //     The fourth order radial distortion parameter of the camera.
+        /// <summary>
+        /// Gets or sets the fourth order radial distortion parameter of the camera.
+        /// </summary>
         public float RadialDistortionFourthOrder { get; set; }
 
-        //
-        // Summary:
-        //     The second order radial distortion parameter of the camera.
+        /// <summary>
+        /// Gets or sets the second order radial distortion parameter of the camera.
+        /// </summary>
         public float RadialDistortionSecondOrder { get; set; }
 
-        //
-        // Summary:
-        //     The sixth order radial distortion parameter of the camera.
+        /// <summary>
+        /// Gets or sets the sixth order radial distortion parameter of the camera.
+        /// </summary>
         public float RadialDistortionSixthOrder { get; set; }
     }
 }

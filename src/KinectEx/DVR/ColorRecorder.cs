@@ -14,6 +14,11 @@ namespace KinectEx.DVR
         private bool _isStarted = false;
 
         private IColorCodec _codec;
+
+        /// <summary>
+        /// Gets or sets the Codec used for recording.
+        /// </summary>
+        /// <exception cref="System.InvalidOperationException">Cannot change Codec after recording has started.</exception>
         public IColorCodec Codec
         {
             get { return _codec; }
@@ -30,12 +35,20 @@ namespace KinectEx.DVR
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorRecorder"/> class.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
         public ColorRecorder(BinaryWriter writer)
         {
             this._writer = writer;
             this._codec = new RawColorCodec();
         }
 
+        /// <summary>
+        /// Records a <c>ReplayColorFrame</c>.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
         public async Task RecordAsync(ReplayColorFrame frame)
         {
             if (_writer.BaseStream == null || _writer.BaseStream.CanWrite == false)

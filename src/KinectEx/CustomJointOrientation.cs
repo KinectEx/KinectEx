@@ -18,14 +18,28 @@ namespace KinectEx
     /// </summary>
     public class CustomJointOrientation : IJointOrientation
     {
+        /// <summary>
+        /// The type of the joint.
+        /// </summary>
         protected JointType _jointType;
+
+        /// <summary>
+        /// Gets or sets the type of the joint.
+        /// </summary>
         public virtual JointType JointType
         {
             get { return _jointType; }
             set { _jointType = value; }
         }
 
+        /// <summary>
+        /// The orientation.
+        /// </summary>
         protected Vector4 _orientation;
+
+        /// <summary>
+        /// Gets or sets the orientation.
+        /// </summary>
         public virtual Vector4 Orientation
         {
             get { return _orientation; }

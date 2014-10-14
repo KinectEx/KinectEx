@@ -12,7 +12,16 @@ namespace KinectEx.Smoothing
     /// </summary>
     public class ExponentialSmoother : ISmoother
     {
+        /// <summary>
+        /// Type of "smoothed" joint to create when constructing bodies
+        /// using this strategy.
+        /// </summary>
         public Type CustomJointType { get { return typeof(ExponentialJoint); } }
+
+        /// <summary>
+        /// Type of "smoothed" joint orientation to create when constructing bodies
+        /// using this strategy.
+        /// </summary>
         public Type CustomJointOrientationType { get { return typeof(ExponentialJointOrientation); } }
     }
 }

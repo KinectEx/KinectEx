@@ -10,6 +10,10 @@ using System.Windows.Media.Imaging;
 
 namespace KinectEx.DVR
 {
+    /// <summary>
+    /// Classes implementing this interface can be used by a <c>ReplayColorFrame</c>
+    /// to (potentially) resize and compress the color frame data.
+    /// </summary>
     public interface IColorCodec
     {
         /// <summary>

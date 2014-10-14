@@ -26,7 +26,7 @@ namespace KinectEx.DVR
         private int _jpegQuality = 70;
 
         /// <summary>
-        /// Uniue ID for this <c>IColorCodec</c> instance.
+        /// Unique ID for this <c>IColorCodec</c> instance.
         /// </summary>
         public int CodecId { get { return 1; } }
 

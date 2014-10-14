@@ -9,6 +9,9 @@ namespace KinectEx.DVR
     /// </summary>
     public class ReplayFrameArrivedEventArgs<T> : EventArgs where T : ReplayFrame
     {
+        /// <summary>
+        /// Gets the frame that has arrived.
+        /// </summary>
         public T Frame { get; internal set; }
     }
 }

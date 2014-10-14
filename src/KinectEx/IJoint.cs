@@ -8,10 +8,26 @@ using Microsoft.Kinect;
 
 namespace KinectEx
 {
+    /// <summary>
+    /// An interface that explicitly maps all of the Kinect SDK <c>Joint</c>
+    /// members so that different variations of joint can be used for
+    /// both smoothing and recording.
+    /// </summary>
     public interface IJoint
     {
+        /// <summary>
+        /// Gets or sets the type of the joint.
+        /// </summary>
         JointType JointType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>
         CameraSpacePoint Position { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state of the tracking.
+        /// </summary>
         TrackingState TrackingState { get; set; }
 
         /// <summary>
