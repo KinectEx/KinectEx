@@ -315,7 +315,6 @@ namespace KinectEx.DVR
             catch (Exception ex)
             {
                 // TODO: Log This
-                System.Diagnostics.Debug.WriteLine("EXCEPTION in CreateBodyFromReader");
                 System.Diagnostics.Debug.WriteLine(ex);
             }
 

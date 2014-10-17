@@ -73,7 +73,10 @@ namespace KinectEx.DVR
 
                     _mostRecentCurrentFrame = frame;
                     this.PushCurrentFrame();
+
+#if DEBUG
                     System.Diagnostics.Debug.WriteLine("<<< PushCurrentFrame() {0}", DEBUG_sw.ElapsedTicks);
+#endif
 
                     if (frame == this.FrameCount - 1)
                         IsFinished = true;
@@ -130,7 +133,10 @@ namespace KinectEx.DVR
         /// </summary>
         public ReplaySystem()
         {
+#if DEBUG
             DEBUG_name = this.GetType().Name;
+#endif
+
             this.Frames = new List<ReplayFrame>();
             this.FrameTimeToIndex = new Dictionary<TimeSpan, int>();
         }

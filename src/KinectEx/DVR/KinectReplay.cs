@@ -423,12 +423,6 @@ namespace KinectEx.DVR
 
             foreach (var replaySystem in _activeReplaySystems)
                 replaySystem.CurrentRelativeTime = replaySystem.StartingOffset + this.Location;
-
-            //var interval = FrameTime - _stopwatch.Elapsed;
-            //interval = interval < TimeSpan.Zero ? TimeSpan.Zero : interval;
-            //_timer.Interval = interval;
-            //System.Diagnostics.Debug.WriteLine("... Set new interval to {0}", interval);
-            //_stopwatch.Reset();
         }
 
         private void replay_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
