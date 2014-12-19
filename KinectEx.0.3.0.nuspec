@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>KinectEx</id>
+        <version>0.3.0</version>
+        <title>KinectEx - Utility Library for Kinect v2</title>
+        <authors>ptyork</authors>
+        <licenseUrl>https://github.com/KinectEx/KinectEx/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/KinectEx/KinectEx</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>KinectEx is a set of libraries and utilities that add significant capability to Microsoft's version 2 Kinect for Windows sensor and SDK.</description>
+        <summary />
+        <tags>Kinect</tags>
+        <dependencies>
+            <dependency id="Newtonsoft.Json" version="6.0.5" />
+            <dependency id="WriteableBitmapEx" version="1.0.13.0" />
+            <dependency id="SharpDX" version="2.6.2" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="src\KinectEx\bin\x64\Release\KinectEx.dll" target="lib\net45\KinectEx.dll" />
+        <file src="src\KinectEx.WinRT\bin\x64\Release\KinectEx.dll" target="lib\netcore451\KinectEx.dll" />
+    </files>
+</package>

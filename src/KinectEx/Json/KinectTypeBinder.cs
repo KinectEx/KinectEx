@@ -60,12 +60,24 @@ namespace KinectEx.Json
             _defaultBinder.BindToName(serializedType, out assemblyName, out typeName);
             if (typeName.Contains(_realKinectNamespace))
             {
-                typeName = typeName.Replace(_realKinectAssembly, _jsonKinectAssembly);
-                typeName = typeName.Replace(_realKinectNamespace, _jsonKinectNamespace);
-            }
-            if (assemblyName.Contains(_realKinectNamespace))
-            {
-                assemblyName = typeName.Replace(_realKinectAssembly, _jsonKinectAssembly);
+                var types = serializedType.GenericTypeArguments;
+                if (types.Length > 0)
+                {
+                    foreach (var type in types)
+                    {
+                        if (type.Namespace == _realKinectNamespace)
+                        {
+                            var replaceWith = _jsonKinectNamespace + "." + type.Name + ", " + _jsonKinectAssembly;
+                            typeName = typeName.Replace(type.AssemblyQualifiedName, replaceWith);
+                        }
+                    }
+                }
+                else
+                {
+                    typeName = typeName.Replace(_realKinectAssembly, _jsonKinectAssembly);
+                    typeName = typeName.Replace(_realKinectNamespace, _jsonKinectNamespace);
+                    assemblyName = assemblyName.Replace(_realKinectAssembly, _jsonKinectAssembly);
+                }
             }
         }
 
@@ -79,6 +91,10 @@ namespace KinectEx.Json
         /// </returns>
         public override Type BindToType(string assemblyName, string typeName)
         {
+            if (assemblyName.Contains(_jsonKinectAssembly))
+            {
+                assemblyName = assemblyName.Replace(_jsonKinectAssembly, _realKinectAssembly);
+            }
             if (typeName.Contains(_jsonKinectNamespace))
             {
                 typeName = typeName.Replace(_jsonKinectNamespace, _realKinectNamespace);
