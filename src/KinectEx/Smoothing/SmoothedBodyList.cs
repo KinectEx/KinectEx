@@ -50,7 +50,7 @@ namespace KinectEx.Smoothing
         /// is undesirable, insure that the collection contains the right number of 
         /// bodies before calling this method.
         /// </summary>
-        public void RefreshFromBodyList(List<IBody> bodies)
+        public void RefreshFromBodyList<T>(List<T> bodies) where T : IBody
         {
             if (bodies.Count != this.Count)
             {

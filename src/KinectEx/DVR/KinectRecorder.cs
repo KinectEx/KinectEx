@@ -267,6 +267,12 @@ namespace KinectEx.DVR
                 {
                     _writerSemaphore.Dispose();
                 }
+
+                if (_processFramesCancellationTokenSource != null)
+                {
+                    _processFramesCancellationTokenSource.Dispose();
+                    _processFramesCancellationTokenSource = null;
+                }
             }
         }
 
