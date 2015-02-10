@@ -12,6 +12,7 @@
     <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushFSharp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
@@ -81,7 +82,7 @@
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_Smoothing');" href="N_KinectEx_Smoothing.htm" >KinectEx.Smoothing</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.4.0.0)<br />
       
 
 </div>
@@ -117,8 +118,11 @@
 
         </div>
         <div class="tabcontent">     
-            <p>Syntax for F# is not yet implemented.</p>
-
+        <pre class='brush: fsharp;'>type public SmoothedBody&lt;&apos;T when &apos;T : ISmoother&gt; =
+	class
+		inherit CustomBody
+	end
+</pre>
         </div>
     </div>
         <p>The SmoothedBody&lt;T&gt; type exposes the following members.</p>
@@ -308,6 +312,28 @@
         <div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>
         <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
 </td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_HasMappedColorPositions');" href="P_KinectEx_CustomBody_HasMappedColorPositions.htm" >HasMappedColorPositions</a></td>
+    <td class="desc-col">Gets or sets whether the color space positions were mapped for this body.&nbsp;(Inherited from <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_CustomBody');" href="T_KinectEx_CustomBody.htm" >CustomBody</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon default" title="Windows Desktop - .NET 4.5 (without Kinect SDK)"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>
+        <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_HasMappedDepthPositions');" href="P_KinectEx_CustomBody_HasMappedDepthPositions.htm" >HasMappedDepthPositions</a></td>
+    <td class="desc-col">Gets or sets whether the depth space positions were mapped for this body.&nbsp;(Inherited from <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_CustomBody');" href="T_KinectEx_CustomBody.htm" >CustomBody</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon default" title="Windows Desktop - .NET 4.5 (without Kinect SDK)"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>
+        <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
+</td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_CustomBody_IsDisposed');" href="P_KinectEx_CustomBody_IsDisposed.htm" >IsDisposed</a></td>
     <td class="desc-col">Gets or sets a value indicating whether this instance is disposed.&nbsp;(Inherited from <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_CustomBody');" href="T_KinectEx_CustomBody.htm" >CustomBody</a>.)</td>
 </tr>
@@ -417,6 +443,24 @@
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
     <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_CustomBody_MapColorPositions');" href="M_KinectEx_CustomBody_MapColorPositions.htm" >MapColorPositions</a></td>
+    <td class="desc-col">Iterates over the body's CameraSpacePoint joint locations and maps each
+            to a ColorSpacePoint.&nbsp;(Inherited from <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_CustomBody');" href="T_KinectEx_CustomBody.htm" >CustomBody</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_CustomBody_MapDepthPositions');" href="M_KinectEx_CustomBody_MapDepthPositions.htm" >MapDepthPositions</a></td>
+    <td class="desc-col">Iterates over the body's CameraSpacePoint joint locations and maps each
+            to a DepthSpacePoint.&nbsp;(Inherited from <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_CustomBody');" href="T_KinectEx_CustomBody.htm" >CustomBody</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_CustomBody_Update');" href="M_KinectEx_CustomBody_Update.htm" >Update(Body)</a></td>
     <td class="desc-col">Updates the values of this <c>CustomBody</c> with the values contained
@@ -436,7 +480,7 @@
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
 </td>
-    <td class="platicon-col">        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
 </td>
         <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_CustomBody_Update_2');" href="M_KinectEx_CustomBody_Update_2.htm" >Update(Body)</a></td>
     <td class="desc-col">Updates the values of this <c>CustomBody</c> with the values contained

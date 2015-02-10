@@ -12,6 +12,7 @@
     <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushFSharp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
@@ -22,7 +23,7 @@
         SyntaxHighlighter.all();
     </script>
     <script src="../js/sharpdoc.js" language="javascript"></script>            
-    <meta name="Microsoft.Help.Id" content="M:KinectEx.BodyExtensions.GetBonesAt(KinectEx.IBody,KinectEx.JointTypeEx)" />
+    <meta name="Microsoft.Help.Id" content="M:KinectEx.BodyExtensions.GetBonesAt(Microsoft.Kinect.Body,Microsoft.Kinect.JointType)" />
     <meta name="Microsoft.Help.SelfBranded" content="true" />
     <meta name="Microsoft.Help.Locale" content="en-us" />
     <meta name="Microsoft.Help.F1" content="System.Collections.Generic.List" />
@@ -59,12 +60,12 @@
 <div style="clear: both;"></div>
         
 <div class="summary">Gets a list of the two <c>Bone</c> values that share the specified
-            <c>JointTypeEx</c> value.</div>
+            <c>JointType</c> value.</div>
 
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.4.0.0)<br />
       
 
 </div>
@@ -93,8 +94,8 @@
         <div class="tabcontent selected">     
         <pre class='brush: csharp;'>[ExtensionAttribute]
 public static List&lt;Bone&gt; GetBonesAt(
-	this IBody body, 
-	JointTypeEx jointType
+	this Body body, 
+	JointType jointType
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -106,8 +107,10 @@ public static List&lt;Bone&gt; GetBonesAt(
 
         </div>
         <div class="tabcontent">     
-            <p>Syntax for F# is not yet implemented.</p>
-
+        <pre class='brush: fsharp;'>[&lt;ExtensionAttribute&gt;]
+static member GetBonesAt : 
+	body : Body * 
+	jointType : JointType -&gt; List&lt;&apos;Bone&gt;</pre>
         </div>
     </div>
     <div id="sdoc-parameters">        
@@ -117,7 +120,7 @@ public static List&lt;Bone&gt; GetBonesAt(
 					<span class="sdoc-parameter">body</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_IBody');" href="T_KinectEx_IBody.htm" >KinectEx.IBody</a><br />
+					<span>Type: <a target="_blank" href="" >Microsoft.Kinect.Body</a><br />
 						
 					</span>            
 				</dd>
@@ -127,7 +130,7 @@ public static List&lt;Bone&gt; GetBonesAt(
 					<span class="sdoc-parameter">jointType</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_JointTypeEx');" href="T_KinectEx_JointTypeEx.htm" >KinectEx.JointTypeEx</a><br />
+					<span>Type: <a target="_blank" href="" >Microsoft.Kinect.JointType</a><br />
 						
 					</span>            
 				</dd>
@@ -161,10 +164,6 @@ public static List&lt;Bone&gt; GetBonesAt(
         <div class="title"><a id="section_VersionandPlatformInformation_toggle" href="#" class="title"><div id="section_VersionandPlatformInformation_icon" class="toggle_icon out"></div><span class="title">Version and Platform Information</span></a><div class="hr"><hr/></div></div>
         <div id="section_VersionandPlatformInformation_content" class="block">
         Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5"></div>&nbsp;Windows Desktop - .NET 4.5<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5 (without Kinect SDK)"></div>&nbsp;Windows Desktop - .NET 4.5 (without Kinect SDK)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>&nbsp;Windows 8.1 Store - WinRT<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>&nbsp;Windows 8.1 Store - WinRT (without Kinect SDK)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon wp8" title="Windows Phone 8 - WinRT"></div>&nbsp;Windows Phone 8 - WinRT<br/>
 
         </div>
     </div>    

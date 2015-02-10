@@ -12,6 +12,7 @@
     <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushFSharp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
@@ -63,7 +64,7 @@
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_Json');" href="N_KinectEx_Json.htm" >KinectEx.Json</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.4.0.0)<br />
       
 
 </div>
@@ -105,8 +106,10 @@
 
         </div>
         <div class="tabcontent">     
-            <p>Syntax for F# is not yet implemented.</p>
-
+        <pre class='brush: fsharp;'>member BindToName : 
+	serializedType : Type * 
+	assemblyName : out String * 
+	typeName : out String -&gt; unit</pre>
         </div>
     </div>
     <div id="sdoc-parameters">        
@@ -126,7 +129,7 @@
 					<span class="sdoc-parameter">assemblyName</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="" >out System.String</a><br />
+					<span>Type: <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf"  target='_blank'>out System.String</a><br />
 						Specifies the <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/xbe1wdx9"  target='_blank'>System.Reflection.Assembly</a> name of the serialized object.
 					</span>            
 				</dd>
@@ -136,7 +139,7 @@
 					<span class="sdoc-parameter">typeName</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="" >out System.String</a><br />
+					<span>Type: <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf"  target='_blank'>out System.String</a><br />
 						Specifies the <a target="_blank" href="http://msdn2.microsoft.com/en-us/library/42892f65"  target='_blank'>System.Type</a> name of the serialized object.
 					</span>            
 				</dd>

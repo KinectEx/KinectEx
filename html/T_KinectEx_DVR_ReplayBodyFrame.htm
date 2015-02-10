@@ -12,6 +12,7 @@
     <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushFSharp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
@@ -80,7 +81,7 @@
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_DVR');" href="N_KinectEx_DVR.htm" >KinectEx.DVR</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.4.0.0)<br />
       
 
 </div>
@@ -116,8 +117,11 @@
 
         </div>
         <div class="tabcontent">     
-            <p>Syntax for F# is not yet implemented.</p>
-
+        <pre class='brush: fsharp;'>type public ReplayBodyFrame =
+	class
+		inherit ReplayFrame
+	end
+</pre>
         </div>
     </div>
         <p>The ReplayBodyFrame type exposes the following members.</p>
@@ -283,6 +287,24 @@
             during replay. Otherwise, directly accessing the Bodies list of this
             <c>ReplayBodyFrame</c> is both acceptable and more efficient.
             </para>&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_ReplayBodyFrame_MapColorPositions');" href="M_KinectEx_DVR_ReplayBodyFrame_MapColorPositions.htm" >MapColorPositions</a></td>
+    <td class="desc-col">Iterates over the bodies in the frame and maps each tracked body's CameraSpacePoint 
+            joint locations to ColorSpacePoints.&nbsp;</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubmethod" title="Public Method"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_DVR_ReplayBodyFrame_MapDepthPositions');" href="M_KinectEx_DVR_ReplayBodyFrame_MapDepthPositions.htm" >MapDepthPositions</a></td>
+    <td class="desc-col">Iterates over the bodies in the frame and maps each tracked body's CameraSpacePoint 
+            joint locations to DepthSpacePoints.&nbsp;</td>
 </tr>
         </table>
         <a href="#top">Top</a>

@@ -12,6 +12,7 @@
     <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushFSharp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
@@ -65,7 +66,7 @@
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_DVR');" href="N_KinectEx_DVR.htm" >KinectEx.DVR</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.4.0.0)<br />
       
 
 </div>
@@ -92,7 +93,7 @@
     	    <li class="code tab">F#</li> 
 	    </ul>            
         <div class="tabcontent selected">     
-        <pre class='brush: csharp;'>public sealed int OutputWidth { get; set; }
+        <pre class='brush: csharp;'>public sealed virtual int OutputWidth { get; set; }
 </pre>
         </div>
         <div class="tabcontent">     
@@ -104,8 +105,9 @@
 
         </div>
         <div class="tabcontent">     
-            <p>Syntax for F# is not yet implemented.</p>
-
+        <pre class='brush: fsharp;'>abstract OutputWidth : int with get, set
+default OutputWidth : int with get, set
+</pre>
         </div>
     </div>
     <div id="sdoc-parameters">        

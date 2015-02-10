@@ -12,6 +12,7 @@
     <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushFSharp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
@@ -22,10 +23,10 @@
         SyntaxHighlighter.all();
     </script>
     <script src="../js/sharpdoc.js" language="javascript"></script>            
-    <meta name="Microsoft.Help.Id" content="M:KinectEx.KinectBody.Update(WindowsPreview.Kinect.Body)" />
+    <meta name="Microsoft.Help.Id" content="M:KinectEx.KinectBody.Update(KinectEx.IBody)" />
     <meta name="Microsoft.Help.SelfBranded" content="true" />
     <meta name="Microsoft.Help.Locale" content="en-us" />
-    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.KinectBody::Update(WindowsPreview.Kinect.Body)" />
+    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.KinectBody::Update(KinectEx.IBody)" />
     <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
     <meta name="Microsoft.Help.Category" content="DevLang:VB" />
     <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
@@ -63,7 +64,7 @@
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.4.0.0)<br />
       
 
 </div>
@@ -91,7 +92,7 @@
 	    </ul>            
         <div class="tabcontent selected">     
         <pre class='brush: csharp;'>public sealed void Update(
-	Body body
+	IBody body
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -103,8 +104,8 @@
 
         </div>
         <div class="tabcontent">     
-            <p>Syntax for F# is not yet implemented.</p>
-
+        <pre class='brush: fsharp;'>member Update : 
+	body : IBody -&gt; unit</pre>
         </div>
     </div>
     <div id="sdoc-parameters">        
@@ -114,7 +115,7 @@
 					<span class="sdoc-parameter">body</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="" >WindowsPreview.Kinect.Body</a><br />
+					<span>Type: <a target="mainFrame" onclick="hightLightTopic('T_KinectEx_IBody');" href="T_KinectEx_IBody.htm" >KinectEx.IBody</a><br />
 						The body.
 					</span>            
 				</dd>
@@ -143,7 +144,8 @@
     <div id="section_VersionandPlatformInformation" class="section">
         <div class="title"><a id="section_VersionandPlatformInformation_toggle" href="#" class="title"><div id="section_VersionandPlatformInformation_icon" class="toggle_icon out"></div><span class="title">Version and Platform Information</span></a><div class="hr"><hr/></div></div>
         <div id="section_VersionandPlatformInformation_content" class="block">
-        Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>&nbsp;Windows 8.1 Store - WinRT<br/>
+        Supported in:<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon default" title="Windows Desktop - .NET 4.5"></div>&nbsp;Windows Desktop - .NET 4.5<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>&nbsp;Windows 8.1 Store - WinRT<br/>
 
         </div>
     </div>    

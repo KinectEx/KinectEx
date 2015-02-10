@@ -12,6 +12,7 @@
     <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushFSharp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
@@ -83,7 +84,7 @@
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx');" href="N_KinectEx.htm" >KinectEx</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.4.0.0)<br />
       
 
 </div>
@@ -119,8 +120,11 @@
 
         </div>
         <div class="tabcontent">     
-            <p>Syntax for F# is not yet implemented.</p>
-
+        <pre class='brush: fsharp;'>type public KinectJoint =
+	class
+		interface IJoint
+	end
+</pre>
         </div>
     </div>
         <p>The KinectJoint type exposes the following members.</p>
@@ -188,6 +192,22 @@
 	<th class="platicon-col">Platforms</th>
     <th class="name-col">Name</th>
     <th class="desc-col">Description</th>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_KinectJoint_ColorPosition');" href="P_KinectEx_KinectJoint_ColorPosition.htm" >ColorPosition</a></td>
+    <td class="desc-col">Gets or sets the 2D color space position.&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IJoint_ColorPosition');" href="P_KinectEx_IJoint_ColorPosition.htm" >IJoint.ColorPosition()</a>.)</td>
+</tr>
+                <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
+</td>
+    <td class="platicon-col">        <div class="icon default" title="Windows Desktop - .NET 4.5"></div>
+        <div class="icon win8metro" title="Windows 8.1 Store - WinRT"></div>
+</td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('P_KinectEx_KinectJoint_DepthPosition');" href="P_KinectEx_KinectJoint_DepthPosition.htm" >DepthPosition</a></td>
+    <td class="desc-col">Gets or sets the 2D depth space position.&nbsp;(Implements <a target="mainFrame" onclick="hightLightTopic('P_KinectEx_IJoint_DepthPosition');" href="P_KinectEx_IJoint_DepthPosition.htm" >IJoint.DepthPosition()</a>.)</td>
 </tr>
                 <tr>        <td class="icon-col">        <div class="icon pubproperty" title="Public Property"></div>
 </td>

@@ -12,6 +12,7 @@
     <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushFSharp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
@@ -80,7 +81,7 @@
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_Smoothing');" href="N_KinectEx_Smoothing.htm" >KinectEx.Smoothing</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.4.0.0)<br />
       
 
 </div>
@@ -116,8 +117,11 @@
 
         </div>
         <div class="tabcontent">     
-            <p>Syntax for F# is not yet implemented.</p>
-
+        <pre class='brush: fsharp;'>type public SmoothedBodyList&lt;&apos;T when &apos;T : ISmoother&gt; =
+	class
+		inherit List&lt;T&gt;
+	end
+</pre>
         </div>
     </div>
         <p>The SmoothedBodyList&lt;T&gt; type exposes the following members.</p>
@@ -231,7 +235,7 @@
         <div class="icon win8metro" title="Windows 8.1 Store - WinRT (without Kinect SDK)"></div>
         <div class="icon wp8" title="Windows Phone 8 - WinRT"></div>
 </td>
-        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_Smoothing_SmoothedBodyList_1_RefreshFromBodyList');" href="M_KinectEx_Smoothing_SmoothedBodyList_1_RefreshFromBodyList.htm" >RefreshFromBodyList</a></td>
+        <td class="name-col"><a target="mainFrame" onclick="hightLightTopic('M_KinectEx_Smoothing_SmoothedBodyList_1_RefreshFromBodyList__1');" href="M_KinectEx_Smoothing_SmoothedBodyList_1_RefreshFromBodyList__1.htm" >RefreshFromBodyList&lt;T&gt;</a></td>
     <td class="desc-col">Similar to the Kinect SDK method BodyFrame.GetAndRefreshBodyData, this
             method uses the values from the source <c>IBody</c> collection to update
             the values in this collection. If the current collection does not contain

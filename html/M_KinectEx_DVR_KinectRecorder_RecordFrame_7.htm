@@ -12,6 +12,7 @@
     <script src="../syntaxhighlighter/js/shCore.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCpp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushCSharp.js" type="text/javascript"></script>
+    <script src="../syntaxhighlighter/js/shBrushFSharp.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushJScript.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushVb.js" type="text/javascript"></script>
     <script src="../syntaxhighlighter/js/shBrushPlain.js" type="text/javascript"></script>
@@ -22,10 +23,10 @@
         SyntaxHighlighter.all();
     </script>
     <script src="../js/sharpdoc.js" language="javascript"></script>            
-    <meta name="Microsoft.Help.Id" content="M:KinectEx.DVR.KinectRecorder.RecordFrame(Microsoft.Kinect.InfraredFrame,System.UInt16[])" />
+    <meta name="Microsoft.Help.Id" content="M:KinectEx.DVR.KinectRecorder.RecordFrame(Microsoft.Kinect.ColorFrame,System.Byte[])" />
     <meta name="Microsoft.Help.SelfBranded" content="true" />
     <meta name="Microsoft.Help.Locale" content="en-us" />
-    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DVR.KinectRecorder::RecordFrame(Microsoft.Kinect.InfraredFrame,System.UInt16[])" />
+    <meta name="Microsoft.Help.F1" content="System.Void KinectEx.DVR.KinectRecorder::RecordFrame(Microsoft.Kinect.ColorFrame,System.Byte[])" />
     <meta name="Microsoft.Help.Category" content="TargetOS:Windows" />
     <meta name="Microsoft.Help.Category" content="DevLang:VB" />
     <meta name="Microsoft.Help.Category" content="DevLang:CSharp" />
@@ -58,13 +59,14 @@
 </div>
 <div style="clear: both;"></div>
         
-<div class="summary">Used in "Manual" mode to record a single <c>InfraredFrame</c> if
-            the infrared frame data has already been retrieved from the frame.</div>
+<div class="summary">Used in "Manual" mode to record a single <c>ColorFrame</c> if
+            the color frame data has already been retrieved from the frame.
+            Note that the frame data must have been converted to BGRA format.</div>
 
 <br/>
 <div class="origin">
 <strong>Namespace: </strong><a target="mainFrame" onclick="hightLightTopic('N_KinectEx_DVR');" href="N_KinectEx_DVR.htm" >KinectEx.DVR</a><br />
-<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.3.0.0)<br />
+<strong>Assembly: </strong>KinectEx (KinectEx.dll 0.4.0.0)<br />
       
 
 </div>
@@ -92,8 +94,8 @@
 	    </ul>            
         <div class="tabcontent selected">     
         <pre class='brush: csharp;'>public void RecordFrame(
-	InfraredFrame frame, 
-	UInt16[] frameData
+	ColorFrame frame, 
+	Byte[] bytes
 )</pre>
         </div>
         <div class="tabcontent">     
@@ -105,8 +107,9 @@
 
         </div>
         <div class="tabcontent">     
-            <p>Syntax for F# is not yet implemented.</p>
-
+        <pre class='brush: fsharp;'>member RecordFrame : 
+	frame : ColorFrame * 
+	bytes : Byte[] -&gt; unit</pre>
         </div>
     </div>
     <div id="sdoc-parameters">        
@@ -116,17 +119,17 @@
 					<span class="sdoc-parameter">frame</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="" >Microsoft.Kinect.InfraredFrame</a><br />
+					<span>Type: <a target="_blank" href="" >Microsoft.Kinect.ColorFrame</a><br />
 						
 					</span>            
 				</dd>
 			</dl>
 			<dl>
 				<dt>
-					<span class="sdoc-parameter">frameData</span>
+					<span class="sdoc-parameter">bytes</span>
 				</dt>
 				<dd>
-					<span>Type: <a target="_blank" href="" >System.UInt16[]</a><br />
+					<span>Type: <a target="_blank" href="" >System.Byte[]</a><br />
 						
 					</span>            
 				</dd>
