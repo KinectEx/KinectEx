@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectEx.Demo.Playback.WPF"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectEx.Demo.Playback.Store", "KinectEx.Demo.Playback.Store\KinectEx.Demo.Playback.Store.csproj", "{C4FF8092-05A5-4771-B03F-9E5784C3285D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9317AA2D-95F3-4254-9E30-78D6DD1BAC53}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{62B16869-840D-41E9-BDE3-B26B644FB205}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
