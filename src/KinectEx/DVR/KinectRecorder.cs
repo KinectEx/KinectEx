@@ -49,6 +49,8 @@ namespace KinectEx.DVR
         private bool _enableColorRecorder;
         private bool _enableDepthRecorder;
         private bool _enableInfraredRecorder;
+        private bool _mapDepthPositions;
+        private bool _mapColorPositions;
 
         ////////////////////////////////////////////////////////////////////////////
         #region PROPERTIES
@@ -124,6 +126,40 @@ namespace KinectEx.DVR
                     throw new InvalidOperationException("Cannot modify recorder properties after recording has started");
 
                 _enableInfraredRecorder = value;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the KinectRecorder will map and store the 2D depth space position for
+        /// joint locations. Applies only when the body recording is enabled. Cannot be changed after 
+        /// recording has started.
+        /// </summary>
+        public bool MapDepthPositions
+        {
+            get { return _mapDepthPositions; }
+            set
+            {
+                if (_isStarted)
+                    throw new InvalidOperationException("Cannot modify recorder properties after recording has started");
+
+                _mapDepthPositions = value;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the KinectRecorder will map and store the 2D color space position for
+        /// joint locations. Applies only when the body recording is enabled. Cannot be changed after 
+        /// recording has started.
+        /// </summary>
+        public bool MapColorPositions
+        {
+            get { return _mapColorPositions; }
+            set
+            {
+                if (_isStarted)
+                    throw new InvalidOperationException("Cannot modify recorder properties after recording has started");
+
+                _mapColorPositions = value;
             }
         }
 
@@ -463,7 +499,16 @@ namespace KinectEx.DVR
 
             if (frame != null)
             {
-                _recordQueue.Enqueue(new ReplayBodyFrame(frame));
+                var replayFrame = new ReplayBodyFrame(frame);
+                if (MapDepthPositions)
+                {
+                    replayFrame.MapDepthPositions();
+                }
+                if (MapColorPositions)
+                {
+                    replayFrame.MapColorPositions();
+                }
+                _recordQueue.Enqueue(replayFrame);
                 System.Diagnostics.Debug.WriteLine("+++ Enqueued Body Frame ({0})", _recordQueue.Count);
             }
             else
@@ -483,7 +528,16 @@ namespace KinectEx.DVR
 
             if (frame != null)
             {
-                _recordQueue.Enqueue(new ReplayBodyFrame(frame, bodies));
+                var replayFrame = new ReplayBodyFrame(frame, bodies);
+                if (MapDepthPositions)
+                {
+                    replayFrame.MapDepthPositions();
+                }
+                if (MapColorPositions)
+                {
+                    replayFrame.MapColorPositions();
+                }
+                _recordQueue.Enqueue(replayFrame);
                 System.Diagnostics.Debug.WriteLine("+++ Enqueued Body Frame ({0})", _recordQueue.Count);
             }
             else
@@ -503,7 +557,16 @@ namespace KinectEx.DVR
 
             if (frame != null)
             {
-                _recordQueue.Enqueue(new ReplayBodyFrame(frame, bodies));
+                var replayFrame = new ReplayBodyFrame(frame, bodies);
+                if (MapDepthPositions)
+                {
+                    replayFrame.MapDepthPositions();
+                }
+                if (MapColorPositions)
+                {
+                    replayFrame.MapColorPositions();
+                }
+                _recordQueue.Enqueue(replayFrame);
                 System.Diagnostics.Debug.WriteLine("+++ Enqueued Body Frame ({0})", _recordQueue.Count);
             }
             else

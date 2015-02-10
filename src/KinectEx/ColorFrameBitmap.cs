@@ -42,10 +42,10 @@ namespace KinectEx
         /// (or frame data) passed in to one of the Update() methods.
         /// </summary>
         public WriteableBitmap Bitmap
-	    {
-		    get { return _bitmap; }
-	    }
-	
+        {
+            get { return _bitmap; }
+        }
+    
 #if !NOSDK
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorFrameBitmap"/> class.

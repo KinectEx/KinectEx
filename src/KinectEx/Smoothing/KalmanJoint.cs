@@ -112,6 +112,9 @@ namespace KinectEx.Smoothing
             _position.X = _filteredPosition.X;
             _position.Y = _filteredPosition.Y;
             _position.Z = _filteredPosition.Z;
+
+            _depthPosition = new DepthSpacePoint();
+            _colorPosition = new ColorSpacePoint();
         }
     }
 }

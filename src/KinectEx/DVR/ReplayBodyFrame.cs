@@ -164,7 +164,44 @@ namespace KinectEx.DVR
             bodyList.RefreshFromBodyArray(bodies);
             this.Bodies = bodyList;
         }
+
+        /// <summary>
+        /// Iterates over the bodies in the frame and maps each tracked body's CameraSpacePoint 
+        /// joint locations to DepthSpacePoints.
+        /// </summary>
+        public void MapDepthPositions()
+        {
+            var sensor = KinectSensor.GetDefault();
+            var mapper = sensor.CoordinateMapper;
+            foreach (var body in this.Bodies)
+            {
+                if (body.IsTracked)
+                {
+                    body.MapDepthPositions();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Iterates over the bodies in the frame and maps each tracked body's CameraSpacePoint 
+        /// joint locations to ColorSpacePoints.
+        /// </summary>
+        public void MapColorPositions()
+        {
+            var sensor = KinectSensor.GetDefault();
+            var mapper = sensor.CoordinateMapper;
+            foreach (var body in this.Bodies)
+            {
+                if (body.IsTracked)
+                {
+                    body.MapColorPositions();
+                }
+            }
+        }
 #endif
+
+        private static Version v02 = new Version(0, 2, 0, 0);
+        private static Version v03 = new Version(0, 3, 0, 0);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReplayBodyFrame"/> class
@@ -225,7 +262,7 @@ namespace KinectEx.DVR
                 if (body.IsTracked)
                 {
                     #region Old Version
-                    if (version.Minor == 1)
+                    if (version < v02)
                     {
                         int count;
                         count = reader.ReadInt32(); // Activities.Count
@@ -246,7 +283,7 @@ namespace KinectEx.DVR
                     body.ClippedEdges = (FrameEdges)reader.ReadInt32();
 
                     #region Old Version
-                    if (version.Minor == 1)
+                    if (version < v02)
                     {
                         reader.ReadInt32(); // Engaged
                         int count;
@@ -293,6 +330,19 @@ namespace KinectEx.DVR
                         position.Y = reader.ReadSingle();
                         position.Z = reader.ReadSingle();
                         value.Position = position;
+
+                        if (version > v03)
+                        {
+                            var depthPosition = new DepthSpacePoint();
+                            depthPosition.X = reader.ReadSingle();
+                            depthPosition.Y = reader.ReadSingle();
+                            value.DepthPosition = depthPosition;
+                            var colorPosition = new ColorSpacePoint();
+                            colorPosition.X = reader.ReadSingle();
+                            colorPosition.Y = reader.ReadSingle();
+                            value.ColorPosition = colorPosition;
+                        }
+
                         value.TrackingState = (TrackingState)reader.ReadInt32();
                         var dict = body.Joints as IDictionary<JointType, IJoint>;
                         if (dict != null)
@@ -300,16 +350,22 @@ namespace KinectEx.DVR
                     }
 
 #if NETFX_CORE
-                    var point = new Point();
+                    var lean = new Point();
 #else
-                    var point = new PointF();
+                    var lean = new PointF();
 #endif
-                    point.X = reader.ReadSingle();
-                    point.Y = reader.ReadSingle();
-                    body.Lean = point;
+                    lean.X = reader.ReadSingle();
+                    lean.Y = reader.ReadSingle();
+                    body.Lean = lean;
 
                     body.LeanTrackingState = (TrackingState)reader.ReadInt32();
                     body.TrackingId = reader.ReadUInt64();
+
+                    if (version > v03)
+                    {
+                        body.HasMappedDepthPositions = reader.ReadBoolean();
+                        body.HasMappedColorPositions = reader.ReadBoolean();
+                    }
                 }
             }
             catch (Exception ex)

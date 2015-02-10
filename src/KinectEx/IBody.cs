@@ -89,6 +89,16 @@ namespace KinectEx
         ulong TrackingId { get; set; }
 
         /// <summary>
+        /// Gets or sets whether the depth space positions were mapped for this body.
+        /// </summary>
+        bool HasMappedDepthPositions { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the color space positions were mapped for this body.
+        /// </summary>
+        bool HasMappedColorPositions { get; set; }
+
+        /// <summary>
         /// Updates the specified body.
         /// </summary>
         /// <param name="body">The body.</param>
@@ -100,6 +110,19 @@ namespace KinectEx
         /// </summary>
         /// <param name="body">The body.</param>
         void Update(Body body);
+
+        /// <summary>
+        /// Iterates over the body's CameraSpacePoint joint locations and maps each
+        /// to a DepthSpacePoint.
+        /// </summary>
+        void MapDepthPositions();
+
+        /// <summary>
+        /// Iterates over the body's CameraSpacePoint joint locations and maps each
+        /// to a ColorSpacePoint.
+        /// </summary>
+        void MapColorPositions();
+
 #endif
     }
 }

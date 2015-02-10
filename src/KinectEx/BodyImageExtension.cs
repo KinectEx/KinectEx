@@ -49,34 +49,20 @@ namespace KinectEx
         /// </summary>
         private const double _clipBoundsThickness = 5;
 
-#if !NOSDK
-        /// <summary>
-        /// Active Kinect sensor
-        /// </summary>
-        private static KinectSensor _kinectSensor = null;
-
-        /// <summary>
-        /// Coordinate mapper to map one type of point to another
-        /// </summary>
-        private static CoordinateMapper _coordinateMapper = null;
-#endif
-
         /// <summary>
         /// Initialize static values
         /// </summary>
         static BodyImageExtension()
         {
-#if NOSDK
             _width = 512;
             _height = 424;
-#else
-            _kinectSensor = KinectSensor.GetDefault();
-
-            if (_kinectSensor.IsAvailable)
-                _coordinateMapper = _kinectSensor.CoordinateMapper;
-
-            _width = _kinectSensor.DepthFrameSource.FrameDescription.Width;
-            _height = _kinectSensor.DepthFrameSource.FrameDescription.Height;
+#if !NOSDK
+            var sensor = KinectSensor.GetDefault();
+            if (sensor != null)
+            {
+                _width = sensor.DepthFrameSource.FrameDescription.Width;
+                _height = sensor.DepthFrameSource.FrameDescription.Height;
+            }
 #endif
             _halfWidth = _width / 2;
             _halfHeight = _height / 2;
@@ -266,7 +252,7 @@ namespace KinectEx
                     continue;
                 }
 
-                var point = MapCameraPointToDepthSpace(joint.Position);
+                var point = GetDepthSpacePoint(joint, body.HasMappedDepthPositions);
 
                 context.WriteableBitmap.FillEllipseCentered(
                     (int)point.X,
@@ -302,8 +288,8 @@ namespace KinectEx
                 color.A = 192;
             }
 
-            var startPoint = MapCameraPointToDepthSpace(startJoint.Position);
-            var endPoint = MapCameraPointToDepthSpace(endJoint.Position);
+            var startPoint = GetDepthSpacePoint(startJoint, body.HasMappedDepthPositions);
+            var endPoint = GetDepthSpacePoint(endJoint, body.HasMappedDepthPositions);
 
             context.WriteableBitmap.DrawLineAa(
                 (int)startPoint.X,
@@ -313,32 +299,20 @@ namespace KinectEx
                 color);
         }
 
-        private static DepthSpacePoint MapCameraPointToDepthSpace(CameraSpacePoint cameraPoint)
+        private static DepthSpacePoint GetDepthSpacePoint(IJoint joint, bool hasMappedDepthPositions)
         {
-            DepthSpacePoint depthPoint;
-
-#if NOSDK
-            depthPoint = new DepthSpacePoint()
-                {
-                    X = (cameraPoint.X * _halfWidth) + _halfWidth,
-                    Y = (cameraPoint.Y * -_halfHeight) + _halfHeight
-                };
-#else
-            if (_coordinateMapper != null)
+            if (hasMappedDepthPositions)
             {
-                depthPoint = _coordinateMapper.MapCameraPointToDepthSpace(cameraPoint);
+                return joint.DepthPosition;
             }
             else
             {
-                depthPoint = new DepthSpacePoint()
-                    {
-                        X = (cameraPoint.X * _halfWidth) + _halfWidth,
-                        Y = (cameraPoint.Y * -_halfHeight) + _halfHeight
-                    };
+                return new DepthSpacePoint()
+                {
+                    X = (joint.Position.X * _halfWidth) + _halfWidth,
+                    Y = (joint.Position.Y * -_halfHeight) + _halfHeight
+                };
             }
-#endif
-
-            return depthPoint;
         }
     }
 }

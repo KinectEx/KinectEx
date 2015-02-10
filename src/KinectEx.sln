@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectEx", "KinectEx\KinectEx.csproj", "{B7429D12-B30B-4ADA-A23C-6376AFB54B80}"
 EndProject
@@ -24,6 +24,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectEx.Demo.Playback.WPF", "KinectEx.Demo.Playback.WPF\KinectEx.Demo.Playback.WPF.csproj", "{66F39FF5-3C33-4BEF-9A97-C6D10AABC781}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectEx.Demo.Playback.Store", "KinectEx.Demo.Playback.Store\KinectEx.Demo.Playback.Store.csproj", "{C4FF8092-05A5-4771-B03F-9E5784C3285D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9317AA2D-95F3-4254-9E30-78D6DD1BAC53}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

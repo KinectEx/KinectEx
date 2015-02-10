@@ -109,9 +109,14 @@ namespace KinectEx.RecorderDemo.WPF
             }
 
             if (bodies != null)
+            {
+                bodies.MapDepthPositions();
                 OutputImage.Source = bodies.GetBitmap(Colors.LightGreen, Colors.Yellow);
+            }
             else
+            {
                 OutputImage.Source = null;
+            }
         }
 
         void _colorReader_FrameArrived(object sender, ColorFrameArrivedEventArgs e)

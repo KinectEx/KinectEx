@@ -189,6 +189,28 @@ namespace KinectEx
             set { _trackingId = value; }
         }
 
+        private bool _hasMappedDepthPositions;
+
+        /// <summary>
+        /// Gets or sets whether the depth space positions were mapped for this body.
+        /// </summary>
+        public bool HasMappedDepthPositions
+        {
+            get { return _hasMappedDepthPositions; }
+            set { _hasMappedDepthPositions = value; }
+        }
+
+        private bool _hasMappedColorPositions;
+
+        /// <summary>
+        /// Gets or sets whether the color space positions were mapped for this body.
+        /// </summary>
+        public bool HasMappedColorPositions
+        {
+            get { return _hasMappedColorPositions; }
+            set { _hasMappedColorPositions = value; }
+        }
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomBody"/> class.
         /// </summary>
@@ -219,6 +241,8 @@ namespace KinectEx
 #endif
             _leanTrackingState = TrackingState.NotTracked;
             _trackingId = ulong.MaxValue;
+            _hasMappedDepthPositions = false;
+            _hasMappedColorPositions = false;
         }
 
         /// <summary>
@@ -258,6 +282,48 @@ namespace KinectEx
         public virtual void Update(Body body)
         {
             Update((KinectBody)body);
+        }
+
+        /// <summary>
+        /// Iterates over the body's CameraSpacePoint joint locations and maps each
+        /// to a DepthSpacePoint.
+        /// </summary>
+        public void MapDepthPositions()
+        {
+            if (this.IsTracked)
+            {
+                var sensor = KinectSensor.GetDefault();
+                var mapper = sensor.CoordinateMapper;
+                foreach (var joint in this.Joints.Values)
+                {
+                    if (joint.TrackingState != TrackingState.NotTracked)
+                    {
+                        joint.DepthPosition = mapper.MapCameraPointToDepthSpace(joint.Position);
+                    }
+                }
+                _hasMappedDepthPositions = true;
+            }
+        }
+
+        /// <summary>
+        /// Iterates over the body's CameraSpacePoint joint locations and maps each
+        /// to a ColorSpacePoint.
+        /// </summary>
+        public void MapColorPositions()
+        {
+            if (this.IsTracked)
+            {
+                var sensor = KinectSensor.GetDefault();
+                var mapper = sensor.CoordinateMapper;
+                foreach (var joint in this.Joints.Values)
+                {
+                    if (joint.TrackingState != TrackingState.NotTracked)
+                    {
+                        joint.ColorPosition = mapper.MapCameraPointToColorSpace(joint.Position);
+                    }
+                }
+                _hasMappedColorPositions = true;
+            }
         }
 #endif
     }

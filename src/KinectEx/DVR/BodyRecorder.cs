@@ -118,6 +118,10 @@ namespace KinectEx.DVR
                 dataWriter.Write(pair.Value.Position.X);
                 dataWriter.Write(pair.Value.Position.Y);
                 dataWriter.Write(pair.Value.Position.Z);
+                dataWriter.Write(pair.Value.DepthPosition.X);
+                dataWriter.Write(pair.Value.DepthPosition.Y);
+                dataWriter.Write(pair.Value.ColorPosition.X);
+                dataWriter.Write(pair.Value.ColorPosition.Y);
                 dataWriter.Write((int)pair.Value.TrackingState);
             }
 
@@ -125,6 +129,8 @@ namespace KinectEx.DVR
             dataWriter.Write((float)body.Lean.Y);
             dataWriter.Write((int)body.LeanTrackingState);
             dataWriter.Write(body.TrackingId);
+            dataWriter.Write(body.HasMappedDepthPositions);
+            dataWriter.Write(body.HasMappedColorPositions);
 
             return true;
         }

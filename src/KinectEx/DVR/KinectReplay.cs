@@ -216,7 +216,7 @@ namespace KinectEx.DVR
             _timer.Tick += _timer_Tick;
 
             var metadata = JsonConvert.DeserializeObject<FileMetadata>(_reader.ReadString());
-            Version version = this.GetType().GetTypeInfo().Assembly.GetName().Version;
+            Version version = this.GetType().GetTypeInfo().Assembly.GetName().Version; // default to this
             Version.TryParse(metadata.Version, out version);
 
             while (_reader.BaseStream.Position != _reader.BaseStream.Length)

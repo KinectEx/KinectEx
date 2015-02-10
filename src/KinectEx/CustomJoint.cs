@@ -47,6 +47,34 @@ namespace KinectEx
         }
 
         /// <summary>
+        /// The depth position.
+        /// </summary>
+        protected DepthSpacePoint _depthPosition;
+
+        /// <summary>
+        /// Gets or sets the 2D depth space position.
+        /// </summary>
+        public DepthSpacePoint DepthPosition
+        {
+            get { return _depthPosition; }
+            set { _depthPosition = value; }
+        }
+
+        /// <summary>
+        /// The depth position.
+        /// </summary>
+        protected ColorSpacePoint _colorPosition;
+
+        /// <summary>
+        /// Gets or sets the 2D color space position.
+        /// </summary>
+        public ColorSpacePoint ColorPosition
+        {
+            get { return _colorPosition; }
+            set { _colorPosition = value; }
+        }
+
+        /// <summary>
         /// The state of the tracking.
         /// </summary>
         protected TrackingState _trackingState;
@@ -68,6 +96,8 @@ namespace KinectEx
         {
             _jointType = type;
             _position = new CameraSpacePoint();
+            _depthPosition = new DepthSpacePoint();
+            _colorPosition = new ColorSpacePoint();
             _trackingState = TrackingState.NotTracked;
         }
 
@@ -79,8 +109,10 @@ namespace KinectEx
             if (this.JointType != joint.JointType)
                 throw new Exception("Cannot Update with Joint of a different Type");
 
-            _trackingState = joint.TrackingState;
             _position = joint.Position;
+            _depthPosition = new DepthSpacePoint();
+            _colorPosition = new ColorSpacePoint();
+            _trackingState = joint.TrackingState;
         }
 
 #if !NOSDK

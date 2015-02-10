@@ -1,6 +1,7 @@
 ﻿using SharpDX;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #if NOSDK
 using KinectEx.KinectSDK;
@@ -315,6 +316,30 @@ namespace KinectEx
             for (var i = 0; i < kinectBodies.Length; i++)
             {
                 bodies[i].Update(kinectBodies[i]);
+            }
+        }
+
+        /// <summary>
+        /// Iterates over a list of bodies to map each body's CameraSpacePoint joint locations
+        /// to DepthSpacePoints.
+        /// </summary>
+        public static void MapDepthPositions<T>(this IEnumerable<T> bodies) where T : IBody
+        {
+            foreach (var body in bodies.Where(b => b.IsTracked))
+            {
+                body.MapDepthPositions();
+            }
+        }
+
+        /// <summary>
+        /// Iterates over a list of bodies to map each body's CameraSpacePoint joint locations
+        /// to ColorSpacePoints.
+        /// </summary>
+        public static void MapColorPositions<T>(this IEnumerable<T> bodies) where T : IBody
+        {
+            foreach (var body in bodies.Where(b => b.IsTracked))
+            {
+                body.MapColorPositions();
             }
         }
 #endif

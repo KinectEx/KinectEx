@@ -26,6 +26,16 @@ namespace KinectEx
         CameraSpacePoint Position { get; set; }
 
         /// <summary>
+        /// Gets or sets the 2D depth space position.
+        /// </summary>
+        DepthSpacePoint DepthPosition { get; set; }
+
+        /// <summary>
+        /// Gets or sets the 2D color space position.
+        /// </summary>
+        ColorSpacePoint ColorPosition { get; set; }
+
+        /// <summary>
         /// Gets or sets the state of the tracking.
         /// </summary>
         TrackingState TrackingState { get; set; }

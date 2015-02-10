@@ -48,6 +48,34 @@ namespace KinectEx
         }
 
         /// <summary>
+        /// Gets or sets the 2D depth space position.
+        /// </summary>
+        public DepthSpacePoint DepthPosition
+        {
+            get
+            {
+                var sensor = KinectSensor.GetDefault();
+                var mapper = sensor.CoordinateMapper;
+                return mapper.MapCameraPointToDepthSpace(this._joint.Position);
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// Gets or sets the 2D color space position.
+        /// </summary>
+        public ColorSpacePoint ColorPosition
+        {
+            get
+            {
+                var sensor = KinectSensor.GetDefault();
+                var mapper = sensor.CoordinateMapper;
+                return mapper.MapCameraPointToColorSpace(this._joint.Position);
+            }
+            set { }
+        }
+
+        /// <summary>
         /// Gets or sets the state of the tracking.
         /// </summary>
         public TrackingState TrackingState

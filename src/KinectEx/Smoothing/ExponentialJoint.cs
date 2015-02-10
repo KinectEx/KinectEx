@@ -168,6 +168,9 @@ namespace KinectEx.Smoothing
             _position.X = predictedPosition.X;
             _position.Y = predictedPosition.Y;
             _position.Z = predictedPosition.Z;
+
+            _depthPosition = new DepthSpacePoint();
+            _colorPosition = new ColorSpacePoint();
         }
 
         private struct FilterDoubleExponentialData

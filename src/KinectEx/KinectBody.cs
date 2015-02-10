@@ -165,6 +165,23 @@ namespace KinectEx
         }
 
         /// <summary>
+        /// Gets or sets whether the depth space positions were mapped for this body.
+        /// </summary>
+        public bool HasMappedDepthPositions
+        {
+            get { return true; }
+            set { }
+        }
+
+        /// <summary>
+        /// Gets or sets whether the color space positions were mapped for this body.
+        /// </summary>
+        public bool HasMappedColorPositions
+        {
+            get { return true; }
+            set { }
+        }
+        /// <summary>
         /// Initializes a new instance of the <see cref="KinectBody"/> class.
         /// </summary>
         public KinectBody() { }
@@ -196,6 +213,18 @@ namespace KinectEx
         {
             this._body = body;
         }
+
+        /// <summary>
+        /// Iterates over the body's CameraSpacePoint joint locations and maps each
+        /// to a DepthSpacePoint.
+        /// </summary>
+        public void MapDepthPositions() { }
+
+        /// <summary>
+        /// Iterates over the body's CameraSpacePoint joint locations and maps each
+        /// to a ColorSpacePoint.
+        /// </summary>
+        public void MapColorPositions() { }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="Body"/> to <see cref="KinectBody"/>.
