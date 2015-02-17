@@ -39,9 +39,26 @@ namespace KinectEx
         public JointType JointType { get; private set; }
 
         /// <summary>
+        /// The joint on the opposite side of the body to this one (if applicable).
+        /// </summary>
+        public JointTypeEx MirroredJoint
+        {
+            get
+            {
+                return JointTypeEx.MirroredJoints[this];
+            }
+        }
+
+        /// <summary>
         /// A list containing all of the joints in the body.
         /// </summary>
         public static List<JointTypeEx> AllJoints { get; private set; }
+
+        /// <summary>
+        /// A convenient means of mapping a joint to the joint on the
+        /// opposite side of the body.
+        /// </summary>
+        public static Dictionary<JointTypeEx, JointTypeEx> MirroredJoints { get; private set; }
 
         /// <summary>
         /// A dictionary that allows retrieval of a <c>JointTypeEx</c> by name.
@@ -249,6 +266,33 @@ namespace KinectEx
             {
                 ByName.Add(joint.Name, joint);
             }
+
+            MirroredJoints = new Dictionary<JointTypeEx, JointTypeEx>();
+            MirroredJoints.Add(SpineBase, SpineBase);
+            MirroredJoints.Add(SpineMid, SpineMid);
+            MirroredJoints.Add(Head, Head);
+            MirroredJoints.Add(Neck, Neck);
+            MirroredJoints.Add(ShoulderLeft, ShoulderRight);
+            MirroredJoints.Add(ElbowLeft, ElbowRight);
+            MirroredJoints.Add(WristLeft, WristRight);
+            MirroredJoints.Add(HandLeft, HandRight);
+            MirroredJoints.Add(ShoulderRight, ShoulderLeft);
+            MirroredJoints.Add(ElbowRight, ElbowLeft);
+            MirroredJoints.Add(WristRight, WristLeft);
+            MirroredJoints.Add(HandRight, HandLeft);
+            MirroredJoints.Add(HipLeft, HipRight);
+            MirroredJoints.Add(KneeLeft, KneeRight);
+            MirroredJoints.Add(AnkleLeft, AnkleRight);
+            MirroredJoints.Add(FootLeft, FootRight);
+            MirroredJoints.Add(HipRight, HipLeft);
+            MirroredJoints.Add(KneeRight, KneeLeft);
+            MirroredJoints.Add(AnkleRight, AnkleLeft);
+            MirroredJoints.Add(FootRight, FootLeft);
+            MirroredJoints.Add(SpineShoulder, SpineShoulder);
+            MirroredJoints.Add(HandTipLeft, HandTipRight);
+            MirroredJoints.Add(ThumbLeft, ThumbRight);
+            MirroredJoints.Add(HandTipRight, HandTipLeft);
+            MirroredJoints.Add(ThumbRight, ThumbLeft);
 
             ByJointType = new Dictionary<JointType, JointTypeEx>();
             foreach (var joint in AllJoints)

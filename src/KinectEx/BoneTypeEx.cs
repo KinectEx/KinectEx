@@ -35,6 +35,17 @@ namespace KinectEx
         public String DisplayName { get; set; }
 
         /// <summary>
+        /// The bone on the opposite side of the body to this one (if applicable).
+        /// </summary>
+        public BoneTypeEx MirroredBone
+        {
+            get
+            {
+                return BoneTypeEx.MirroredBones[this];
+            }
+        }
+
+        /// <summary>
         /// A list containing all of the bones in the body, including
         /// "fake" ones like HipFull and ShoulderFull.
         /// </summary>
@@ -46,6 +57,12 @@ namespace KinectEx
         /// excluding the "fake" ones.
         /// </summary>
         public static List<BoneTypeEx> DrawnBones { get; private set; }
+
+        /// <summary>
+        /// A convenient means of mapping a bone to the bone on the
+        /// opposite side of the body.
+        /// </summary>
+        public static Dictionary<BoneTypeEx, BoneTypeEx> MirroredBones { get; private set; }
 
         /// <summary>
         /// A convenient means of mapping a bone's string name to the
@@ -222,6 +239,29 @@ namespace KinectEx
             AllBones = DrawnBones.ToList();
             AllBones.Add(HipFull);
             AllBones.Add(ShoulderFull);
+
+            MirroredBones = new Dictionary<BoneTypeEx, BoneTypeEx>();
+            MirroredBones.Add(HipLeft, HipRight);
+            MirroredBones.Add(HipRight, HipLeft);
+            MirroredBones.Add(LegUpperLeft, LegUpperRight);
+            MirroredBones.Add(LegUpperRight, LegUpperLeft);
+            MirroredBones.Add(LegLowerLeft, LegLowerRight);
+            MirroredBones.Add(LegLowerRight, LegLowerLeft);
+            MirroredBones.Add(FootLeft, FootRight);
+            MirroredBones.Add(FootRight, FootLeft);
+            MirroredBones.Add(SpineLower, SpineLower);
+            MirroredBones.Add(SpineUpper, SpineUpper);
+            MirroredBones.Add(ShoulderLeft, ShoulderRight);
+            MirroredBones.Add(ShoulderRight, ShoulderLeft);
+            MirroredBones.Add(ArmUpperLeft, ArmUpperRight);
+            MirroredBones.Add(ArmUpperRight, ArmUpperLeft);
+            MirroredBones.Add(ArmLowerLeft, ArmLowerRight);
+            MirroredBones.Add(ArmLowerRight, ArmLowerLeft);
+            MirroredBones.Add(HandLeft, HandRight);
+            MirroredBones.Add(HandRight, HandLeft);
+            MirroredBones.Add(Head, Head);
+            MirroredBones.Add(HipFull, HipFull);
+            MirroredBones.Add(ShoulderFull, ShoulderFull);
 
             ByName = new Dictionary<string, BoneTypeEx>();
             foreach (var bone in AllBones)
