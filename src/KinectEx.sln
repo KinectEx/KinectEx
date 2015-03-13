@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{62B168
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kdvr2video", "kdvr2video\kdvr2video.csproj", "{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -224,6 +226,20 @@ Global
 		{C4FF8092-05A5-4771-B03F-9E5784C3285D}.Release|x86.ActiveCfg = Release|x86
 		{C4FF8092-05A5-4771-B03F-9E5784C3285D}.Release|x86.Build.0 = Release|x86
 		{C4FF8092-05A5-4771-B03F-9E5784C3285D}.Release|x86.Deploy.0 = Release|x86
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Release|ARM.ActiveCfg = Release|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Release|x64.ActiveCfg = Release|Any CPU
+		{1B057C2B-C15A-46A1-8909-68CB2A9C5ACF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

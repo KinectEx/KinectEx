@@ -212,5 +212,24 @@ namespace KinectEx.DVR
                 return await Codec.DecodeAsync(bytes);
             });
         }
+
+        /// <summary>
+        /// Retrieve the raw frame data without decoding.
+        /// </summary>
+        public byte[] GetRawFrameData()
+        {
+            Monitor.Enter(Stream);
+            var bytes = new byte[FrameDataSize];
+
+            long savedPosition = Stream.Position;
+            Stream.Position = StreamPosition;
+
+            Stream.Read(bytes, 0, FrameDataSize);
+
+            Stream.Position = savedPosition;
+            Monitor.Exit(Stream);
+
+            return bytes;
+        }
     }
 }

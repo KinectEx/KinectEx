@@ -7,8 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 
 #if NETFX_CORE
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 #else
@@ -403,6 +406,64 @@ namespace KinectEx.DVR
             {
                 replaySystem.CurrentRelativeTime = _minTimespan + newLocation;
                 replaySystem.PushCurrentFrame();
+            }
+        }
+
+        /// <summary>
+        /// Export all of the frames in this 
+        /// </summary>
+        /// <param name="exportDir"></param>
+        public async Task ExportColorFramesAsync(string exportDir)
+        {
+            if (!this.HasColorFrames || _colorReplay == null)
+            {
+                throw new InvalidOperationException("KDVR file has no color frames.");
+            }
+
+            int frameCounter = 0;
+            var jpegCodec = ColorCodecs.Jpeg;
+            var jpegCodecId = jpegCodec.CodecId;
+            var lastRelativeTime = TimeSpan.MaxValue;
+            foreach (var frame in _colorReplay.Frames)
+            {
+                ReplayColorFrame rcf = frame as ReplayColorFrame;
+
+                var elapsed = rcf.RelativeTime - lastRelativeTime;
+                lastRelativeTime = rcf.RelativeTime;
+                var numFrames = 1;
+                var mills = (int)Math.Ceiling(elapsed.TotalMilliseconds);
+                if (mills > 60)
+                {
+                    numFrames = mills % 33;
+                }
+
+                for (int i = 0; i < numFrames; i++)
+                {
+                    var fileName = string.Format("\\{0:000000}.jpeg", frameCounter++);
+
+#if NETFX_CORE
+                    var file = await StorageFile.GetFileFromPathAsync(exportDir + fileName);
+                    using (var jpegStream = await file.OpenStreamForWriteAsync())
+
+#else
+                    using (var jpegStream = new FileStream(exportDir + fileName, FileMode.Create, FileAccess.Write))
+#endif
+                    {
+                        using (var jpegWriter = new BinaryWriter(jpegStream))
+                        {
+                            var bytes = rcf.GetRawFrameData();
+
+                            if (rcf.Codec.CodecId == jpegCodecId)
+                            {
+                                jpegWriter.Write(bytes);
+                            }
+                            else
+                            {
+                                await jpegCodec.EncodeAsync(bytes, jpegWriter);
+                            }
+                        }
+                    }
+                }
             }
         }
 
