@@ -434,7 +434,7 @@ namespace KinectEx.DVR
                 var mills = (int)Math.Ceiling(elapsed.TotalMilliseconds);
                 if (mills > 60)
                 {
-                    numFrames = mills % 33;
+                    numFrames = mills / 33;
                 }
 
                 for (int i = 0; i < numFrames; i++)
